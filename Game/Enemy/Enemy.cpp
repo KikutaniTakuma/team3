@@ -17,7 +17,7 @@ Enemy::Enemy(Camera* cameraPointa)
 }
 
 void Enemy::Update() {
-	
+	// TO DO
 }
 
 void Enemy::Draw(Texture& tex) {
