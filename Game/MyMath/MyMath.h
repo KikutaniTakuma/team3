@@ -149,4 +149,6 @@ public:
 	static float Clamp(float num, float max, float min);
 
 	inline static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
+
+	int Random(const int& min, const int& max);
 };

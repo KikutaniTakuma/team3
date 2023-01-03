@@ -1,7 +1,7 @@
 #include "Game/MyMath/MyMath.h"
-#include <cmath>
 #define _USE_MATH_DEFINES
-#include <math.h>
+#include <cmath>
+#include <random>
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/MapChip/MapChip.h"
 
@@ -111,4 +111,10 @@ float MyMath::Clamp(float num,float max,float min)
 
 unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha) {
 	return (red << 24) + (green << 16) + (blue << 8) + alpha;
+}
+
+int MyMath::Random(const int& min, const int& max) {
+	std::random_device rnd;
+
+	return (rnd() % max) + min;
 }
