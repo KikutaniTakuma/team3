@@ -4,7 +4,8 @@
 
 class Object {
 public:
-	Object(class Camera* camera);
+	Object() = delete;
+	Object(Camera* camera);
 
 protected:
 	const Camera* camera;
