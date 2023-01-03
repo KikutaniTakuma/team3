@@ -82,6 +82,10 @@ float MyMath::Dot(Vector2D vec1, Vector2D vec2) {
 	return (vec1.x * vec2.x) + (vec1.y * vec2.y);
 }
 
+bool MyMath::Cross(const Vector2D& vec1, const Vector2D& vec2) {
+	return (vec1.x * vec2.y) - (vec1.y * vec2.x) >= 0 ? true : false;
+}
+
 float MyMath::ToRad(const float& deg) {
 	return deg * static_cast<float>(M_PI) / 180.0f;
 }
@@ -123,4 +127,8 @@ int MyMath::Random(int min, int max) {
 	const int&& num = abs(max + 1) + abs(min);
 
 	return (rnd() % num) + min;
+}
+
+bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {
+
 }

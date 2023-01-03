@@ -99,9 +99,13 @@ public:
 	*/
 	static float Dot(Vector2D vec1, Vector2D vec2);
 
-	/*
-	外積
-	*/
+	/// <summary>
+	/// 外積
+	/// </summary>
+	/// <param name="vec1">ポジション1</param>
+	/// <param name="vec2">ポジション2</param>
+	/// <returns>ポジション1がポジション2よりも左側にあったときにtrueを右側はfalseを返す</returns>
+	bool Cross(const Vector2D& vec1, const Vector2D& vec2);
 
 	/// <summary>
 	/// 度数法から弧度法に変換
@@ -157,4 +161,14 @@ public:
 	/// <param name="max">最大値</param>
 	/// <returns>min以上max以下までのランダムな値</returns>
 	int Random(int min, int max);
+
+	/// <summary>
+	/// カプセル処理
+	/// </summary>
+	/// <param name="pos">オブジェクトの位置</param>
+	/// <param name="start">移動している物体のスタート位置</param>
+	/// <param name="end">移動している物体の移動後の位置</param>
+	/// <param name="size">カプセルのサイズ</param>
+	/// <returns>当たってたらture</returns>
+	bool Capsule(Vector2D pos, Vector2D start, Vector2D end, float size);
 };
