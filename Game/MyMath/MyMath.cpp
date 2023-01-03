@@ -113,8 +113,14 @@ unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int b
 	return (red << 24) + (green << 16) + (blue << 8) + alpha;
 }
 
-int MyMath::Random(const int& min, const int& max) {
+int MyMath::Random(int min, int max) {
 	std::random_device rnd;
 
-	return (rnd() % max) + min;
+	if (min > max) {
+		Swap(min, max);
+	}
+
+	const int&& num = abs(max + 1) + abs(min);
+
+	return (rnd() % num) + min;
 }

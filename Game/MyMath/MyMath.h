@@ -150,5 +150,11 @@ public:
 
 	inline static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
 
-	int Random(const int& min, const int& max);
+	/// <summary>
+	/// min以上max以下までのランダムな値を返す
+	/// </summary>
+	/// <param name="min">最小値</param>
+	/// <param name="max">最大値</param>
+	/// <returns>min以上max以下までのランダムな値</returns>
+	int Random(int min, int max);
 };
