@@ -171,7 +171,7 @@ public:
 	static bool Capsule(Vector2D pos, Vector2D start, Vector2D end, float size);
 
 	template<class T>
-	static void SafeDelete(T*& p) {
+	static inline void SafeDelete(T*& p) {
 		delete p;
 		p = nullptr;
 	}
