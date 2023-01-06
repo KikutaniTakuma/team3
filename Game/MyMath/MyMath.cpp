@@ -126,5 +126,16 @@ int MyMath::Random(int min, int max) {
 }
 
 bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {
+	Vector2D d = pos - start;
+	Vector2D ba = end - start;
+	Vector2D e = Normalize(ba);
 
+	float t = Dot(d, e) / sqrtf(ba.x * ba.x + ba.y * ba.y);
+	t = Clamp(t, 1, 0);
+	Vector2D f = (1.0f - t) * start + t * end;
+
+	Vector2D fc = pos - f;
+	float distance = sqrtf(fc.x * fc.x + fc.y * fc.y);
+
+	return distance < size + size ? true : false;
 }
