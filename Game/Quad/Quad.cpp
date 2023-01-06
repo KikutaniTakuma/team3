@@ -6,6 +6,8 @@
 Quad::Quad() {}
 
 Quad::Quad(const Vector2D& worldPos, const Vector2D& size) {
+	this->size = size;
+
 	this->leftTop = { -1.0f * size.x / 2.0f, size.y / 2.0f };
 	this->leftUnder = { -1.0f * size.x / 2.0f,  -1.0f * size.y / 2.0f };
 	this->rightTop = size / 2.0f;
@@ -21,6 +23,8 @@ Quad::Quad(const Quad& quad) {
 }
 
 Quad::Quad(Vector2D&& worldPos, Vector2D&& size) {
+	this->size = size;
+
 	this->leftTop = { -1.0f * size.x / 2.0f, size.y / 2.0f };
 	this->leftUnder = { -1.0f * size.x / 2.0f,  -1.0f * size.y / 2.0f };
 	this->rightTop = size / 2.0f;
@@ -32,6 +36,8 @@ Quad::Quad(Vector2D&& worldPos, Vector2D&& size) {
 }
 
 void Quad::Set(const Vector2D& worldPos, const Vector2D& size) {
+	this->size = size;
+
 	this->leftTop = { -1.0f * size.x / 2.0f, size.y / 2.0f };
 	this->leftUnder = { -1.0f * size.x / 2.0f,  -1.0f * size.y / 2.0f };
 	this->rightTop = size / 2.0f;
@@ -62,6 +68,8 @@ void Quad::Rotate(float deg) {
 }
 
 const Quad& Quad::operator=(const Quad& tmp) {
+	this->size = tmp.size;
+
 	this->leftTop = tmp.getSizeLeftTop();
 	this->leftUnder = tmp.getSizeLeftUnder();
 	this->rightTop = tmp.getSizeRightTop();
@@ -109,6 +117,10 @@ Quad Quad::operator+(const Vector2D& vec){
 	quad.worldPos = worldPos+vec;
 
 	return quad;
+}
+
+Vector2D Quad::getSize() const {
+	return this->size;
 }
 
 Vector2D Quad::getPosLeftTop() const {

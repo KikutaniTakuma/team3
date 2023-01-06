@@ -79,12 +79,16 @@ private:
 	Vector2D rightTop;
 	Vector2D rightUnder;
 
+	Vector2D size;
+
 public:
 	Vector2D worldPos;
 
 	Matrix3x3 worldMatrix;
 
 public:
+	Vector2D getSize() const;
+
 	// getter
 	// worldPos‚ð‘«‚µ‚½‚à‚Ì‚ª•Ô‚Á‚Ä‚­‚é
 
