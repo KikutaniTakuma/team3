@@ -74,11 +74,7 @@ void MyMath::BubbleSort(int* data, int arr, bool order) {
 	}
 }
 
-float MyMath::Dot(float x1, float y1, float x2, float y2) {
-	return (x1 * x2) + (y1 * y2);
-}
-
-float MyMath::Dot(Vector2D vec1, Vector2D vec2) {
+float MyMath::Dot(const Vector2D& vec1, const Vector2D& vec2) {
 	return (vec1.x * vec2.x) + (vec1.y * vec2.y);
 }
 

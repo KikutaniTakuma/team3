@@ -89,15 +89,13 @@ public:
 	*/
 	static void BubbleSort(int* data, int arr, bool order);
 
-	/*
-	内積
-	*/
-	static float Dot(float x1, float y1, float x2, float y2);
-
-	/*
-	内積
-	*/
-	static float Dot(Vector2D vec1, Vector2D vec2);
+	/// <summary>
+	/// 内積
+	/// </summary>
+	/// <param name="vec1"></param>
+	/// <param name="vec2"></param>
+	/// <returns></returns>
+	static float Dot(const Vector2D& vec1, const Vector2D& vec2);
 
 	/// <summary>
 	/// 外積
@@ -105,7 +103,7 @@ public:
 	/// <param name="vec1">ポジション1</param>
 	/// <param name="vec2">ポジション2</param>
 	/// <returns>ポジション1がポジション2よりも左側にあったときにtrueを右側はfalseを返す</returns>
-	bool Cross(const Vector2D& vec1, const Vector2D& vec2);
+	static bool Cross(const Vector2D& vec1, const Vector2D& vec2);
 
 	/// <summary>
 	/// 度数法から弧度法に変換
