@@ -158,7 +158,7 @@ public:
 	/// <param name="min">最小値</param>
 	/// <param name="max">最大値</param>
 	/// <returns>min以上max以下までのランダムな値</returns>
-	int Random(int min, int max);
+	static int Random(int min, int max);
 
 	/// <summary>
 	/// カプセル処理
@@ -168,5 +168,11 @@ public:
 	/// <param name="end">移動している物体の移動後の位置</param>
 	/// <param name="size">カプセルのサイズ</param>
 	/// <returns>当たってたらture</returns>
-	bool Capsule(Vector2D pos, Vector2D start, Vector2D end, float size);
+	static bool Capsule(Vector2D pos, Vector2D start, Vector2D end, float size);
+
+	template<class T>
+	static void SafeDelete(T*& p) {
+		delete p;
+		p = nullptr;
+	}
 };
