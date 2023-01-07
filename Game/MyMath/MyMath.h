@@ -8,29 +8,6 @@ private:
 	inline ~MyMath(){}
 
 public:
-	// ワールド座標を変換時の定数
-	static const int kCoodinateChangeConstant;
-
-	/*
-	ワールド座標をスクリーン座標に返還
-	*/
-	static void CoordinateChange(const Vector2D& worldPos, Vector2D& screenPos);
-
-	/*
-	ワールド座標をスクリーン座標に返還
-	*/
-	static void CoordinateChange(Vector2D& worldPos);
-	/*
-	ワールド座標をスクリーン座標に返還
-	*/
-	static void CoordinateChange(Vector2D& worldPos, const int coordinateChangeConstant);
-
-	/*
-	ワールド座標をスクリーン座標に返還
-	*/
-	static void CoordinateChange(int& worldPos);
-
-
 	// 三平方の定理
 	static float PythagoreanTheorem(const float& x, const float& y);
 
@@ -95,7 +72,7 @@ public:
 	/// <param name="vec1"></param>
 	/// <param name="vec2"></param>
 	/// <returns></returns>
-	static float Dot(const Vector2D& vec1, const Vector2D& vec2);
+	static bool Dot(const Vector2D& vec1, const Vector2D& vec2);
 
 	/// <summary>
 	/// 外積
@@ -142,7 +119,7 @@ public:
 	/// <param name="num">交換したいもの1</param>
 	/// <param name="num2">交換したいもの2</param>
 	template<typename T>
-	inline static void Swap(T& num, T& num2) {
+	static inline void Swap(T& num, T& num2) {
 		T tmp = num;
 		num = num2;
 		num2 = tmp;
@@ -150,7 +127,7 @@ public:
 
 	static float Clamp(float num, float max, float min);
 
-	inline static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
+	static inline unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
 
 	/// <summary>
 	/// min以上max以下までのランダムな値を返す

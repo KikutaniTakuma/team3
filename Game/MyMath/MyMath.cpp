@@ -5,25 +5,6 @@
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/MapChip/MapChip.h"
 
-const int MyMath::kCoodinateChangeConstant = (MapChip::kMapHeight * MapChip::kMapSize);
-
-void MyMath::CoordinateChange(const Vector2D& worldPos, Vector2D& screenPos) {
-	screenPos.x = worldPos.x;
-	screenPos.y = (worldPos.y * -1) + kCoodinateChangeConstant;
-}
-
-void MyMath::CoordinateChange(Vector2D& worldPos) {
-	worldPos.y = (worldPos.y * -1) + kCoodinateChangeConstant;
-}
-
-void MyMath::CoordinateChange(Vector2D& worldPos, const int coordinateChangeConstant) {
-	worldPos.y = (worldPos.y * -1) + coordinateChangeConstant;
-}
-
-void MyMath::CoordinateChange(int& worldPos) {
-	worldPos = (worldPos * -1) + kCoodinateChangeConstant;
-}
-
 bool MyMath::CollisionRectangle(Vector2D LeftTop1, Vector2D size1, Vector2D LeftTop2, Vector2D size2) {
 	if (LeftTop1.x < LeftTop2.x + size2.x && LeftTop2.x < LeftTop1.x + size1.x) {
 		if (LeftTop1.y < LeftTop2.y - size2.y && LeftTop2.y < LeftTop1.y - size1.y) {
@@ -74,8 +55,8 @@ void MyMath::BubbleSort(int* data, int arr, bool order) {
 	}
 }
 
-float MyMath::Dot(const Vector2D& vec1, const Vector2D& vec2) {
-	return (vec1.x * vec2.x) + (vec1.y * vec2.y);
+bool MyMath::Dot(const Vector2D& vec1, const Vector2D& vec2) {
+	return (vec1.x * vec2.x) + (vec1.y * vec2.y) >= 0 ? false : true;
 }
 
 bool MyMath::Cross(const Vector2D& vec1, const Vector2D& vec2) {
@@ -106,7 +87,9 @@ float MyMath::Clamp(float num,float max,float min)
 	else if(num>max){
 		return num = max;
 	}
-	return num;
+	else {
+		return num;
+	}
 }
 
 unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha) {
@@ -131,7 +114,7 @@ bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {
 	Vector2D e = Normalize(ba);
 
 	float t = Dot(d, e) / sqrtf(ba.x * ba.x + ba.y * ba.y);
-	t = Clamp(t, 1, 0);
+	t = Clamp(t, 1.0f, 0.0f);
 	Vector2D f = (1.0f - t) * start + t * end;
 
 	Vector2D fc = pos - f;
