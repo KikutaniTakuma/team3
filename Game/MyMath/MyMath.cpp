@@ -98,7 +98,7 @@ unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int b
 
 int MyMath::Random(int min, int max) {
 	std::random_device rnd;
-	std::mt19937 engine(rnd());
+	std::mt19937_64 engine(rnd());
 
 	if (min > max) {
 		Swap(min, max);
