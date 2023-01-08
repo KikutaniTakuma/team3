@@ -98,6 +98,7 @@ unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int b
 
 int MyMath::Random(int min, int max) {
 	std::random_device rnd;
+	std::mt19937 engine(rnd());
 
 	if (min > max) {
 		Swap(min, max);
@@ -105,7 +106,7 @@ int MyMath::Random(int min, int max) {
 
 	const int&& num = abs(max + 1) + abs(min);
 
-	return (rnd() % num) + min;
+	return (engine() % num) + min;
 }
 
 bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {
