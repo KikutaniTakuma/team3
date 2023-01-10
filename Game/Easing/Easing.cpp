@@ -13,7 +13,7 @@ Easing::Easing(const Easing& tmp) {
 	*this = tmp;
 }
 
-Easing::Easing(Easing&& tmp) {
+Easing::Easing(Easing&& tmp) noexcept {
 	*this = tmp;
 }
 

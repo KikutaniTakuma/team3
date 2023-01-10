@@ -20,7 +20,7 @@ public:
 	Easing() = delete;
 	Easing(std::function<float(float)> func, float spd);
 	Easing(const Easing& tmp);
-	Easing(Easing&& tmp);
+	Easing(Easing&& tmp) noexcept;
 
 private:
 	std::function<float(float)> function;
