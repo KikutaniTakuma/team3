@@ -8,6 +8,11 @@ private:
 	inline ~MyMath(){}
 
 public:
+	// ワールド座標を変換時の定数
+	static const int kCoodinateChangeConstant;
+
+	static void CoordinateChange(Vector2D& worldPos);
+
 	// 三平方の定理
 	static float PythagoreanTheorem(const float& x, const float& y);
 

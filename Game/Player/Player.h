@@ -15,6 +15,8 @@ public:
 	enum Dirextion {
 		LEFT = 0,
 		RIGHT,
+		UP,
+		DOWN
 	};
 
 public:

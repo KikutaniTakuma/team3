@@ -102,6 +102,7 @@
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Complex\Complex.cpp" />
+    <ClCompile Include="Game\Easing\Easing.cpp" />
     <ClCompile Include="Game\Effect\Effect.cpp" />
     <ClCompile Include="Game\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\Frame\Frame.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Complex\Complex.h" />
+    <ClInclude Include="Game\Easing\Easing.h" />
     <ClInclude Include="Game\Effect\Effect.h" />
     <ClInclude Include="Game\Enemy\Enemy.h" />
     <ClInclude Include="Game\Frame\Frame.h" />

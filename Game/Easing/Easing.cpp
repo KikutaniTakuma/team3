@@ -36,201 +36,201 @@ const Easing& Easing::operator=(const Easing& tmp) {
 
 //	1”Ô
 float EaseInSine(float x) {
-	return 1 - cosf((x * M_PI) / 2);
+	return 1 - cosf((x * static_cast<float>(static_cast<float>(M_PI))) / 2.0f);
 }
 //	2
 float EaseOutSine(float x) {
-	return sinf((x * M_PI) / 2);
+	return sinf((x * static_cast<float>(M_PI)) / 2.0f);
 }
 //	3
 float EaseInOutSine(float x) {
-	return -(cosf(M_PI * x) - 1) / 2;
+	return -(cosf(static_cast<float>(M_PI) * x) - 1.0f) / 2.0f;
 }
 //	4
 float EaseInQuad(float x) {
-	return powf(x, 2);
+	return powf(x, 2.0f);
 }
 //	5
 float EaseOutQuad(float x) {
-	return 1 - (1 - x) * (1 - x);
+	return 1.0f - (1.0f - x) * (1.0f - x);
 }
 //	6
 float EaseInOutQuad(float x) {
 
 	if (x < 0.5f)
 	{
-		return 2 * powf(x, 2);
+		return 2.0f * powf(x, 2.0f);
 	}
 	else
 	{
-		return 1 - powf(-2 * x + 2, 2) / 2;
+		return 1.0f - powf(-2.0f * x + 2.0f, 2.0f) / 2.0f;
 	}
 }
 //	7
 float EaseInCubic(float x) {
-	return pow(x, 3);
+	return pow(x, 3.0f);
 }
 //	8
 float EaseOutCubic(float x) {
-	return 1 - powf(1 - x, 3);
+	return 1 - powf(1.0f - x, 3.0f);
 }
 //	9
 float EaseInOutCubic(float x) {
 	if (x < 0.5f)
 	{
-		return 4 * powf(x, 4);
+		return 4.0f * powf(x, 4.0f);
 	}
 	else
 	{
-		return 1 - powf(-2 * x + 2, 3) / 2;
+		return 1.0f - powf(-2.0f * x + 2.0f, 3.0f) / 2.0f;
 	}
 }
 //	10
 float EaseInQuart(float x) {
-	return powf(x, 4);
+	return powf(x, 4.0f);
 }
 //	11
 float EaseOutQuart(float x) {
-	return 1 - powf(1 - x, 4);
+	return 1.0f - powf(1 - x, 4.0f);
 }
 //	12
 float EaseInOutQuart(float x) {
 	if (x < 0.5f)
 	{
-		return 8 * powf(x, 4);
+		return 8.0f * powf(x, 4.0f);
 	}
 	else
 	{
-		return 1 - powf(-2 * x + 2, 4) / 2;
+		return 1.0f - powf(-2.0f * x + 2.0f, 4.0f) / 2.0f;
 	}
 }
 //	13
 float EaseInQuint(float x) {
-	return powf(x, 5);
+	return powf(x, 5.0f);
 }
 //	14
 float EaseOutQuint(float x) {
-	return 1 - powf(1 - x, 5);
+	return 1.0f - powf(1.0f - x, 5.0f);
 }
 //	15
 float EaseInOutQuint(float x) {
 	if (x < 0.5f)
 	{
-		return 16 * powf(x, 5);
+		return 16.0f * powf(x, 5.0f);
 	}
 	else
 	{
-		return 1 - powf(-2 * x + 2, 5) / 2;
+		return 1.0f - powf(-2.0f * x + 2.0f, 5.0f) / 2.0f;
 	}
 }
 //	16
 float EaseInExpo(float x) {
-	if (x == 0)
+	if (x == 0.0f)
 	{
-		return 0;
+		return 0.0f;
 	}
 	else
 	{
-		return powf(2, 10 * x - 10);
+		return powf(2.0f, 10.0f * x - 10.0f);
 	}
 }
 //	17
 float EaseOutExpo(float x) {
-	if (x == 1)
+	if (x == 1.0f)
 	{
-		return 1;
+		return 1.0f;
 	}
 	else
 	{
-		return 1 - powf(2.0f, -10.0f * x);
+		return 1.0f - powf(2.0f, -10.0f * x);
 	}
 }
 //	18
 float EaseInOutExpo(float x) {
-	if (x == 0)
+	if (x == 0.0f)
 	{
-		return 0;
+		return 0.0f;
 	}
-	else if (x == 1)
+	else if (x == 1.0f)
 	{
-		return 1;
+		return 1.0f;
 	}
 	else if (x < 0.5f)
 	{
-		return powf(2, 20 * x - 10) / 2;
+		return powf(2.0f, 20.0f * x - 10.0f) / 2.0f;
 	}
 	else
 	{
-		return (2 - powf(2, -20 * x + 10)) / 2;
+		return (2.0f - powf(2.0f, -20.0f * x + 10.0f)) / 2.0f;
 	}
 }
 //	19
 float EaseInCirc(float x) {
-	return 1 - sqrtf(1 - powf(x, 2));
+	return 1.0f - sqrtf(1.0f - powf(x, 2.0f));
 }
 //	20
 float EaseOutCirc(float x) {
-	return sqrtf(1 - powf(x - 1, 2));
+	return sqrtf(1.0f - powf(x - 1.0f, 2.0f));
 }
 //	21
 float EaseInOutCirc(float x) {
 	if (x < 0.5f)
 	{
-		return (1 - sqrtf(1 - powf(2 * x, 2))) / 2;
+		return (1.0f - sqrtf(1.0f - powf(2.0f * x, 2.0f))) / 2.0f;
 	}
 	else
 	{
-		return (sqrtf(1 - powf(-2 * x + 2, 2)) + 1) / 2;
+		return (sqrtf(1.0f - powf(-2.0f * x + 2.0f, 2.0f)) + 1.0f) / 2.0f;
 	}
 }
 //	22
 float EaseInBack(float x) {
-	const float c1 = 1.70158;
-	const float c3 = c1 + 1;
+	const float c1 = 1.70158f;
+	const float c3 = c1 + 1.0f;
 
-	return (c3 * powf(x, 3)) - (c1 * powf(x, 2));
+	return (c3 * powf(x, 3.0f)) - (c1 * powf(x, 2.0f));
 }
 //	23
 float EaseOutBack(float x) {
-	const float c1 = 1.70158;
-	const float c3 = c1 + 1;
+	const float c1 = 1.70158f;
+	const float c3 = c1 + 1.0f;
 
-	return 1 + c3 * powf(x - 1, 3) + c1 * powf(x - 1, 2);
+	return 1.0f + c3 * powf(x - 1.0f, 3.0f) + c1 * powf(x - 1.0f, 2.0f);
 }
 //	24
 float EaseInOutBack(float x) {
-	const float c1 = 1.70158;
-	const float c2 = c1 * 1.525;
+	const float c1 = 1.70158f;
+	const float c2 = c1 * 1.525f;
 
 	if (x < 0.5f)
 	{
-		return (powf(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2;
+		return (powf(2.0f * x, 2.0f) * ((c2 + 1.0f) * 2.0f * x - c2)) / 2.0f;
 	}
 	else
 	{
-		return (powf(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
+		return (powf(2.0f * x - 2.0f, 2.0f) * ((c2 + 1.0f) * (x * 2.0f - 2.0f) + c2) + 2.0f) / 2.0f;
 	}
 }
 //	25
 float EaseInElastic(float x) {
-	const float c4 = (2 * M_PI) / 3;
+	const float c4 = (2.0f * static_cast<float>(M_PI)) / 3.0f;
 
-	if (x == 0)
+	if (x == 0.0f)
 	{
-		return 0;
+		return 0.0f;
 	}
-	else if (x == 1)
+	else if (x == 1.0f)
 	{
-		return 1;
+		return 1.0f;
 	}
 	else
 	{
-		return -powf(2, 10 * x - 10) * sinf((x * 10 - 10.75) * c4);
+		return -powf(2.0f, 10.0f * x - 10.0f) * sinf((x * 10.0f - 10.75f) * c4);
 	}
 }
 //	26
 float EaseOutElastic(float x) {
-	const float c4 = (2 * M_PI) / 3;
+	const float c4 = (2 * static_cast<float>(M_PI)) / 3.0f;
 
 	if (x == 0.0f) {
 		return 0.0f;
@@ -239,60 +239,62 @@ float EaseOutElastic(float x) {
 		return 1.0f;
 	}
 	else {
-		return powf(2, -10.0f * x) * sinf((x * 10.0f - 0.75f) * c4) + 1;
+		return powf(2.0f, -10.0f * x) * sinf((x * 10.0f - 0.75f) * c4) + 1.0f;
 	}
 }
 //	27
 float EaseInOutElastic(float x) {
-	const float c5 = (2 * M_PI) / 4.5;
+	const float c5 = (2.0f * static_cast<float>(M_PI)) / 4.5f;
 
-	if (x == 0)
+	if (x == 0.0f)
 	{
-		return 0;
+		return 0.0f;
 	}
-	else if (x == 1)
+	else if (x == 1.0f)
 	{
-		return 1;
+		return 1.0f;
 	}
 	else if (x < 0.5f)
 	{
-		return -(powf(2, 20 * x - 10) * sinf((20 * x - 11.125) * c5)) / 2;
+		return -(powf(2.0f, 20.0f * x - 10.0f) * sinf((20.0f * x - 11.125f) * c5)) / 2.0f;
 	}
 	else
 	{
-		return (powf(2, -20 * x + 10) * sinf((20 * x - 11.125) * c5)) / 2 + 1;
+		return (powf(2.0f, -20.0f * x + 10.0f) * sinf((20.0f * x - 11.125f) * c5)) / 2.0f + 1.0f;
+	}
+}
+
+// 29
+float EaseOutBounce(float x) {
+	const float n1 = 7.5625f;
+	const float d1 = 2.75f;
+
+	if (x < 1.0f / d1) {
+		return n1 * powf(x, 2.0f);
+	}
+	else if (x < 2.0f / d1) {
+		return n1 * (x -= 1.5f / d1) * x + 0.75f;
+	}
+	else if (x < 2.5f / d1) {
+		return n1 * (x -= 2.25f / d1) * x + 0.9375f;
+	}
+	else {
+		return n1 * (x -= 2.625f / d1) * x + 0.984375f;
 	}
 }
 //	28
 float EaseInBounce(float x) {
-	return 1 - EaseOutBounce(1 - x);
+	return 1.0f - EaseOutBounce(1.0f - x);
 }
-//	29
-float EaseOutBounce(float x) {
-	const float n1 = 7.5625;
-	const float d1 = 2.75;
 
-	if (x < 1 / d1) {
-		return n1 * powf(x, 2);
-	}
-	else if (x < 2 / d1) {
-		return n1 * (x -= 1.5 / d1) * x + 0.75;
-	}
-	else if (x < 2.5 / d1) {
-		return n1 * (x -= 2.25 / d1) * x + 0.9375;
-	}
-	else {
-		return n1 * (x -= 2.625 / d1) * x + 0.984375;
-	}
-}
 //	30
 float EaseInOutBounce(float x) {
 	if (x < 0.5f)
 	{
-		return (1 - EaseOutBounce(1 - 2 * x)) / 2;
+		return (1.0f - EaseOutBounce(1.0f - 2.0f * x)) / 2.0f;
 	}
 	else
 	{
-		return (1 + EaseOutBounce(2 * x - 1)) / 2;
+		return (1.0f + EaseOutBounce(2.0f * x - 1.0f)) / 2.0f;
 	}
 }

@@ -80,6 +80,9 @@
     <Filter Include="Enenmy">
       <UniqueIdentifier>{17941833-ea39-4c5f-a67b-4500ce690625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Easing">
+      <UniqueIdentifier>{05016dd0-9183-4ce3-8bac-ba73629440eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="Game\Enemy\Enemy.cpp">
       <Filter>Enenmy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Easing\Easing.cpp">
+      <Filter>Game\Easing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +297,9 @@
     </ClInclude>
     <ClInclude Include="Game\Enemy\Enemy.h">
       <Filter>Enenmy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Easing\Easing.h">
+      <Filter>Game\Easing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

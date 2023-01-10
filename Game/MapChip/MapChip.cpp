@@ -12,16 +12,16 @@ std::vector<int> MapChip::data;
 const int MapChip::kMapSize = 32;
 const int MapChip::kWindowWidth = 1280;
 const int MapChip::kWindowHeight = 720;
-const int MapChip::kStageNumberWidth = 1;
-const int MapChip::kStageNumberHeight = 1;
-const int MapChip::kMapWidth = (kWindowWidth / kMapSize) * kStageNumberWidth;
-const int MapChip::kMapHeight = (kWindowHeight / kMapSize) * kStageNumberHeight;
+const int MapChip::kStageNumberWidth = 6;
+const int MapChip::kStageNumberHeight = 11;
+const int MapChip::kMapWidth = 199;
+const int MapChip::kMapHeight = 200;
 const Camera* MapChip::camera = nullptr;
 
 void MapChip::Initilize() {
 	MapChip::data.resize(MapChip::kMapHeight * MapChip::kMapWidth);
 
-	IOcsv::Input("./Data/MapChipData.csv", MapChip::data);
+	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);
 }
 void MapChip::SetCamera(Camera* cameraPointa) {
 	camera = cameraPointa;
@@ -31,7 +31,7 @@ void MapChip::Finalize() {
 }
 
 void MapChip::Reset() {
-	IOcsv::Input("./Data/MapChipData.csv", MapChip::data);
+	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);
 }
 
 
