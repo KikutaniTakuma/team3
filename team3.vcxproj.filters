@@ -83,6 +83,9 @@
     <Filter Include="Game\Easing">
       <UniqueIdentifier>{05016dd0-9183-4ce3-8bac-ba73629440eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Fade">
+      <UniqueIdentifier>{6189101a-d5f4-4252-be27-bb15785fdbe2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -160,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="Game\Easing\Easing.cpp">
       <Filter>Game\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>Game\Fade</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="Game\Easing\Easing.h">
       <Filter>Game\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>Game\Fade</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
