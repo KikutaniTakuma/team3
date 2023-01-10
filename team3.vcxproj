@@ -100,6 +100,7 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Complex\Complex.cpp" />
     <ClCompile Include="Game\Easing\Easing.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\input\Input.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
+    <ClInclude Include="Fade.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Complex\Complex.h" />
     <ClInclude Include="Game\Easing\Easing.h" />
