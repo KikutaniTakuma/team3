@@ -4,8 +4,29 @@
 
 class Enemy : public Object {
 public:
+	enum Dirextion {
+		LEFT = 0,
+		RIGHT,
+		UP,
+		DOWN
+	};
+
+public:
 	Enemy() = delete;
-	Enemy(class Camera* cameraPointa);
+	Enemy(Camera* cameraPointa, class Player* player);
+
+private:
+	Vector2D moveVec;
+
+	Vector2D tentativPos;
+
+	float spd;
+
+public:
+	const class Player* player;
+
+private:
+	void Collision();
 
 public:
 	void Update() override;

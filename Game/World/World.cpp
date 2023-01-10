@@ -9,6 +9,7 @@
 #include "Game/MapChip/MapChip.h"
 #include "Game/Texture/Texture.h"
 #include "Game/Camera/Camera.h"
+#include "Game/Enemy/Enemy.h"
 #include <Novice.h>
 #include <assert.h>
 #include <thread>
@@ -59,7 +60,11 @@ World::World() {
 
 	object.reserve(0);
 
-	object.emplace_back(new Player(camera));
+	Player* tmp = new Player(camera);
+
+	object.emplace_back(tmp);
+	
+	object.emplace_back(new Enemy(camera, tmp));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 }
