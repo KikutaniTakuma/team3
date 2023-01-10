@@ -1,5 +1,6 @@
 #pragma once
 
+
 class Fade {
 public:
 	Fade();
@@ -12,5 +13,5 @@ private:
 public:
 	unsigned int FadeIn(unsigned int color,float speed);
 
-	unsigned int FadeOut(unsigned int color);
+	unsigned int FadeOut(unsigned int color,float speed);
 };

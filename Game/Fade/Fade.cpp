@@ -19,3 +19,15 @@ unsigned int Fade::FadeIn(unsigned int color,float speed) {
 
 	return MyMath::GetRGB(red, green, blue, alpha);
 }
+
+unsigned int Fade::FadeOut(unsigned int color, float speed) {
+	red = color >> 24;
+	green = color >> 16 & 0xff;
+	blue = color >> 8 & 0xff;
+	alpha = color & 0xff;
+
+	alpha -= speed;
+	MyMath::Clamp((float)alpha, 255.0f, 0.0f);
+
+	return MyMath::GetRGB(red, green, blue, alpha);
+}
