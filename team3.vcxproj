@@ -100,12 +100,12 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
-    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Complex\Complex.cpp" />
     <ClCompile Include="Game\Easing\Easing.cpp" />
     <ClCompile Include="Game\Effect\Effect.cpp" />
     <ClCompile Include="Game\Enemy\Enemy.cpp" />
+    <ClCompile Include="Game\Fade\Fade.cpp" />
     <ClCompile Include="Game\Frame\Frame.cpp" />
     <ClCompile Include="Game\Gamepad\Gamepad.cpp" />
     <ClCompile Include="Game\IOcsv\IOcsv.cpp" />
@@ -150,12 +150,12 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\input\Input.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
-    <ClInclude Include="Fade.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Complex\Complex.h" />
     <ClInclude Include="Game\Easing\Easing.h" />
     <ClInclude Include="Game\Effect\Effect.h" />
     <ClInclude Include="Game\Enemy\Enemy.h" />
+    <ClInclude Include="Game\Fade\Fade.h" />
     <ClInclude Include="Game\Frame\Frame.h" />
     <ClInclude Include="Game\Gamepad\Gamepad.h" />
     <ClInclude Include="Game\IOcsv\IOcsv.h" />

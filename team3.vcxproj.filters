@@ -164,7 +164,7 @@
     <ClCompile Include="Game\Easing\Easing.cpp">
       <Filter>Game\Easing</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
+    <ClCompile Include="Game\Fade\Fade.cpp">
       <Filter>Game\Fade</Filter>
     </ClCompile>
   </ItemGroup>
@@ -307,7 +307,7 @@
     <ClInclude Include="Game\Easing\Easing.h">
       <Filter>Game\Easing</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
+    <ClInclude Include="Game\Fade\Fade.h">
       <Filter>Game\Fade</Filter>
     </ClInclude>
   </ItemGroup>
