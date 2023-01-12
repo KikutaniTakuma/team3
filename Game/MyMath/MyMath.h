@@ -132,7 +132,7 @@ public:
 
 	static float Clamp(float num, float max, float min);
 
-	static inline unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
+	static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
 
 	/// <summary>
 	/// minˆÈãmaxˆÈ‰º‚Ü‚Å‚Ìƒ‰ƒ“ƒ_ƒ€‚È’l‚ğ•Ô‚·

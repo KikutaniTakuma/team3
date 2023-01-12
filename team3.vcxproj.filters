@@ -86,6 +86,9 @@
     <Filter Include="Game\Fade">
       <UniqueIdentifier>{6189101a-d5f4-4252-be27-bb15785fdbe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fullscreen">
+      <UniqueIdentifier>{fa5a6ee2-bac5-4a79-8db9-2cac0e31db27}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\GoalUI">
       <UniqueIdentifier>{29834a31-d56c-47b5-90ab-267ac827c924}</UniqueIdentifier>
     </Filter>
@@ -167,8 +170,11 @@
     <ClCompile Include="Game\Easing\Easing.cpp">
       <Filter>Game\Easing</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
+    <ClCompile Include="Game\Fade\Fade.cpp">
       <Filter>Game\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Fullscreen\Fullscreen.cpp">
+      <Filter>Fullscreen</Filter>
     </ClCompile>
     <ClCompile Include="Game\GoalUI\GoalUI.cpp">
       <Filter>Game\GoalUI</Filter>
@@ -313,10 +319,13 @@
     <ClInclude Include="Game\Easing\Easing.h">
       <Filter>Game\Easing</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
+    <ClInclude Include="Game\Fade\Fade.h">
       <Filter>Game\Fade</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GoalUI\GoalUI.h">
+    <ClInclude Include="Game\Fullscreen\Fullscreen.h">
+      <Filter>Fullscreen</Filter>
+    </ClInclude>
+     <ClInclude Include="Game\GoalUI\GoalUI.h">
       <Filter>Game\GoalUI</Filter>
     </ClInclude>
   </ItemGroup>

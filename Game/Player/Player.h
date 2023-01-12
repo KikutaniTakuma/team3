@@ -67,7 +67,7 @@ public:
 	float getSize()const;
 
 	// setter
-	void setWorldPos(Vector2D pos);
 	void setWorldPosX(const float& num);
 	void setWorldPosY(const float& num);
+	void setWorldPos(Vector2D pos);
 };

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Game/MyMath/MyMath.h"
+#include "Game/Vector2D/Vector2D.h"
+#include <functional>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <functional>
 
 		/*　イージングチートシート参照（左上[1]から右下[30]にかけて）　*/
 
@@ -14,27 +16,25 @@
 //			pos_y = (1 - T) * 始点 + T * 終点;
 //		}
 
-
 class Easing {
 public:
-	Easing() = delete;
-	Easing(std::function<float(float)> func, float spd);
-	Easing(const Easing& tmp);
-	Easing(Easing&& tmp) noexcept;
+	Easing();
 
-private:
-	std::function<float(float)> function;
-	float t;
-	float num;
+	Easing(Vector2D start, Vector2D end, float speed, std::function<float(float)> easeType);
+
+	void Set(Vector2D start, Vector2D end, float speed, std::function<float(float)> easeType);
+
+	Vector2D Update();
 
 public:
 	float spd;
 
-public:
-	void Use(class Vector2D& pos, Vector2D start, Vector2D end);
-
-public:
-	const Easing& operator=(const Easing& tmp);
+private:
+	float easeT;
+	Vector2D startPos;
+	Vector2D endPos;
+	Vector2D currentPos;
+	std::function<float(float)> easeFunc;
 
 public:
 	//	1番
@@ -81,7 +81,7 @@ public:
 	friend float EaseInOutCirc(float x);
 	//	22
 	friend float EaseInBack(float x);
-	//  23
+	//	23
 	friend float EaseOutBack(float x);
 	//	24
 	friend float EaseInOutBack(float x);
