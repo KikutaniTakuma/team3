@@ -86,6 +86,9 @@
     <Filter Include="Game\Fade">
       <UniqueIdentifier>{6189101a-d5f4-4252-be27-bb15785fdbe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fullscreen">
+      <UniqueIdentifier>{fa5a6ee2-bac5-4a79-8db9-2cac0e31db27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="Game\Fade\Fade.cpp">
       <Filter>Game\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Fullscreen\Fullscreen.cpp">
+      <Filter>Fullscreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +315,9 @@
     </ClInclude>
     <ClInclude Include="Game\Fade\Fade.h">
       <Filter>Game\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Fullscreen\Fullscreen.h">
+      <Filter>Fullscreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
