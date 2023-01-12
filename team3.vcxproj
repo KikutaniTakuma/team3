@@ -108,6 +108,7 @@
     <ClCompile Include="Game\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\Frame\Frame.cpp" />
     <ClCompile Include="Game\Gamepad\Gamepad.cpp" />
+    <ClCompile Include="Game\GoalUI\GoalUI.cpp" />
     <ClCompile Include="Game\IOcsv\IOcsv.cpp" />
     <ClCompile Include="Game\KeyInput\KeyInput.cpp" />
     <ClCompile Include="Game\MapChip\MapChip.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Game\Enemy\Enemy.h" />
     <ClInclude Include="Game\Frame\Frame.h" />
     <ClInclude Include="Game\Gamepad\Gamepad.h" />
+    <ClInclude Include="Game\GoalUI\GoalUI.h" />
     <ClInclude Include="Game\IOcsv\IOcsv.h" />
     <ClInclude Include="Game\KeyInput\KeyInput.h" />
     <ClInclude Include="Game\MapChip\MapChip.h" />
