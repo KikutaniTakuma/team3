@@ -1,11 +1,17 @@
 #include "Game/MyMath/MyMath.h"
 #define _USE_MATH_DEFINES
+#include <math.h>
 #include <cmath>
 #include <random>
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/MapChip/MapChip.h"
 
 const int MyMath::kCoodinateChangeConstant = MapChip::kWindowHeight;
+std::random_device MyMath::seed;
+std::mt19937_64 MyMath::engine(seed());
+std::uniform_int_distribution<> MyMath::rndInt;
+std::uniform_real_distribution<> MyMath::rndReal;
+
 
 void MyMath::CoordinateChange(Vector2D& worldPos) {
 	worldPos.y = (worldPos.y * -1) + kCoodinateChangeConstant;
@@ -103,16 +109,27 @@ unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int b
 }
 
 int MyMath::Random(int min, int max) {
-	std::random_device rnd;
-	std::mt19937_64 engine(rnd());
-
 	if (min > max) {
 		Swap(min, max);
 	}
 
-	const int&& num = abs(max + 1) + abs(min);
+	std::uniform_int_distribution<>::param_type param(min, max);
 
-	return (engine() % num) + min;
+	rndInt.param(param);
+
+	return rndInt(engine);
+}
+
+double MyMath::Random(double min, double max) {
+	if (min > max) {
+		Swap(min, max);
+	}
+
+	std::uniform_real_distribution<>::param_type param(min, max);
+
+	rndReal.param(param);
+
+	return rndReal(engine);
 }
 
 bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {

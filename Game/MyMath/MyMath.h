@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+
 class Vector2D;
 
 class MyMath {
@@ -10,6 +12,14 @@ private:
 public:
 	// ワールド座標を変換時の定数
 	static const int kCoodinateChangeConstant;
+
+private:
+	static std::random_device seed;
+	static std::mt19937_64 engine;
+	static std::uniform_int_distribution<> rndInt;
+	static std::uniform_real_distribution<> rndReal;
+
+public:
 
 	static void CoordinateChange(Vector2D& worldPos);
 
@@ -135,12 +145,20 @@ public:
 	static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
 
 	/// <summary>
-	/// min以上max以下までのランダムな値を返す
+	/// min以上max以下までのランダムな整数を返す
 	/// </summary>
 	/// <param name="min">最小値</param>
 	/// <param name="max">最大値</param>
-	/// <returns>min以上max以下までのランダムな値</returns>
+	/// <returns>min以上max以下までのランダムな整数</returns>
 	static int Random(int min, int max);
+
+	/// <summary>
+	/// min以上max以下までのランダムな実数を返す
+	/// </summary>
+	/// <param name="min">最小値</param>
+	/// <param name="max">最大値</param>
+	/// <returns>min以上max以下までのランダムな実数</returns>
+	static double Random(double min, double max);
 
 	/// <summary>
 	/// カプセル処理
