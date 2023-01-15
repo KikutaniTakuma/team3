@@ -53,6 +53,19 @@ void Enemy::Update() {
 	pos.worldMatrix.Translate(pos.worldPos);
 }
 
+int Enemy::Heuristic() {
+	int width = abs(static_cast<int>(MapChip::GetNum(pos.worldPos).x - MapChip::GetNum(player->getWorldPos()).x));
+	int height = abs(static_cast<int>(MapChip::GetNum(pos.worldPos).y - MapChip::GetNum(player->getWorldPos()).y));
+
+	return width + height;
+}
+
+void Enemy::Astar() {
+	int cost = 0;
+
+	// ’Tõ‚·‚é•ûŒü‚ðŒˆ‚ß‚é
+}
+
 void Enemy::Draw(Texture& tex) {
 	camera->DrawQuad(drawPos, tex, 0, false);
 }

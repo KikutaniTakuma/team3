@@ -47,7 +47,7 @@ bool  MapChip::Collision(const Vector2D& pos) {
 	}
 }
 
-int  MapChip::GetType(Vector2D worldPos) {
+int MapChip::GetType(Vector2D worldPos) {
 	MyMath::CoordinateChange(worldPos);
 
 	int y = (int)worldPos.y / MapChip::kMapSize;
@@ -63,10 +63,17 @@ int  MapChip::GetType(Vector2D worldPos) {
 	}
 }
 
-Vector2D  MapChip::GetPos(Vector2D worldPos) {
+Vector2D MapChip::GetPos(Vector2D worldPos) {
 	Vector2D mapChipPos;
 	mapChipPos.x = (float)(static_cast<int>(worldPos.x) / kMapSize) * kMapSize;
 	mapChipPos.y = (float)(static_cast<int>(worldPos.y - 1.0f) / kMapSize) * kMapSize;
+	return mapChipPos;
+}
+
+Vector2D MapChip::GetNum(Vector2D worldPos) {
+	Vector2D mapChipPos;
+	mapChipPos.x = static_cast<float>((static_cast<int>(worldPos.x) / kMapSize));
+	mapChipPos.y = static_cast<float>((static_cast<int>(worldPos.y - 1.0f) / kMapSize));
 	return mapChipPos;
 }
 

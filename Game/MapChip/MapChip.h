@@ -48,6 +48,9 @@ public:
 	// マップチップの座標
 	static Vector2D GetPos(Vector2D worldPos);
 
+	//　マップチップの番号取得
+	static Vector2D GetNum(Vector2D worldPos);
+
 	// MapChipの表示処理
 	static void Draw(Texture& texture);
 

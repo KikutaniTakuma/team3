@@ -28,6 +28,14 @@ public:
 private:
 	void Collision();
 
+private:
+	// A*ƒAƒ‹ƒSƒŠƒYƒ€—pŠÖ”
+	int Heuristic();
+
+	void Astar();
+
+
+
 public:
 	void Update() override;
 
