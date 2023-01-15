@@ -86,6 +86,12 @@
     <Filter Include="Game\Fade">
       <UniqueIdentifier>{6189101a-d5f4-4252-be27-bb15785fdbe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fullscreen">
+      <UniqueIdentifier>{fa5a6ee2-bac5-4a79-8db9-2cac0e31db27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GoalUI">
+      <UniqueIdentifier>{29834a31-d56c-47b5-90ab-267ac827c924}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\Astar">
       <UniqueIdentifier>{e3dc3153-643b-4dfb-aa9f-0f37efdd2c0f}</UniqueIdentifier>
     </Filter>
@@ -172,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="Game\Fade\Fade.cpp">
       <Filter>Game\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Fullscreen\Fullscreen.cpp">
+      <Filter>Fullscreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GoalUI\GoalUI.cpp">
+      <Filter>Game\GoalUI</Filter>
     </ClCompile>
     <ClCompile Include="Game\Astar\Astar.cpp">
       <Filter>Game\Astar</Filter>
@@ -321,6 +333,12 @@
     </ClInclude>
     <ClInclude Include="Game\Fade\Fade.h">
       <Filter>Game\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Fullscreen\Fullscreen.h">
+      <Filter>Fullscreen</Filter>
+    </ClInclude>
+     <ClInclude Include="Game\GoalUI\GoalUI.h">
+      <Filter>Game\GoalUI</Filter>
     </ClInclude>
     <ClInclude Include="Game\Astar\Astar.h">
       <Filter>Game\Astar</Filter>
