@@ -71,6 +71,7 @@ Vector2D MapChip::GetPos(Vector2D worldPos) {
 }
 
 Vector2D MapChip::GetNum(Vector2D worldPos) {
+	MyMath::CoordinateChange(worldPos);
 	Vector2D mapChipPos;
 	mapChipPos.x = static_cast<float>((static_cast<int>(worldPos.x) / kMapSize));
 	mapChipPos.y = static_cast<float>((static_cast<int>(worldPos.y - 1.0f) / kMapSize));
@@ -83,33 +84,16 @@ void MapChip::Draw(Texture& texture) {
 	int y = 0;
 	Quad quad( {0.0f,0.0f}, { kMapSize, kMapSize } );
 
-	// カメラの映る範囲のマップチップの番号を取得
-	int firstY = (static_cast<int>(camera->getPos().y) / kMapSize) + (static_cast<int>(camera->getDrawSize().y / 2.0f) / kMapSize) + 1;
-	int lastY = (static_cast<int>(camera->getDrawSize().y / 2.0f) / kMapSize) - (static_cast<int>(camera->getPos().y) / kMapSize) - 1;
-	firstY += lastY;
-
-	if (firstY > kMapHeight - 1) {
-		firstY = kMapHeight - 1;
-	}
-	if (lastY < 0) {
-		lastY = 0;
-	}
-
-	int firstX = (static_cast<int>(camera->getPos().x) / kMapSize) - (static_cast<int>(camera->getDrawSize().x / 2.0f) / kMapSize) - 1;
-	int lastX = (static_cast<int>(camera->getPos().x) / kMapSize) + (static_cast<int>(camera->getDrawSize().x / 2.0f) / kMapSize) + 1;
-
-	if (firstX < 0) {
-		firstX = 0;
-	}
-	if (lastX > kMapWidth) {
-		lastX = kMapWidth;
-	}
-
-	for (y = firstY; y >= lastY; y--) {
-		for (x = firstX; x < lastX; x++) {
+	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
+		for (x = 0; x < MapChip::kMapWidth; x++) {
 			quad.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
 			MyMath::CoordinateChange(quad.worldPos);
 			quad.worldMatrix.Translate(quad.worldPos);
+
+			if (!camera->isDraw(quad.worldPos))
+			{
+				continue;
+			}
 
 			switch (data[y * MapChip::kMapWidth + x]) {
 			case (int)MapChip::Type::NONE:
@@ -118,6 +102,21 @@ void MapChip::Draw(Texture& texture) {
 				break;
 			case (int)MapChip::Type::BLOCK:
 				camera->DrawQuad(quad, texture, 0, false, WHITE);
+
+				break;
+
+			case (int)MapChip::Type::Closed:
+				camera->DrawQuad(quad, texture, 0, false, MyMath::GetRGB(122,122,122,0xff));
+
+				break;
+
+			case (int)MapChip::Type::Open:
+				camera->DrawQuad(quad, texture, 0, false, MyMath::GetRGB(255, 255, 0, 0xff));
+
+				break;
+
+			case (int)MapChip::Type::Short:
+				camera->DrawQuad(quad, texture, 0, false, MyMath::GetRGB(255, 0, 0, 0xff));
 
 				break;
 

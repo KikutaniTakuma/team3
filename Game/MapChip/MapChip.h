@@ -12,6 +12,9 @@ public:
 	enum class Type {
 		NONE, // 0
 		BLOCK, // 1
+		Closed,
+		Open,
+		Short,
 
 		kMaxNum
 	};
