@@ -55,8 +55,6 @@ void Enemy::Update() {
 	astr.start = pos.worldPos;
 
 	astr.goal = player->getWorldPos();
-
-	astr.Proc();
 }
 
 void Enemy::Draw(Texture& tex) {
