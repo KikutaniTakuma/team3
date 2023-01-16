@@ -95,6 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button\Button.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
@@ -125,9 +126,11 @@
     <ClCompile Include="Game\Texture\Texture.cpp" />
     <ClCompile Include="Game\Vector2D\Vector2D.cpp" />
     <ClCompile Include="Game\World\World.cpp" />
+    <ClCompile Include="Goal\Goal.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button\Button.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\MathUtility.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Matrix4.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector2.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="Game\World\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Goal\Goal.h" />
     <ClInclude Include="Resources\debugfont.png" />
     <ClInclude Include="Resources\white1x1.png" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "Goal/Goal.h"
 
 class World {
 public:
@@ -24,4 +25,6 @@ private:
 	std::vector<class Object*> object;
 
 	class Texture* whiteBox;
+
+	Goal goal;
 };

@@ -16,4 +16,5 @@ void Astar::Proc() {
 int Astar::Heuristic() {
 	width = abs(static_cast<int>(MapChip::GetNum(start).x - MapChip::GetNum(goal).x));
 	height = abs(static_cast<int>(MapChip::GetNum(start).y - MapChip::GetNum(goal).y));
+	return 0;
 }

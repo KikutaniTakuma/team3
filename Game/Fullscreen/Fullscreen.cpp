@@ -3,8 +3,10 @@
 #include "Game/KeyInput/KeyInput.h"
 
 Screen::Screen() {
-	screenmode = false;
+
 }
+
+bool Screen::screenmode = false;
 
 //フルスクリーン切り替え-----------------------------------------------------------------------------
 #pragma region FULL_screen
