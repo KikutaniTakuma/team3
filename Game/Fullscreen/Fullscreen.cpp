@@ -2,12 +2,13 @@
 #include <Novice.h>
 #include "Game/KeyInput/KeyInput.h"
 
+bool Screen::screenmode;
+
 Screen::Screen() {
 	screenmode = false;
 }
 
 //フルスクリーン切り替え-----------------------------------------------------------------------------
-#pragma region FULL_screen
 void Screen::Chang(int Key) {
 	
 	if (KeyInput::Pushed(Key))
@@ -31,4 +32,3 @@ void Screen::Chang(int Key) {
 		Novice::SetWindowMode(kFullscreen);
 	}
 }
-#pragma endregion

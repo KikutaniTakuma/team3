@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game/Object/Object.h"
+#include "Game/Astar/Astar.h"
 
 class Enemy : public Object {
 public:
@@ -30,10 +31,7 @@ private:
 
 private:
 	// A*ƒAƒ‹ƒSƒŠƒYƒ€—pŠÖ”
-	int Heuristic();
-
-	void Astar();
-
+	Astar astr;
 
 
 public:

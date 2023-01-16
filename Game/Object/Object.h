@@ -8,7 +8,7 @@ public:
 	Object(Camera* camera);
 
 protected:
-	const Camera* camera;
+	Camera* camera;
 
 	Quad pos;
 	Quad drawPos;

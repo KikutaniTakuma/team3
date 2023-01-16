@@ -84,10 +84,11 @@ public:
 private:
 	void Shake();
 
-private:
+public:
 	// ƒJƒƒ‰À•W(^‚ñ’†)
 	Vector2D worldPos;
 
+private:
 	Vector2D screenPos;
 
 	Vector2D drawLeftTop;

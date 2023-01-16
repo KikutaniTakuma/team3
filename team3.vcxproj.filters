@@ -185,11 +185,11 @@
     <ClCompile Include="Game\GoalUI\GoalUI.cpp">
       <Filter>Game\GoalUI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Astar\Astar.cpp">
-      <Filter>Game\Astar</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Astar\Node\Node.cpp">
       <Filter>Game\Astar\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Astar\Astar.cpp">
+      <Filter>Game\Astar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,7 +337,7 @@
     <ClInclude Include="Game\Fullscreen\Fullscreen.h">
       <Filter>Fullscreen</Filter>
     </ClInclude>
-     <ClInclude Include="Game\GoalUI\GoalUI.h">
+    <ClInclude Include="Game\GoalUI\GoalUI.h">
       <Filter>Game\GoalUI</Filter>
     </ClInclude>
     <ClInclude Include="Game\Astar\Astar.h">

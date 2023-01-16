@@ -253,9 +253,6 @@ float EaseInOutElastic(float x) {
 	}
 }
 
-float EaseInBounce(float x) {
-	return 1.0f - EaseOutBounce(1.0f - x);
-}
 float EaseOutBounce(float x) {
 	const float n1 = 7.5625f;
 	const float d1 = 2.75f;
@@ -272,6 +269,9 @@ float EaseOutBounce(float x) {
 	else {
 		return n1 * (x -= 2.625f / d1) * x + 0.984375f;
 	}
+}
+float EaseInBounce(float x) {
+	return 1.0f - EaseOutBounce(1.0f - x);
 }
 float EaseInOutBounce(float x) {
 	if (x < 0.5f)

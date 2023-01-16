@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <stack>
 #include "Game/Vector2D/Vector2D.h"
 #include "Node/Node.h"
 
@@ -13,20 +12,28 @@ private:
 	int width;
 	int height;
 
-	int cost;
+	int score;
 
+public:
 	Vector2D start;
 	Vector2D goal;
 
+private:
 	Node startNode;
 
-	std::stack<Vector2D> shortData;
+	Node& currentNode;
+
+	std::vector<Node> nodeData;
+
+	std::vector<Node> openData;
 
 public:
 	void Proc();
 
-	void Move(Vector2D& pos);
+	/*void Move(Vector2D& pos);*/
 
 private:
-	int Heuristic();
+	int Heuristic(Vector2D pos);
+
+	int Heuristic(int x, int y);
 };

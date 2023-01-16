@@ -82,7 +82,7 @@ Vector2D MapChip::GetNum(Vector2D worldPos) {
 void MapChip::Draw(Texture& texture) {
 	int x = 0;
 	int y = 0;
-	Quad quad( {0.0f,0.0f}, { kMapSize, kMapSize } );
+	Quad quad({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
 	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
 		for (x = 0; x < MapChip::kMapWidth; x++) {

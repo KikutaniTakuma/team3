@@ -51,19 +51,12 @@ void Enemy::Update() {
 	this->Collision();
 
 	pos.worldMatrix.Translate(pos.worldPos);
-}
 
-int Enemy::Heuristic() {
-	int width = abs(static_cast<int>(MapChip::GetNum(pos.worldPos).x - MapChip::GetNum(player->getWorldPos()).x));
-	int height = abs(static_cast<int>(MapChip::GetNum(pos.worldPos).y - MapChip::GetNum(player->getWorldPos()).y));
+	astr.start = pos.worldPos;
 
-	return width + height;
-}
+	astr.goal = player->getWorldPos();
 
-void Enemy::Astar() {
-	int cost = 0;
-
-	// ’Tõ‚·‚é•ûŒü‚ğŒˆ‚ß‚é
+	astr.Proc();
 }
 
 void Enemy::Draw(Texture& tex) {

@@ -112,6 +112,8 @@ void Player::Update() {
 	this->Collision();
 
 	pos.worldMatrix.Translate(pos.worldPos);
+
+	camera->worldPos = pos.worldPos;
 }
 
 // •`‰æˆ—ŠÖ”
