@@ -98,6 +98,12 @@
     <Filter Include="Game\Astar\Node">
       <UniqueIdentifier>{44540e71-c334-42cf-b9d6-d45f0ed52a9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Button">
+      <UniqueIdentifier>{4adfc490-9e65-41fd-91ef-fe8d98d9d94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Goal">
+      <UniqueIdentifier>{580f09e6-e54b-4235-a17f-bbee48abe55b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -190,6 +196,15 @@
     </ClCompile>
     <ClCompile Include="Game\Astar\Astar.cpp">
       <Filter>Game\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Astar\Node\Node.cpp">
+      <Filter>Game\Astar\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="Button\Button.cpp">
+      <Filter>Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal\Goal.cpp">
+      <Filter>Goal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +360,12 @@
     </ClInclude>
     <ClInclude Include="Game\Astar\Node\Node.h">
       <Filter>Game\Astar\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="Button\Button.h">
+      <Filter>Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal\Goal.h">
+      <Filter>Goal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

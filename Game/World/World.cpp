@@ -25,6 +25,8 @@ void World::Update() {
 	for (auto& i : object) {
 		i->Update();
 	}
+
+	goal.Update();
 }
 
 // •`‰æˆ—

@@ -5,8 +5,10 @@
 bool Screen::screenmode;
 
 Screen::Screen() {
-	screenmode = false;
+
 }
+
+bool Screen::screenmode = false;
 
 //フルスクリーン切り替え-----------------------------------------------------------------------------
 void Screen::Chang(int Key) {
