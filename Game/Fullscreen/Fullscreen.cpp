@@ -2,8 +2,6 @@
 #include <Novice.h>
 #include "Game/KeyInput/KeyInput.h"
 
-bool Screen::screenmode;
-
 Screen::Screen() {
 
 }
