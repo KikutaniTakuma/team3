@@ -25,6 +25,7 @@ void World::Update() {
 	switch (scene)
 	{
 	case SCENE::TITLE:
+		title.Update();
 		break;
 	case SCENE::STAGE:
 		for (auto& i : object) {
@@ -38,18 +39,37 @@ void World::Update() {
 		break;
 	case SCENE::GAME_OVER:
 		break;
+	case SCENE::MAX_SCENE:
+		break;
 	}
 	
 }
 
 // •`‰æˆ—
 void World::Draw() {
-	camera->Update();
+	
+	switch (scene)
+	{
+	case SCENE::TITLE:
+		title.Draw();
+		break;
+	case SCENE::STAGE:
 
-	MapChip::Draw(*whiteBox);
+		camera->Update();
 
-	for (auto& i : object) {
-		i->Draw(*whiteBox);
+		MapChip::Draw(*whiteBox);
+
+		for (auto& i : object) {
+			i->Draw(*whiteBox);
+		}
+
+		break;
+	case SCENE::GAME_CLEAR:
+		break;
+	case SCENE::GAME_OVER:
+		break;
+	case SCENE::MAX_SCENE:
+		break;
 	}
 
 }

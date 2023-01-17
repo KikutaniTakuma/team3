@@ -1,7 +1,12 @@
 #pragma once
 
 #include <vector>
+
 #include "Goal/Goal.h"
+#include "SCENE/TITLE/TITLE.h"
+#include "SCENE/STAGE/STAGE.h"
+#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
+#include "SCENE/GAME_OVER/GAME_OVER.h"
 
 class World {
 public:
@@ -38,5 +43,7 @@ private:
 		GAME_OVER,
 
 		MAX_SCENE
-	}scene = SCENE::STAGE;
+	}scene = SCENE::TITLE;
+
+	Title title;
 };
