@@ -17,6 +17,8 @@ const int MapChip::kStageNumberHeight = 11;
 const int MapChip::kMapWidth = 199;
 const int MapChip::kMapHeight = 200;
 const Camera* MapChip::camera = nullptr;
+Quad MapChip::pos;
+
 
 void MapChip::Initilize() {
 	MapChip::data.resize(MapChip::kMapHeight * MapChip::kMapWidth);
@@ -82,46 +84,46 @@ Vector2D MapChip::GetNum(Vector2D worldPos) {
 void MapChip::Draw(Texture& texture) {
 	int x = 0;
 	int y = 0;
-	Quad quad({ 0.0f,0.0f }, { kMapSize, kMapSize });
+	pos.Set({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
 	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
 		for (x = 0; x < MapChip::kMapWidth; x++) {
-			quad.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
-			MyMath::CoordinateChange(quad.worldPos);
-			quad.worldMatrix.Translate(quad.worldPos);
+			pos.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
+			MyMath::CoordinateChange(pos.worldPos);
+			pos.worldMatrix.Translate(pos.worldPos);
 
-			if (!camera->isDraw(quad.worldPos))
+			if (!camera->isDraw(pos.worldPos))
 			{
 				continue;
 			}
 
 			switch (data[y * MapChip::kMapWidth + x]) {
 			case (int)MapChip::Type::NONE:
-				camera->DrawQuad(quad, texture, 0, false, BLACK);
+				camera->DrawQuad(pos, texture, 0, false, BLACK);
 
 				break;
 			case (int)MapChip::Type::BLOCK:
-				camera->DrawQuad(quad, texture, 0, false, WHITE);
+				camera->DrawQuad(pos, texture, 0, false, WHITE);
 
 				break;
 
 			case (int)MapChip::Type::Closed:
-				camera->DrawQuad(quad, texture, 0, false, MyMath::GetRGB(122,122,122,0xff));
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(122,122,122,0xff));
 
 				break;
 
 			case (int)MapChip::Type::Open:
-				camera->DrawQuad(quad, texture, 0, false, MyMath::GetRGB(255, 255, 0, 0xff));
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(255, 255, 0, 0xff));
 
 				break;
 
 			case (int)MapChip::Type::Short:
-				camera->DrawQuad(quad, texture, 0, false, MyMath::GetRGB(255, 0, 0, 0xff));
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(255, 0, 0, 0xff));
 
 				break;
 
 			default:
-				camera->DrawQuad(quad, texture, 0, false, BLACK);
+				camera->DrawQuad(pos, texture, 0, false, BLACK);
 
 				break;
 			}

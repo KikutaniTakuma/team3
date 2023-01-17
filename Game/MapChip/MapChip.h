@@ -36,6 +36,8 @@ public:
 private:
 	static const class Camera* camera;
 
+	static Quad pos;
+
 public:
 	static void Initilize();
 
