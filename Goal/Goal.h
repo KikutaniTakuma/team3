@@ -17,11 +17,15 @@ private:
 	bool goalAdvent;
 	//	
 	int count;
+	//
+	Vector2D ram;
+	
 
 public:
 	//	ボタンの状態確認
 	void StateUpdate();
-	
+	//	ボタンのセット
+	void setBottonPos();
 	//
 	void Update();
 

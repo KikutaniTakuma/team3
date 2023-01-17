@@ -1,10 +1,12 @@
 #include "Goal/Goal.h"
 #include <Novice.h>
+#include "Game/MapChip/MapChip.h"
 
 Goal::Goal() : kMaxButton(4) {
 	button = new Button[kMaxButton];
 	goalAdvent = false;
 	count = 0;
+	ram = { 0.0f,0.0f };
 }
 
 Goal::~Goal() {
@@ -37,6 +39,20 @@ void Goal::StateUpdate() {
 	}
 }
 
+void Goal::setBottonPos() {
+	for (int i = 0; i < kMaxButton; i++)
+	{		
+		do {
+			//	óêêîÇ≈ê∂ê¨ÇµÇƒìñÇƒÇÕÇﬂÇÈ
+			ram = { static_cast<float>(MyMath::Random(0,(MapChip::kMapWidth / 2)) * MapChip::kMapSize),
+				static_cast<float>(MyMath::Random(0,100) * MapChip::kMapSize) };
+
+		} while (MapChip::GetType(ram) != static_cast<int>(MapChip::Type::NONE));
+
+		button[i].setPos(ram);
+	}
+}
+
 void Goal::Update() {
 	//	ÉSÅ[ÉãÇ™äJÇ¢ÇΩÇÁ
 	if (goalAdvent)
@@ -48,8 +64,17 @@ void Goal::Update() {
 	{
 		StateUpdate();
 	}
+
+	for (int i = 0; i < kMaxButton; i++)
+	{
+	//	Vector2D ram = { MyMath::Random(0,100),MyMath::Random(0,100) };
+	//	button[i].setPos(ram); 
+		Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i].getPos().x);
+		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i].getPos().y);
+	}
+
 }
 
 void Goal::Draw() {
-	Novice::ScreenPrintf(50, 100, "good");
+
 }
