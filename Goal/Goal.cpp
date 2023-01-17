@@ -7,6 +7,9 @@ Goal::Goal() : kMaxButton(4) {
 	goalAdvent = false;
 	count = 0;
 	ram = { 0.0f,0.0f };
+
+	pos = { 0.0f,0.0f };
+	size = { (float)MapChip::kMapSize,(float)MapChip::kMapSize };
 }
 
 Goal::~Goal() {
@@ -51,6 +54,10 @@ void Goal::setBottonPos() {
 
 		button[i].setPos(ram);
 	}
+}
+
+Vector2D Goal::getPos() {
+	return this->pos;
 }
 
 void Goal::Update() {

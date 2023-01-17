@@ -20,12 +20,17 @@ private:
 	//
 	Vector2D ram;
 	
+	Vector2D pos;
+	Vector2D size;
 
 public:
 	//	ボタンの状態確認
 	void StateUpdate();
 	//	ボタンのセット
 	void setBottonPos();
+	//	ゴール座標の取得
+	Vector2D getPos();
+
 	//
 	void Update();
 
