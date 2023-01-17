@@ -1,5 +1,6 @@
 #include "Button/Button.h"
 #include "Game/MyMath/MyMath.h"
+#include <Novice.h>
 
 Button::Button() {
 	isPushButton = false;
@@ -21,4 +22,12 @@ bool Button::getPushButton() {
 
 void Button::setPos(Vector2D pos) {
 	this->pos = pos;
+}
+
+Vector2D Button::getPos() {
+	return this->pos;
+}
+
+void Button::Draw() {
+
 }

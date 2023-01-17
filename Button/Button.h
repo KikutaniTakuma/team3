@@ -23,6 +23,9 @@ public:
 
 	//	ƒ{ƒ^ƒ“‚ÌÀ•W‚Ìİ’è
 	void setPos(Vector2D pos);
+	Vector2D getPos();
+
+	void Draw();
 
 };
 
