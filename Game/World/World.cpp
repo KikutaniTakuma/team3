@@ -22,11 +22,24 @@ const char* kWindowTitle = "LC1A_08_キクタニタクマ_タイトル";
 
 // 更新処理
 void World::Update() {
-	for (auto& i : object) {
-		i->Update();
-	}
+	switch (scene)
+	{
+	case SCENE::TITLE:
+		break;
+	case SCENE::STAGE:
+		for (auto& i : object) {
+			i->Update();
+		}
 
-	goal.Update();
+		goal.Update();
+
+		break;
+	case SCENE::GAME_CLEAR:
+		break;
+	case SCENE::GAME_OVER:
+		break;
+	}
+	
 }
 
 // 描画処理
@@ -38,6 +51,7 @@ void World::Draw() {
 	for (auto& i : object) {
 		i->Draw(*whiteBox);
 	}
+
 }
 
 
@@ -69,6 +83,7 @@ World::World() {
 	object.emplace_back(new Enemy(camera, tmp));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
+
 }
 
 World::World(int screenSizeX, int screenSizeY) {
@@ -86,6 +101,7 @@ World::World(int screenSizeX, int screenSizeY) {
 	object.emplace_back(new Player(camera));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
+
 }
 
 World::~World() {

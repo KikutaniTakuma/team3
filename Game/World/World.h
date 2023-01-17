@@ -27,4 +27,16 @@ private:
 	class Texture* whiteBox;
 
 	Goal goal;
+
+private:
+	//	ÉVÅ[Éìenum
+	enum class SCENE
+	{
+		TITLE, // 0
+		STAGE,
+		GAME_CLEAR,
+		GAME_OVER,
+
+		MAX_SCENE
+	}scene = SCENE::STAGE;
 };
