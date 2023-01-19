@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <list>
 #include "Game/Vector2D/Vector2D.h"
 #include "Node/Node.h"
 
@@ -21,11 +22,11 @@ public:
 private:
 	Node startNode;
 
-	Node& currentNode;
+	Node* currentNode;
 
-	std::vector<Node> nodeData;
+	std::list<Node*> closeData;
 
-	std::vector<Node> openData;
+	std::list<Node*> openData;
 
 public:
 	void Proc();

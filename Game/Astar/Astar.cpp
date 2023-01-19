@@ -2,9 +2,9 @@
 #include "Game/MapChip/MapChip.h"
 
 Astar::Astar() :
-	nodeData(0),
+	closeData(0),
 	openData(0),
-	currentNode(startNode),
+	currentNode(&startNode),
 	score(0),
 	width(0),
 	height(0)
@@ -13,25 +13,67 @@ Astar::Astar() :
 void Astar::Proc() {
 	//最初のノードをオープン
 	startNode = Node(start);
+	startNode.h = this->Heuristic(startNode.x, startNode.y);
 	startNode.state = Node::State::Open;
-	startNode.c = 0;
-	startNode.h = this->Heuristic(start);
-	startNode.pre = nullptr;
+
+	openData.push_back(&startNode);
+
+	/*bool flg = true;*/
 
 	//ここからループ
 	//ヒューリスティック関数がゼロになるまで
-	while (this->Heuristic(currentNode.x, currentNode.y) != 0)
+	while (openData.empty() == false)
 	{
-		// 周りのノードをオープン
-		currentNode.Open();
-		for (auto& i : currentNode.edges) {
-			i.h = this->Heuristic(i.x, i.y);
-			openData.emplace_back(i);
-			nodeData.emplace_back(i);
+		Node* searchNode = *(openData.begin());
+
+		openData.erase(openData.begin());
+		
+		closeData.push_back(searchNode);
+
+		if (*searchNode == Node(goal)) {
+			break;
 		}
 
+		searchNode->Open();
+
+		for (auto& j : searchNode->edges) {
+			j.h = this->Heuristic(j.x, j.y);
+			openData.push_back(&j);
+			for (auto& i : openData) {
+				if (!(*i == j)) {
+					openData.pop_back();
+					break;
+				}
+			}
+		}
+
+		openData.sort(Less);
+
+
+		/*for (int i = 0; i < currentNode.edges.size(); i++) {
+			currentNode.edges[i].h = this->Heuristic(currentNode.edges[i].x, currentNode.edges[i].y);
+			openData.emplace_back(currentNode.edges[i]);
+			for (auto& j : nodeData) {
+				if (j == currentNode.edges[i]) {
+					openData.pop_back();
+					flg = false;
+					break;
+				}
+				else {
+					flg = true;
+				}
+			}
+			if (flg) {
+				nodeData.emplace_back(currentNode.edges[i]);
+			}
+		}*/
+
+		/*if(nodeData.size() > 300){
+			break;
+		}*/
+
 		// 基準ノードをリセット
-		score = openData[0].getS();
+		/*score = openData[0].getS();
 		for (auto i = openData.begin(); i != openData.end(); i++) {
 			if (i->getS() < score) {
 				score = i->getS();
@@ -44,10 +86,10 @@ void Astar::Proc() {
 				openData.erase(i);
 				break;
 			}
-		}
+		}*/
 	}
 
-	Node* tmp = &currentNode;
+	Node* tmp = currentNode;
 	while (tmp != nullptr) {
 		MapChip::data[tmp->y * MapChip::kMapWidth + tmp->x] = (int)MapChip::Type::Short;
 		tmp = tmp->pre;

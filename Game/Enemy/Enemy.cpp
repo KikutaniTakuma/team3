@@ -51,10 +51,6 @@ void Enemy::Update() {
 	this->Collision();
 
 	pos.worldMatrix.Translate(pos.worldPos);
-
-	astr.start = pos.worldPos;
-
-	astr.goal = player->getWorldPos();
 }
 
 void Enemy::Draw(Texture& tex) {

@@ -14,13 +14,12 @@ public:
 public:
 	Node();
 	Node(Vector2D pos);
+	Node(int x, int y);
 
 public:
 	int c;
 	int h;
-private:
-	int s;
-public:
+
 	int x;
 	int y;
 	State state;
@@ -31,9 +30,21 @@ public:
 public:
 	const Node& operator=(const Node& tmp);
 
+	bool operator==(const Node& tmp);
+
 	void Open();
 
 	inline int getS() {
 		return h + c;
 	}
 };
+
+inline bool Less(Node* a, Node* b)
+{
+	if (a->getS() < b->getS())
+	{
+		return true;
+	}
+
+	return false;
+}

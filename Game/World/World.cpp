@@ -91,6 +91,12 @@ World::World(int screenSizeX, int screenSizeY) {
 World::~World() {
 	delete camera;
 
+	delete whiteBox;
+
+	for (auto& i : object) {
+		delete i;
+	}
+
 	MapChip::Finalize();
 
 	// ƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹

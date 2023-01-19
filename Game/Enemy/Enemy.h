@@ -29,8 +29,8 @@ public:
 private:
 	void Collision();
 
-private:
-	// A*アルゴリズム用関数
+//private:
+//	// A*アルゴリズム用関数
 	Astar astr;
 
 
