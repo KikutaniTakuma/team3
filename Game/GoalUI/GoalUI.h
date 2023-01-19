@@ -8,7 +8,7 @@ public:
 	~GoalUI();
 private:	
 	////ゴールのポジション
-	Goal *positionGoal;
+	class Goal *positionGoal;
 	//UIのポジション
 	Vector2D positionUI;
 	//UI自体の大きさ
