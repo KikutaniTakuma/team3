@@ -86,6 +86,8 @@ void MapChip::Draw(Texture& texture) {
 	int y = 0;
 	pos.Set({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
+	int firstY = 
+
 	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
 		for (x = 0; x < MapChip::kMapWidth; x++) {
 			pos.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
@@ -133,7 +135,13 @@ void MapChip::Draw(Texture& texture) {
 
 void MapChip::Collision(Quad& pos, Vector2D& moveVec) {
 	// 1, 進んでいる方向に当たり判定のオブジェクトがあるかどうか
+	// 当たる可能性があるオブジェクトを選び取る関数
+	// 
+	// 
 	// カプセル処理(だるい上に計算量多い)
+	// MyMath::capsule;
+	// 
+	// 
 	// 移動前の移動方向に一番近いオブジェクトがあたっているかどうか
 
 
