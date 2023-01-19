@@ -104,6 +104,21 @@
     <Filter Include="Goal">
       <UniqueIdentifier>{580f09e6-e54b-4235-a17f-bbee48abe55b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SCENE">
+      <UniqueIdentifier>{80f2c3ab-74f5-4a29-b30a-9138234b1ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\TITLE">
+      <UniqueIdentifier>{3a09e5cb-ed22-4893-ad4d-6cb2f2842070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\STAGE">
+      <UniqueIdentifier>{bccf6ba1-6fef-443d-ad31-2bc43507e42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\GAME_CLEAR">
+      <UniqueIdentifier>{fcf381ed-287e-4cf0-9169-5ed960d9c578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\GAME_OVER">
+      <UniqueIdentifier>{93d5a25c-1175-4ec7-a81e-a711c9f398ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -205,6 +220,18 @@
     </ClCompile>
     <ClCompile Include="Goal\Goal.cpp">
       <Filter>Goal</Filter>
+    </ClCompile>
+    <ClCompile Include="SCENE\TITLE\TITLE.cpp">
+      <Filter>SCENE\TITLE</Filter>
+    </ClCompile>
+    <ClCompile Include="SCENE\STAGE\STAGE.cpp">
+      <Filter>SCENE\STAGE</Filter>
+    </ClCompile>
+    <ClCompile Include="SCENE\GAME_CLEAR\GAME_CLEAR.cpp">
+      <Filter>SCENE\GAME_CLEAR</Filter>
+    </ClCompile>
+    <ClCompile Include="SCENE\GAME_OVER\GAME_OVER.cpp">
+      <Filter>SCENE\GAME_OVER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +393,18 @@
     </ClInclude>
     <ClInclude Include="Goal\Goal.h">
       <Filter>Goal</Filter>
+    </ClInclude>
+    <ClInclude Include="SCENE\TITLE\TITLE.h">
+      <Filter>SCENE\TITLE</Filter>
+    </ClInclude>
+    <ClInclude Include="SCENE\STAGE\STAGE.h">
+      <Filter>SCENE\STAGE</Filter>
+    </ClInclude>
+    <ClInclude Include="SCENE\GAME_CLEAR\GAME_CLEAR.h">
+      <Filter>SCENE\GAME_CLEAR</Filter>
+    </ClInclude>
+    <ClInclude Include="SCENE\GAME_OVER\GAME_OVER.h">
+      <Filter>SCENE\GAME_OVER</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

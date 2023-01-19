@@ -1,7 +1,12 @@
 #pragma once
 
 #include <vector>
+
 #include "Goal/Goal.h"
+#include "SCENE/TITLE/TITLE.h"
+#include "SCENE/STAGE/STAGE.h"
+#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
+#include "SCENE/GAME_OVER/GAME_OVER.h"
 
 class World {
 public:
@@ -27,4 +32,21 @@ private:
 	class Texture* whiteBox;
 
 	Goal goal;
+
+private:
+	//	ÉVÅ[Éìenum
+	enum class SCENE
+	{
+		TITLE, // 0
+		STAGE,
+		GAME_CLEAR,
+		GAME_OVER,
+
+		MAX_SCENE
+	}scene = SCENE::TITLE;
+
+	Title title;
+	Stage stage;
+	Game_Clear game_clear;
+	Game_Over game_over;
 };

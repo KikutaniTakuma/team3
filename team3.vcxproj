@@ -128,6 +128,10 @@
     <ClCompile Include="Game\World\World.cpp" />
     <ClCompile Include="Goal\Goal.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SCENE\GAME_CLEAR\GAME_CLEAR.cpp" />
+    <ClCompile Include="SCENE\GAME_OVER\GAME_OVER.cpp" />
+    <ClCompile Include="SCENE\STAGE\STAGE.cpp" />
+    <ClCompile Include="SCENE\TITLE\TITLE.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button\Button.h" />
@@ -182,6 +186,10 @@
     <ClInclude Include="Game\Texture\Texture.h" />
     <ClInclude Include="Game\Vector2D\Vector2D.h" />
     <ClInclude Include="Game\World\World.h" />
+    <ClInclude Include="SCENE\GAME_CLEAR\GAME_CLEAR.h" />
+    <ClInclude Include="SCENE\GAME_OVER\GAME_OVER.h" />
+    <ClInclude Include="SCENE\STAGE\STAGE.h" />
+    <ClInclude Include="SCENE\TITLE\TITLE.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Goal\Goal.h" />

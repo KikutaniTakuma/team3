@@ -5,16 +5,17 @@
 class GoalUI : public Object {
 public:
 	GoalUI(Camera* camera);
+	~GoalUI();
 private:	
-	//ゴールのポジション
-	Vector2D positionGoal;
+	////ゴールのポジション
+	Goal *positionGoal;
 	//UIのポジション
 	Vector2D positionUI;
 	//UI自体の大きさ
-	int UIsize;
+	float UIsize;
 	//画面の大きさ(用意しているならそれを使用する)
-	int Width;
-	int height;
+	float width;
+	float height;
 	//色
 	unsigned int color;
 public:
