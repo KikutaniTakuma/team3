@@ -42,23 +42,23 @@ Vector2D Easing::Update() {
 	return currentPos;
 }
 
-float EaseInSine(float x) {
+float Easing::EaseInSine(float x) {
 	return 1.0f - cosf((x * (float)M_PI) / 2.0f);
 }
-float EaseOutSine(float x) {
+float Easing::EaseOutSine(float x) {
 	return sinf((x * (float)M_PI) / 2.0f);
 }
-float EaseInOutSine(float x) {
+float Easing::EaseInOutSine(float x) {
 	return -1.0f * (cosf((float)M_PI * x) - 1.0f) / 2.0f;
 }
 
-float EaseInQuad(float x) {
+float Easing::EaseInQuad(float x) {
 	return powf(x, 2.0f);
 }
-float EaseOutQuad(float x) {
+float Easing::EaseOutQuad(float x) {
 	return 1.0f - (1.0f - x) * (1.0f - x);
 }
-float EaseInOutQuad(float x) {
+float Easing::EaseInOutQuad(float x) {
 
 	if (x < 0.5f)
 	{
@@ -70,13 +70,13 @@ float EaseInOutQuad(float x) {
 	}
 }
 
-float EaseInCubic(float x) {
+float Easing::EaseInCubic(float x) {
 	return powf(x, 3.0f);
 }
-float EaseOutCubic(float x) {
+float Easing::EaseOutCubic(float x) {
 	return 1.0f - powf(1.0f - x, 3.0f);
 }
-float EaseInOutCubic(float x) {
+float Easing::EaseInOutCubic(float x) {
 	if (x < 0.5f)
 	{
 		return 4.0f * powf(x, 4.0f);
@@ -87,13 +87,13 @@ float EaseInOutCubic(float x) {
 	}
 }
 
-float EaseInQuart(float x) {
+float Easing::EaseInQuart(float x) {
 	return powf(x, 4.0f);
 }
-float EaseOutQuart(float x) {
+float Easing::EaseOutQuart(float x) {
 	return 1.0f - powf(1.0f - x, 4.0f);
 }
-float EaseInOutQuart(float x) {
+float Easing::EaseInOutQuart(float x) {
 	if (x < 0.5f)
 	{
 		return 8.0f * powf(x, 4.0f);
@@ -104,13 +104,13 @@ float EaseInOutQuart(float x) {
 	}
 }
 
-float EaseInQuint(float x) {
+float Easing::EaseInQuint(float x) {
 	return powf(x, 5.0f);
 }
-float EaseOutQuint(float x) {
+float Easing::EaseOutQuint(float x) {
 	return 1.0f - powf(1.0f - x, 5.0f);
 }
-float EaseInOutQuint(float x) {
+float Easing::EaseInOutQuint(float x) {
 	if (x < 0.5f)
 	{
 		return 16.0f * powf(x, 5.0f);
@@ -121,7 +121,7 @@ float EaseInOutQuint(float x) {
 	}
 }
 
-float EaseInExpo(float x) {
+float Easing::EaseInExpo(float x) {
 	if (x == 0.0f)
 	{
 		return 0.0f;
@@ -131,7 +131,7 @@ float EaseInExpo(float x) {
 		return powf(2.0f, 10.0f * x - 10.0f);
 	}
 }
-float EaseOutExpo(float x) {
+float Easing::EaseOutExpo(float x) {
 	if (x == 1.0f)
 	{
 		return 1.0f;
@@ -141,7 +141,7 @@ float EaseOutExpo(float x) {
 		return (1.0f - powf(2.0f, -10.0f * x));
 	}
 }
-float EaseInOutExpo(float x) {
+float Easing::EaseInOutExpo(float x) {
 	if (x == 0.0f)
 	{
 		return 0.0f;
@@ -160,13 +160,13 @@ float EaseInOutExpo(float x) {
 	}
 }
 
-float EaseInCirc(float x) {
+float Easing::EaseInCirc(float x) {
 	return 1.0f - sqrtf(1.0f - powf(x, 2.0f));
 }
-float EaseOutCirc(float x) {
+float Easing::EaseOutCirc(float x) {
 	return sqrtf(1.0f - powf(x - 1.0f, 2.0f));
 }
-float EaseInOutCirc(float x) {
+float Easing::EaseInOutCirc(float x) {
 	if (x < 0.5f)
 	{
 		return (1.0f - sqrtf(1.0f - powf(2.0f * x, 2.0f))) / 2.0f;
@@ -177,19 +177,19 @@ float EaseInOutCirc(float x) {
 	}
 }
 
-float EaseInBack(float x) {
+float Easing::EaseInBack(float x) {
 	const float c1 = 1.70158f;
 	const float c3 = c1 + 1.0f;
 
 	return (c3 * powf(x, 3.0f)) - (c1 * powf(x, 2.0f));
 }
-float EaseOutBack(float x) {
+float Easing::EaseOutBack(float x) {
 	const float c1 = 1.70158f;
 	const float c3 = c1 + 1.0f;
 
 	return 1 + c3 * powf(x - 1.0f, 3.0f) + c1 * powf(x - 1.0f, 2.0f);
 }
-float EaseInOutBack(float x) {
+float Easing::EaseInOutBack(float x) {
 	const float c1 = 1.70158f;
 	const float c2 = c1 * 1.525f;
 
@@ -203,7 +203,7 @@ float EaseInOutBack(float x) {
 	}
 }
 
-float EaseInElastic(float x) {
+float Easing::EaseInElastic(float x) {
 	const float c4 = (2.0f * (float)M_PI) / 3.0f;
 
 	if (x == 0.0f)
@@ -219,7 +219,7 @@ float EaseInElastic(float x) {
 		return -powf(2.0f, 10.0f * x - 10.0f) * sinf((x * 10.0f - 10.75f) * c4);
 	}
 }
-float EaseOutElastic(float x) {
+float Easing::EaseOutElastic(float x) {
 	const float c4 = (2.0f * (float)M_PI) / 3.0f;
 
 	if (x == 0.0f) {
@@ -232,7 +232,7 @@ float EaseOutElastic(float x) {
 		return powf(2.0f, -10.0f * x) * sinf((x * 10.0f - 0.75f) * c4) + 1.0f;
 	}
 }
-float EaseInOutElastic(float x) {
+float Easing::EaseInOutElastic(float x) {
 	const float c5 = (2.0f * (float)M_PI) / 4.5f;
 
 	if (x == 0.0f)
@@ -253,7 +253,10 @@ float EaseInOutElastic(float x) {
 	}
 }
 
-float EaseOutBounce(float x) {
+float Easing::EaseInBounce(float x) {
+	return 1.0f - EaseOutBounce(1.0f - x);
+}
+float Easing::EaseOutBounce(float x) {
 	const float n1 = 7.5625f;
 	const float d1 = 2.75f;
 
@@ -270,10 +273,7 @@ float EaseOutBounce(float x) {
 		return n1 * (x -= 2.625f / d1) * x + 0.984375f;
 	}
 }
-float EaseInBounce(float x) {
-	return 1.0f - EaseOutBounce(1.0f - x);
-}
-float EaseInOutBounce(float x) {
+float Easing::EaseInOutBounce(float x) {
 	if (x < 0.5f)
 	{
 		return (1.0f - EaseOutBounce(1.0f - 2.0f * x)) / 2.0f;

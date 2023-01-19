@@ -37,64 +37,72 @@ private:
 	std::function<float(float)> easeFunc;
 
 public:
+	explicit inline operator bool() const {
+		return easeT <= 1.0f ? true : false;
+	}
+	inline bool operator!() const {
+		return easeT > 1.0f ? true : false;
+	}
+
+public:
 	//	1”Ô
-	friend float EaseInSine(float x);
+	static float EaseInSine(float x);
 	//	2
-	friend float EaseOutSine(float x);
+	static float EaseOutSine(float x);
 	//	3
-	friend float EaseInOutSine(float x);
+	static float EaseInOutSine(float x);
 	//	4
-	friend float EaseInQuad(float x);
+	static float EaseInQuad(float x);
 	//	5
-	friend float EaseOutQuad(float x);
+	static float EaseOutQuad(float x);
 	//	6
-	friend float EaseInOutQuad(float x);
+	static float EaseInOutQuad(float x);
 	//	7
-	friend float EaseInCubic(float x);
+	static float EaseInCubic(float x);
 	//	8
-	friend float EaseOutCubic(float x);
+	static float EaseOutCubic(float x);
 	//	9
-	friend float EaseInOutCubic(float x);
+	static float EaseInOutCubic(float x);
 	//	10
-	friend float EaseInQuart(float x);
+	static float EaseInQuart(float x);
 	//	11
-	friend float EaseOutQuart(float x);
+	static float EaseOutQuart(float x);
 	//	12
-	friend float EaseInOutQuart(float x);
+	static float EaseInOutQuart(float x);
 	//	13
-	friend float EaseInQuint(float x);
+	static float EaseInQuint(float x);
 	//	14
-	friend float EaseOutQuint(float x);
+	static float EaseOutQuint(float x);
 	//	15
-	friend float EaseInOutQuint(float x);
+	static float EaseInOutQuint(float x);
 	//	16
-	friend float EaseInExpo(float x);
+	static float EaseInExpo(float x);
 	//	17
-	friend float EaseOutExpo(float x);
+	static float EaseOutExpo(float x);
 	//	18
-	friend float EaseInOutExpo(float x);
+	static float EaseInOutExpo(float x);
 	//	19
-	friend float EaseInCirc(float x);
+	static float EaseInCirc(float x);
 	//	20
-	friend float EaseOutCirc(float x);
+	static float EaseOutCirc(float x);
 	//	21
-	friend float EaseInOutCirc(float x);
+	static float EaseInOutCirc(float x);
 	//	22
-	friend float EaseInBack(float x);
+	static float EaseInBack(float x);
 	//	23
-	friend float EaseOutBack(float x);
+	static float EaseOutBack(float x);
 	//	24
-	friend float EaseInOutBack(float x);
+	static float EaseInOutBack(float x);
 	//	25
-	friend float EaseInElastic(float x);
+	static float EaseInElastic(float x);
 	//	26
-	friend float EaseOutElastic(float x);
+	static float EaseOutElastic(float x);
 	//	27
-	friend float EaseInOutElastic(float x);
+	static float EaseInOutElastic(float x);
 	//	28
-	friend float EaseInBounce(float x);
+	static float EaseInBounce(float x);
 	//	29
-	friend float EaseOutBounce(float x);
+	static float EaseOutBounce(float x);
 	//	30
-	friend float EaseInOutBounce(float x);
+	static float EaseInOutBounce(float x);
 };
