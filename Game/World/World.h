@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 
 #include "Goal/Goal.h"
 #include "SCENE/TITLE/TITLE.h"
@@ -33,13 +34,15 @@ private:
 	void Update();
 	void Draw();
 
+	void AddObj(Scene scene, class Object* obj);
+
 public:
 	void MainLoop();
 
 private:
 	class Camera* camera;
 
-	std::vector<class Object*> object;
+	std::map<Scene, std::vector<Object*>> object;
 
 	class Texture* whiteBox;
 

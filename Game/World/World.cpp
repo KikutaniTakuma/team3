@@ -28,7 +28,7 @@ void World::Update() {
 		title.Update();
 		break;
 	case Scene::STAGE:
-		for (auto& i : object) {
+		for (auto& i : object[Scene::STAGE]) {
 			i->Update();
 		}
 
@@ -59,7 +59,7 @@ void World::Draw() {
 
 		MapChip::Draw(*whiteBox);
 
-		for (auto& i : object) {
+		for (auto& i : object[Scene::STAGE]) {
 			i->Draw(*whiteBox);
 		}
 
@@ -98,13 +98,19 @@ World::World() {
 
 	MapChip::SetCamera(camera);
 
-	object.reserve(0);
+
+	object.insert(std::make_pair(Scene::TITLE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::STAGE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::GAME_CLEAR, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::GAME_OVER, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::MAX_SCENE, std::vector<Object*>(0)));
+
 
 	Player* tmp = new Player(camera);
 
-	object.emplace_back(tmp);
-	
-	object.emplace_back(new Enemy(camera, tmp));
+	AddObj(Scene::STAGE, tmp);
+
+	AddObj(Scene::STAGE, new Enemy(camera, tmp));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
@@ -120,9 +126,18 @@ World::World(int screenSizeX, int screenSizeY) {
 
 	MapChip::SetCamera(camera);
 
-	object.reserve(0);
+	object.insert(std::make_pair(Scene::TITLE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::STAGE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::GAME_CLEAR, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::GAME_OVER, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::MAX_SCENE, std::vector<Object*>(0)));
 
-	object.emplace_back(new Player(camera));
+
+	Player* tmp = new Player(camera);
+
+	AddObj(Scene::STAGE, tmp);
+
+	AddObj(Scene::STAGE, new Enemy(camera, tmp));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
@@ -134,7 +149,9 @@ World::~World() {
 	delete whiteBox;
 
 	for (auto& i : object) {
-		delete i;
+		for (auto& j : i.second) {
+			delete j;
+		}
 	}
 
 	MapChip::Finalize();
@@ -143,9 +160,15 @@ World::~World() {
 	Novice::Finalize();
 }
 
+void World::AddObj(Scene scene, class Object* obj) {
+	object[scene].push_back(obj);
+}
+
 void World::BeginProcess() {
 	for (auto& i : object) {
-		i->BeginProcess();
+		for (auto& j : i.second) {
+			j->BeginProcess();
+		}
 	}
 }
 
@@ -165,7 +188,9 @@ void World::Reset() {
 		if (KeyInput::Released(DIK_R)) {
 			MapChip::Reset();
 			for (auto& i : object) {
-				i->Reset();
+				for (auto& j : i.second) {
+					j->Reset();
+				}
 			}
 		}
 	}
