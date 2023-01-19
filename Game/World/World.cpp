@@ -86,7 +86,9 @@ void World::Draw() {
 
 
 
-World::World() {
+World::World():
+	scene(Scene::STAGE)
+{
 	// ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
 	Novice::Initialize(kWindowTitle, MapChip::kWindowWidth, MapChip::kWindowHeight);
 

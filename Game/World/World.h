@@ -49,7 +49,7 @@ private:
 	Goal goal;
 
 private:
-	Scene scene = Scene::TITLE;
+	Scene scene;
 
 	Title title;
 	Stage stage;
