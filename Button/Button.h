@@ -1,18 +1,17 @@
 #pragma once
 #include "Game/MyMath/MyMath.h"
 #include "Game/Vector2D/Vector2D.h"
+#include "Game/Object/Object.h"
 
-class Button
+class Button : public Object
 {
 public:
-	Button();
+	Button(Camera* camera);
 
 private:
 	//	押されたらtrue
 	bool isPushButton;
-	//
-	Vector2D pos;
-	Vector2D size;
+	
 
 public:
 	//	プレイヤーとの衝突用の関数
@@ -25,7 +24,11 @@ public:
 	void setPos(Vector2D pos);
 	Vector2D getPos();
 
-	void Draw();
+	void Update() override;
+
+	void Reset() override;
+
+	void Draw(class Texture& tex) override;
 
 };
 

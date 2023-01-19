@@ -1,19 +1,25 @@
 #include "Goal/Goal.h"
 #include <Novice.h>
 #include "Game/MapChip/MapChip.h"
+#include "Game/Texture/Texture.h"
 
-Goal::Goal() : kMaxButton(4) {
-	button = new Button[kMaxButton];
+Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
+	for (auto& i:button)
+	{
+		i = new Button(camera);
+	}
 	goalAdvent = false;
 	count = 0;
-	ram = { 0.0f,0.0f };
+	rnd = { 0.0f,0.0f };
 
-	pos = { 0.0f,0.0f };
-	size = { (float)MapChip::kMapSize,(float)MapChip::kMapSize };
+	pos.Set({ 0.0f,0.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }
 
 Goal::~Goal() {
-	delete[] button;
+	for (auto& i : button)
+	{
+		delete i;
+	}
 }
 
 /*	ÉÅÉÇÇ€Ç…Ç·
@@ -30,7 +36,7 @@ void Goal::StateUpdate() {
 	//	èÛë‘ÇämîF
 	for (int num = 0; num < kMaxButton; num++)
 	{
-		if (button[num].getPushButton())
+		if (button[num]->getPushButton())
 		{
 			count++;
 		}
@@ -47,17 +53,17 @@ void Goal::setBottonPos() {
 	{		
 		do {
 			//	óêêîÇ≈ê∂ê¨ÇµÇƒìñÇƒÇÕÇﬂÇÈ
-			ram = { static_cast<float>(MyMath::Random(0,(MapChip::kMapWidth / 2)) * MapChip::kMapSize),
-				static_cast<float>(MyMath::Random(0,100) * MapChip::kMapSize) };
+			rnd = { static_cast<float>((MyMath::Random((MapChip::kMapWidth / 2),0) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+				static_cast<float>((MyMath::Random(0,100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
 
-		} while (MapChip::GetType(ram) != static_cast<int>(MapChip::Type::NONE));
+		} while (MapChip::GetType(rnd) != static_cast<int>(MapChip::Type::NONE));
 
-		button[i].setPos(ram);
+		button[i]->setPos(rnd);
 	}
 }
 
 Vector2D Goal::getPos() {
-	return this->pos;
+	return pos.worldPos;
 }
 
 void Goal::Update() {
@@ -74,14 +80,19 @@ void Goal::Update() {
 
 	for (int i = 0; i < kMaxButton; i++)
 	{
-	//	Vector2D ram = { MyMath::Random(0,100),MyMath::Random(0,100) };
-	//	button[i].setPos(ram); 
-		Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i].getPos().x);
-		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i].getPos().y);
+	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
+	//	button[i].setPos(rnd); 
+		Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
+		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);
 	}
+
+	pos.worldMatrix.Translate(pos.worldPos);
+}
+
+void Goal::Reset() {
 
 }
 
-void Goal::Draw() {
+void Goal::Draw(Texture& tex) {
 
 }

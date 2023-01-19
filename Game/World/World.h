@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 
-#include "Goal/Goal.h"
+
 #include "SCENE/TITLE/TITLE.h"
 #include "SCENE/STAGE/STAGE.h"
 #include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
@@ -46,7 +46,6 @@ private:
 
 	class Texture* whiteBox;
 
-	Goal goal;
 
 private:
 	Scene scene;
