@@ -55,20 +55,20 @@ void MyMath::BubbleSort(int* data, int arr, bool order) {
 		for (int j = arr - 1; j > i; j--) {
 			if (order == true) {
 				if (data[j - 1] > data[j]) {
-					MyMath::Tmp(data[j], data[j - 1]);
+					MyMath::Swap(data[j], data[j - 1]);
 				}
 			}
 			else if (order == false) {
 				if (data[j - 1] < data[j]) {
-					MyMath::Tmp(data[j], data[j - 1]);
+					MyMath::Swap(data[j], data[j - 1]);
 				}
 			}
 		}
 	}
 }
 
-bool MyMath::Dot(const Vector2D& vec1, const Vector2D& vec2) {
-	return (vec1.x * vec2.x) + (vec1.y * vec2.y) >= 0 ? false : true;
+float MyMath::Dot(const Vector2D& vec1, const Vector2D& vec2) {
+	return (vec1.x * vec2.x) + (vec1.y * vec2.y);
 }
 
 bool MyMath::Cross(const Vector2D& vec1, const Vector2D& vec2) {
@@ -142,7 +142,6 @@ bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {
 	Vector2D f = (1.0f - t) * start + t * end;
 
 	Vector2D fc = pos - f;
-	float distance = sqrtf(fc.x * fc.x + fc.y * fc.y);
 
-	return distance < size + size ? true : false;
+	return sqrtf(fc.x * fc.x + fc.y * fc.y) < size + size ? true : false;
 }

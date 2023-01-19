@@ -58,19 +58,6 @@ public:
 	*/
 	static bool CollisionRectangle(int LeftTopX1, int LeftTopY1, int sizeX1, int sizeY1, int LeftTopX2, int LeftTopY2, int sizeX2, int sizeY2);
 
-	/*
-	入れ替え
-
-	第一引数と第二引数を入れ替える
-	*/
-	template <class T>
-	static inline void Tmp(T& x, T& y) {
-		T tmp;
-		tmp = x;
-		x = y;
-		y = tmp;
-	}
-
 
 	/*
 	バブルソート
@@ -87,7 +74,7 @@ public:
 	/// <param name="vec1"></param>
 	/// <param name="vec2"></param>
 	/// <returns></returns>
-	static bool Dot(const Vector2D& vec1, const Vector2D& vec2);
+	static float Dot(const Vector2D& vec1, const Vector2D& vec2);
 
 	/// <summary>
 	/// 外積
