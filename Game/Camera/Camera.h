@@ -74,7 +74,7 @@ public:
 	/// <para>ture:映ってる</para>
 	/// <para>false:映ってない</para>
 	/// </returns>
-	bool isDraw(Vector2D pos, const float& drawLength = 0.0f) const;
+	bool isDraw(Vector2D pos, const float& drawLength = 10.0f) const;
 
 	Vector2D getPos() const;
 	Vector2D getDrawLeftTop() const;
@@ -88,6 +88,14 @@ public:
 	// カメラ座標(真ん中)
 	Vector2D worldPos;
 
+	// シェイクの大きさ
+	Vector2D shakeScale;
+
+	// シェイクするかどうか
+	bool shakeFlg;
+
+	float drawLength;
+
 private:
 	Vector2D screenPos;
 
@@ -100,9 +108,6 @@ private:
 
 	// カメラの映るサイズ
 	Vector2D size;
-
-	// シェイクの大きさ
-	Vector2D shakeScale;
 
 	// ビュー行列
 	Matrix3x3 viewMatrix;

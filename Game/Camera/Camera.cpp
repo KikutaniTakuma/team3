@@ -12,16 +12,18 @@
 #include <stdlib.h>
 #include <limits.h>
 
-Camera::Camera() {
-	worldPos = { static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f };
-	screenPos = { 0.0f,0.0f };
-
-	drawLeftTop = { static_cast<float>(MapChip::kWindowWidth) / -2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f };
-	drawRightBottom = { static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / -2.0f };
-
-	size = { static_cast<float>(MapChip::kWindowWidth), static_cast<float>(MapChip::kWindowHeight) };
-	scale = 1.0f;
-
+Camera::Camera() :
+	worldPos({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
+	screenPos(Vector2D()),
+	drawLeftTop({ static_cast<float>(MapChip::kWindowWidth) / -2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
+	drawRightBottom({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / -2.0f }),
+	size({ static_cast<float>(MapChip::kWindowWidth), static_cast<float>(MapChip::kWindowHeight) }),
+	scale(1.0f),
+	frame(new Frame),
+	shakeScale({ 1.0f,10.0f }),
+	shakeFlg(false),
+	drawLength(10.0f)
+{
 	viewMatrix.Translate(worldPos);
 	viewMatrix.Inverse();
 
@@ -29,10 +31,7 @@ Camera::Camera() {
 
 	viewPortMatrix.Viewport(screenPos, size);
 
-	frame = new Frame;
 	frame->Restart();
-
-	shakeScale = { 10.0f, 10.0f };
 }
 
 Camera::~Camera(){
@@ -40,113 +39,16 @@ Camera::~Camera(){
 }
 
 void Camera::Update() {
-	/// 操作説明
-	/// ↑→↓←でカメラを移動
-	/// Lshift + ↑→↓←でカメラ内のワールド座標を移動
-	/// Lctrl + ↑→↓←でカメラの移す範囲の左上座標を移動
-	/// Lalt + ↑→↓←でカメラの移す範囲の右下座標を移動
-	/// PGUP でアップ
-	/// PGDN で引き
-	/// Lshift + PGUP でカメラ内のアップ
-	/// Lshift + PGDN でカメラ内の引き
-	/// Lshift + Rshift でシェイク
-	
-	if (KeyInput::getKeys(DIK_LCONTROL)) {
-		if (KeyInput::getKeys(DIK_UP)) {
-			drawLeftTop.y += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_DOWN)) {
-			drawLeftTop.y -= 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_RIGHT)) {
-			drawLeftTop.x += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_LEFT)) {
-			drawLeftTop.x -= 5.0f;
-		}
-	}
-	else if (KeyInput::getKeys(DIK_LALT)) {
-		if (KeyInput::getKeys(DIK_UP)) {
-			drawRightBottom.y += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_DOWN)) {
-			drawRightBottom.y -= 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_RIGHT)) {
-			drawRightBottom.x += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_LEFT)) {
-			drawRightBottom.x -= 5.0f;
-		}
-	}
-	else if (KeyInput::getKeys(DIK_LSHIFT)) {
-		if (KeyInput::getKeys(DIK_UP)) {
-			worldPos.y += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_DOWN)) {
-			worldPos.y -= 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_RIGHT)) {
-			worldPos.x += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_LEFT)) {
-			worldPos.x -= 5.0f;
-		}
-	}
-	else {
-		if (KeyInput::getKeys(DIK_UP)) {
-			screenPos.y += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_DOWN)) {
-			screenPos.y -= 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_RIGHT)) {
-			screenPos.x += 5.0f;
-		}
-		if (KeyInput::getKeys(DIK_LEFT)) {
-			screenPos.x -= 5.0f;
-		}
-	}
-
-	if (KeyInput::getKeys(DIK_LSHIFT)) {
-		if (KeyInput::getKeys(DIK_PGUP)) {
-			drawLeftTop.x += 5.0f;
-			drawLeftTop.y -= 2.8125f;
-			drawRightBottom.x -= 5.0f;
-			drawRightBottom.y += 2.8125f;
-		}
-		else if (KeyInput::getKeys(DIK_PGDN)) {
-			drawLeftTop.x -= 5.0f;
-			drawLeftTop.y += 2.8125f;
-			drawRightBottom.x += 5.0f;
-			drawRightBottom.y -= 2.8125f;
-		}
-	}
-	else {
-		if (KeyInput::Pushed(DIK_PGUP)) {
-			scale += 0.1f;
-		}
-		else if (KeyInput::Pushed(DIK_PGDN)) {
-			scale -= 0.1f;
-		}
-	}
-
-	if (KeyInput::getKeys(DIK_LSHIFT) && KeyInput::getKeys(DIK_RSHIFT)) {
-		Vector2D tmp = this->worldPos;
-
+	Vector2D tmp = this->worldPos;
+	if (shakeFlg) {
 		Shake();
-		viewMatrix.Translate(this->worldPos);
-		viewMatrix.Inverse();
-
-		worldPos = tmp;
 	}
-	else {
-		viewMatrix.Translate(this->worldPos);
-		viewMatrix.Inverse();
-	}
+	viewMatrix.Translate(this->worldPos);
+	viewMatrix.Inverse();
 
-	
-	NorDevMatrix.Orthographic(drawLeftTop / scale, drawRightBottom / scale);
+	worldPos = tmp;
+
+	NorDevMatrix.Orthographic(size);
 	viewPortMatrix.Viewport(screenPos, size);
 
 	vpvpMatrix = viewMatrix * NorDevMatrix * viewPortMatrix;
@@ -213,7 +115,7 @@ void Camera::Shake() {
 }
 
 void Camera::DrawQuad(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
-	if (isDraw(quad.worldPos)) {
+	if (isDraw(quad.worldPos,drawLength)) {
 		quad.worldMatrix *= vpvpMatrix;
 
 		if (!animationStop && animationSpd != 0) {
@@ -236,7 +138,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, const int& animationSpd, cons
 }
 
 void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
-	if (isDraw(quad.worldPos)) {
+	if (isDraw(quad.worldPos,drawLength)) {
 		quad.worldMatrix *= vpvpMatrix;
 
 		if (!animationStop && animationSpd != 0) {
