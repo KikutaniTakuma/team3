@@ -24,10 +24,10 @@ const char* kWindowTitle = "LC1A_08_キクタニタクマ_タイトル";
 void World::Update() {
 	switch (scene)
 	{
-	case SCENE::TITLE:
+	case Scene::TITLE:
 		title.Update();
 		break;
-	case SCENE::STAGE:
+	case Scene::STAGE:
 		for (auto& i : object) {
 			i->Update();
 		}
@@ -35,11 +35,11 @@ void World::Update() {
 		goal.Update();
 
 		break;
-	case SCENE::GAME_CLEAR:
+	case Scene::GAME_CLEAR:
 		break;
-	case SCENE::GAME_OVER:
+	case Scene::GAME_OVER:
 		break;
-	case SCENE::MAX_SCENE:
+	case Scene::MAX_SCENE:
 		break;
 	}
 	
@@ -50,10 +50,10 @@ void World::Draw() {
 	
 	switch (scene)
 	{
-	case SCENE::TITLE:
+	case Scene::TITLE:
 		title.Draw();
 		break;
-	case SCENE::STAGE:
+	case Scene::STAGE:
 
 		camera->Update();
 
@@ -64,11 +64,11 @@ void World::Draw() {
 		}
 
 		break;
-	case SCENE::GAME_CLEAR:
+	case Scene::GAME_CLEAR:
 		break;
-	case SCENE::GAME_OVER:
+	case Scene::GAME_OVER:
 		break;
-	case SCENE::MAX_SCENE:
+	case Scene::MAX_SCENE:
 		break;
 
 	default:

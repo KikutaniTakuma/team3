@@ -11,7 +11,7 @@
 class World {
 private:
 	//	ÉVÅ[Éìenum
-	enum class SCENE
+	enum class Scene
 	{
 		TITLE, // 0
 		STAGE,
@@ -46,7 +46,7 @@ private:
 	Goal goal;
 
 private:
-	SCENE scene = SCENE::TITLE;
+	Scene scene = Scene::TITLE;
 
 	Title title;
 	Stage stage;
