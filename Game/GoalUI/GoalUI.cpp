@@ -6,7 +6,7 @@ GoalUI::GoalUI(Camera* camera)
 	height(720.0f),
 	color(0xffffffff)
 {
-	positionGoal = new Goal;
+	positionGoal = new Goal(camera);
 }
 
 GoalUI::~GoalUI() {

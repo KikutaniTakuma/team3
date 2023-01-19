@@ -1,27 +1,27 @@
 #pragma once
 #include "Game/Vector2D/Vector2D.h"
 #include "Button/Button.h"
+#include "Game/Object/Object.h"
+#include <array>
 
-class Goal
+class Goal : public Object
 {
 public:
-	Goal();
+	Goal(Camera* camera);
 	~Goal();
 
 private:
 	//	ボタン最大数
 	const int kMaxButton;
-	Button* button;
+	std::array<Button*, 4>button;
 	
 	//	ゴールが開いたならtrue
 	bool goalAdvent;
 	//	
 	int count;
 	//
-	Vector2D ram;
+	Vector2D rnd;
 	
-	Vector2D pos;
-	Vector2D size;
 
 public:
 	//	ボタンの状態確認
@@ -32,8 +32,10 @@ public:
 	Vector2D getPos();
 
 	//
-	void Update();
+	void Update() override;
 
-	void Draw();
+	void Reset() override;
+
+	void Draw(class Texture& tex) override;
 
 };

@@ -14,6 +14,8 @@
 #include <assert.h>
 #include <thread>
 
+#include "Goal/Goal.h"
+
 ///==========================================================================================================================================
 ///==========================================================================================================================================
 ///==========================================================================================================================================
@@ -31,8 +33,6 @@ void World::Update() {
 		for (auto& i : object[Scene::STAGE]) {
 			i->Update();
 		}
-
-		goal.Update();
 
 		break;
 	case Scene::GAME_CLEAR:
@@ -86,7 +86,9 @@ void World::Draw() {
 
 
 
-World::World() {
+World::World():
+	scene(Scene::STAGE)
+{
 	// ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
 	Novice::Initialize(kWindowTitle, MapChip::kWindowWidth, MapChip::kWindowHeight);
 
@@ -111,6 +113,8 @@ World::World() {
 	AddObj(Scene::STAGE, tmp);
 
 	AddObj(Scene::STAGE, new Enemy(camera, tmp));
+
+	AddObj(Scene::STAGE, new Goal(camera));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
