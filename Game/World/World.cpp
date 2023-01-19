@@ -70,6 +70,10 @@ void World::Draw() {
 		break;
 	case SCENE::MAX_SCENE:
 		break;
+
+	default:
+
+		break;
 	}
 
 }

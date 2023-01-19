@@ -9,6 +9,18 @@
 #include "SCENE/GAME_OVER/GAME_OVER.h"
 
 class World {
+private:
+	//	シーンenum
+	enum class SCENE
+	{
+		TITLE, // 0
+		STAGE,
+		GAME_CLEAR,
+		GAME_OVER,
+
+		MAX_SCENE
+	};
+
 public:
 	World();
 	World(int screenSizeX, int screenSizeY);
@@ -34,16 +46,7 @@ private:
 	Goal goal;
 
 private:
-	//	シーンenum
-	enum class SCENE
-	{
-		TITLE, // 0
-		STAGE,
-		GAME_CLEAR,
-		GAME_OVER,
-
-		MAX_SCENE
-	}scene = SCENE::TITLE;
+	SCENE scene = SCENE::TITLE;
 
 	Title title;
 	Stage stage;
