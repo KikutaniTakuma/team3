@@ -12,9 +12,6 @@ public:
 	enum class Type {
 		NONE, // 0
 		BLOCK, // 1
-		Closed,
-		Open,
-		Short,
 
 		kMaxNum
 	};
@@ -65,7 +62,7 @@ public:
 	/// <summary>
 	/// マップチップの当たり判定
 	/// </summary>
-	static void Collision(Quad& pos, Vector2D& moveVec);
+	static void CollisionBlock(Quad& pos, Vector2D& moveVec);
 
 	/// <summary>
 	/// 特定のマップチップ読み込み

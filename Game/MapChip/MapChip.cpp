@@ -86,18 +86,13 @@ void MapChip::Draw(Texture& texture) {
 	int y = 0;
 	pos.Set({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
-	int firstY = 
+	int firstY = MapChip::kMapHeight - (static_cast<int>(camera->worldPos.y) / MapChip::kMapSize);
 
 	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
 		for (x = 0; x < MapChip::kMapWidth; x++) {
 			pos.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
 			MyMath::CoordinateChange(pos.worldPos);
 			pos.worldMatrix.Translate(pos.worldPos);
-
-			if (!camera->isDraw(pos.worldPos))
-			{
-				continue;
-			}
 
 			switch (data[y * MapChip::kMapWidth + x]) {
 			case (int)MapChip::Type::NONE:
@@ -106,21 +101,6 @@ void MapChip::Draw(Texture& texture) {
 				break;
 			case (int)MapChip::Type::BLOCK:
 				camera->DrawQuad(pos, texture, 0, false, WHITE);
-
-				break;
-
-			case (int)MapChip::Type::Closed:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(122,122,122,0xff));
-
-				break;
-
-			case (int)MapChip::Type::Open:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(255, 255, 0, 0xff));
-
-				break;
-
-			case (int)MapChip::Type::Short:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(255, 0, 0, 0xff));
 
 				break;
 
@@ -133,21 +113,31 @@ void MapChip::Draw(Texture& texture) {
 	}
 }
 
-void MapChip::Collision(Quad& pos, Vector2D& moveVec) {
+void MapChip::CollisionBlock(Quad& pos, Vector2D& moveVec) {
 	// 1, 進んでいる方向に当たり判定のオブジェクトがあるかどうか
 	// 当たる可能性があるオブジェクトを選び取る関数
+	/*Vector2D start = MapChip::GetNum(pos.worldPos);
+	Vector2D end = MapChip::GetNum(pos.worldPos + moveVec);
+
+	if (start.x > end.x) { MyMath::Swap(start.x, end.x); }
+	if (start.y < end.y) { MyMath::Swap(start.y, end.y); }
+
+	for (int y = start.y; y <= end.y; y++) {
+		for (int x = start.x; x <= end.x; x++) {
+			if (MyMath::Capsule) {
+				break;
+			}
+		}
+	}*/
 	// 
-	// 
-	// カプセル処理(だるい上に計算量多い)
-	// MyMath::capsule;
 	// 
 	// 
 	// 移動前の移動方向に一番近いオブジェクトがあたっているかどうか
 
 
-
 	// 2, あったら移動上にある一番近いオブジェクトの位置に移動
 	// オブジェクトの位置に移動
+
 
 	// 3, 移動ベクトルを正規化して反対ベクトルをとる
 
