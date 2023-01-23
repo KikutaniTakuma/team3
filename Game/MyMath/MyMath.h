@@ -69,6 +69,32 @@ public:
 	static void BubbleSort(int* data, int arr, bool order);
 
 	/// <summary>
+	/// 選択ソート
+	/// </summary>
+	/// <param name="data">配列の先頭ポインタ</param>
+	/// <param name="index">配列の要素数</param>
+	/// <param name="order">true小さい順、false大きい順</param>
+	template<typename T>
+	static void SlectionSort(T* data, T index, bool order) {
+		T tmp = 0;
+
+		for (int i = 0; i < index; i++) {
+			tmp = i;
+			for (int j = i + 1; j < index; j++) {
+				if (order && data[tmp] > data[j]) {
+					tmp = j;
+				}
+				else if (!order && data[tmp] < data[j]) {
+					tmp = j;
+				}
+			}
+			if (data[i] != data[tmp]) {
+				Swap(data[i], data[tmp]);
+			}
+		}
+	}
+
+	/// <summary>
 	/// 内積
 	/// </summary>
 	/// <param name="vec1"></param>
