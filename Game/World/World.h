@@ -3,12 +3,6 @@
 #include <vector>
 #include <map>
 
-
-#include "SCENE/TITLE/TITLE.h"
-#include "SCENE/STAGE/STAGE.h"
-#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
-#include "SCENE/GAME_OVER/GAME_OVER.h"
-
 class World {
 private:
 	//	ÉVÅ[Éìenum
@@ -50,8 +44,4 @@ private:
 private:
 	Scene scene;
 
-	Title title;
-	Stage stage;
-	Game_Clear game_clear;
-	Game_Over game_over;
 };

@@ -16,6 +16,11 @@
 
 #include "Goal/Goal.h"
 
+#include "SCENE/TITLE/TITLE.h"
+#include "SCENE/STAGE/STAGE.h"
+#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
+#include "SCENE/GAME_OVER/GAME_OVER.h"
+
 ///==========================================================================================================================================
 ///==========================================================================================================================================
 ///==========================================================================================================================================
@@ -24,10 +29,13 @@ const char* kWindowTitle = "LC1A_08_キクタニタクマ_タイトル";
 
 // 更新処理
 void World::Update() {
+
 	switch (scene)
 	{
 	case Scene::TITLE:
-		title.Update();
+		for (auto& i : object[Scene::TITLE]) {
+			i->Update();
+		}
 		break;
 	case Scene::STAGE:
 		for (auto& i : object[Scene::STAGE]) {
@@ -51,7 +59,13 @@ void World::Draw() {
 	switch (scene)
 	{
 	case Scene::TITLE:
-		title.Draw();
+
+		camera->Update();
+
+		for (auto& i : object[Scene::TITLE]) {
+			i->Draw(*whiteBox);
+		}
+
 		break;
 	case Scene::STAGE:
 
@@ -87,7 +101,7 @@ void World::Draw() {
 
 
 World::World():
-	scene(Scene::STAGE)
+	scene(Scene::TITLE)
 {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, MapChip::kWindowWidth, MapChip::kWindowHeight);
@@ -99,7 +113,6 @@ World::World():
 	assert(camera);
 
 	MapChip::SetCamera(camera);
-
 
 	object.insert(std::make_pair(Scene::TITLE, std::vector<Object*>(0)));
 	object.insert(std::make_pair(Scene::STAGE, std::vector<Object*>(0)));
@@ -116,7 +129,11 @@ World::World():
 
 	AddObj(Scene::STAGE, new Goal(camera));
 
+	AddObj(Scene::TITLE, new Title(camera));
+
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
+
+//	Novice::SetWindowMode(kFullscreen);
 
 }
 
