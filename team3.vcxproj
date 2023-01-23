@@ -101,8 +101,6 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
-    <ClCompile Include="Game\Astar\Astar.cpp" />
-    <ClCompile Include="Game\Astar\Node\Node.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Complex\Complex.cpp" />
     <ClCompile Include="Game\Easing\Easing.cpp" />
@@ -130,6 +128,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SCENE\GAME_CLEAR\GAME_CLEAR.cpp" />
     <ClCompile Include="SCENE\GAME_OVER\GAME_OVER.cpp" />
+    <ClCompile Include="SCENE\Scene\Scene.cpp" />
     <ClCompile Include="SCENE\STAGE\STAGE.cpp" />
     <ClCompile Include="SCENE\TITLE\TITLE.cpp" />
   </ItemGroup>
@@ -161,8 +160,6 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\input\Input.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
-    <ClInclude Include="Game\Astar\Astar.h" />
-    <ClInclude Include="Game\Astar\Node\Node.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Complex\Complex.h" />
     <ClInclude Include="Game\Easing\Easing.h" />
@@ -188,6 +185,7 @@
     <ClInclude Include="Game\World\World.h" />
     <ClInclude Include="SCENE\GAME_CLEAR\GAME_CLEAR.h" />
     <ClInclude Include="SCENE\GAME_OVER\GAME_OVER.h" />
+    <ClInclude Include="SCENE\Scene\Scene.h" />
     <ClInclude Include="SCENE\STAGE\STAGE.h" />
     <ClInclude Include="SCENE\TITLE\TITLE.h" />
   </ItemGroup>

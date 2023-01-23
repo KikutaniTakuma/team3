@@ -20,55 +20,39 @@
 ///==========================================================================================================================================
 ///==========================================================================================================================================
 
-const char* kWindowTitle = "LC1A_08_キクタニタクマ_タイトル";
+const char* kWindowTitle = "最高に面白いゲームになる予定";
 
 // 更新処理
 void World::Update() {
-	switch (scene)
-	{
-	case Scene::TITLE:
-		title.Update();
-		break;
-	case Scene::STAGE:
-		for (auto& i : object[Scene::STAGE]) {
-			i->Update();
-		}
-
-		break;
-	case Scene::GAME_CLEAR:
-		break;
-	case Scene::GAME_OVER:
-		break;
-	case Scene::MAX_SCENE:
-		break;
+	for (auto& i : object[scene.getScene()]) {
+		i->Update();
 	}
-	
 }
 
 // 描画処理
 void World::Draw() {
 	
-	switch (scene)
+	switch (scene.getScene())
 	{
-	case Scene::TITLE:
+	case Scene::Situation::TITLE:
 		title.Draw();
 		break;
-	case Scene::STAGE:
+	case Scene::Situation::STAGE:
 
 		camera->Update();
 
-		MapChip::Draw(*whiteBox);
+		/*MapChip::Draw(*whiteBox);*/
 
-		for (auto& i : object[Scene::STAGE]) {
+		for (auto& i : object[Scene::Situation::STAGE]) {
 			i->Draw(*whiteBox);
 		}
 
 		break;
-	case Scene::GAME_CLEAR:
+	case Scene::Situation::GAME_CLEAR:
 		break;
-	case Scene::GAME_OVER:
+	case Scene::Situation::GAME_OVER:
 		break;
-	case Scene::MAX_SCENE:
+	case Scene::Situation::MAX_SCENE:
 		break;
 
 	default:
@@ -86,8 +70,7 @@ void World::Draw() {
 
 
 
-World::World():
-	scene(Scene::STAGE)
+World::World()
 {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, MapChip::kWindowWidth, MapChip::kWindowHeight);
@@ -101,20 +84,20 @@ World::World():
 	MapChip::SetCamera(camera);
 
 
-	object.insert(std::make_pair(Scene::TITLE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::STAGE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::GAME_CLEAR, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::GAME_OVER, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::MAX_SCENE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::TITLE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::STAGE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));
 
 
 	Player* tmp = new Player(camera);
 
-	AddObj(Scene::STAGE, tmp);
+	AddObj(Scene::Situation::STAGE, tmp);
 
-	AddObj(Scene::STAGE, new Enemy(camera, tmp));
+	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
 
-	AddObj(Scene::STAGE, new Goal(camera));
+	AddObj(Scene::Situation::STAGE, new Goal(camera));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
@@ -130,18 +113,18 @@ World::World(int screenSizeX, int screenSizeY) {
 
 	MapChip::SetCamera(camera);
 
-	object.insert(std::make_pair(Scene::TITLE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::STAGE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::GAME_CLEAR, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::GAME_OVER, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::MAX_SCENE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::TITLE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::STAGE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));
 
 
 	Player* tmp = new Player(camera);
 
-	AddObj(Scene::STAGE, tmp);
+	AddObj(Scene::Situation::STAGE, tmp);
 
-	AddObj(Scene::STAGE, new Enemy(camera, tmp));
+	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
@@ -164,7 +147,7 @@ World::~World() {
 	Novice::Finalize();
 }
 
-void World::AddObj(Scene scene, class Object* obj) {
+void World::AddObj(Scene::Situation scene, Object* obj) {
 	object[scene].push_back(obj);
 }
 

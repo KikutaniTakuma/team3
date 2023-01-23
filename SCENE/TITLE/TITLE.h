@@ -1,6 +1,8 @@
 #pragma once
 
-class Title
+#include "SCENE/Scene/Scene.h"
+
+class Title : public Scene
 {
 public:
 	Title();

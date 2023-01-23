@@ -8,20 +8,9 @@
 #include "SCENE/STAGE/STAGE.h"
 #include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
 #include "SCENE/GAME_OVER/GAME_OVER.h"
+#include "SCENE/Scene/Scene.h"
 
 class World {
-private:
-	//	ÉVÅ[Éìenum
-	enum class Scene
-	{
-		TITLE, // 0
-		STAGE,
-		GAME_CLEAR,
-		GAME_OVER,
-
-		MAX_SCENE
-	};
-
 public:
 	World();
 	World(int screenSizeX, int screenSizeY);
@@ -34,7 +23,7 @@ private:
 	void Update();
 	void Draw();
 
-	void AddObj(Scene scene, class Object* obj);
+	void AddObj(Scene::Situation scene, class Object* obj);
 
 public:
 	void MainLoop();
@@ -42,7 +31,7 @@ public:
 private:
 	class Camera* camera;
 
-	std::map<Scene, std::vector<Object*>> object;
+	std::map<Scene::Situation, std::vector<Object*>> object;
 
 	class Texture* whiteBox;
 
