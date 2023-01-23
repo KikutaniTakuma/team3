@@ -16,6 +16,11 @@
 
 #include "Goal/Goal.h"
 
+#include "SCENE/TITLE/TITLE.h"
+#include "SCENE/STAGE/STAGE.h"
+#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
+#include "SCENE/GAME_OVER/GAME_OVER.h"
+
 ///==========================================================================================================================================
 ///==========================================================================================================================================
 ///==========================================================================================================================================
@@ -99,7 +104,11 @@ World::World()
 
 	AddObj(Scene::Situation::STAGE, new Goal(camera));
 
+	AddObj(Scene::TITLE, new Title(camera));
+
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
+
+//	Novice::SetWindowMode(kFullscreen);
 
 }
 

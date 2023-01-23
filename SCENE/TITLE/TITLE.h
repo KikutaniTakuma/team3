@@ -1,18 +1,22 @@
 #pragma once
-
+#include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
 
-class Title : public Scene
+class Title : public Object, Scene
 {
 public:
-	Title();
+	Title(Camera *camera);
 	~Title();
 
 private:
 
 public:
-	void Update();
-	void Draw();
+	//
+	void Update() override;
+
+	void Reset() override;
+
+	void Draw(class Texture& tex) override;
 
 };
 

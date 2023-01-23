@@ -39,8 +39,4 @@ private:
 private:
 	Scene scene;
 
-	Title title;
-	Stage stage;
-	Game_Clear game_clear;
-	Game_Over game_over;
 };
