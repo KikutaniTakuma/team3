@@ -162,9 +162,8 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animati
 
 
 void Camera::DrawUI(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
-	Matrix3x3 mat;
-	mat.Translate(worldPos);
-	quad.worldMatrix *= mat * vpvpMatrix;
+	quad.worldPos -= worldPos;
+	quad.worldMatrix *= vpvpMatrix;
 
 	if (!animationStop && animationSpd != 0) {
 		if (frame->frame % animationSpd == 0) {
