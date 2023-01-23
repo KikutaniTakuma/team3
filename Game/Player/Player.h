@@ -1,10 +1,11 @@
 #pragma once
 #include "Game/Object/Object.h"
+#include "SCENE/Scene/Scene.h"
 
 class Vector2D;
 class Matrix3x3;
 
-class Player : public Object {
+class Player final : public Object, Scene {
 public:
 	struct State {
 		float hp;
