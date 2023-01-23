@@ -86,7 +86,6 @@ void MapChip::Draw(Texture& texture) {
 	int y = 0;
 	pos.Set({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
-	int firstY = 
 
 	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
 		for (x = 0; x < MapChip::kMapWidth; x++) {
