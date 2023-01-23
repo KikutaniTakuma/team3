@@ -29,10 +29,6 @@ public:
 private:
 	void Collision();
 
-//private:
-//	// A*ƒAƒ‹ƒSƒŠƒYƒ€—pŠÖ”
-	Astar astr;
-
 
 public:
 	void Update() override;
