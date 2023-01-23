@@ -119,6 +119,10 @@ Quad Quad::operator+(const Vector2D& vec){
 	return quad;
 }
 
+void Quad::Translate() {
+	this->worldMatrix.Translate(worldPos);
+}
+
 Vector2D Quad::getSize() const {
 	return this->size;
 }

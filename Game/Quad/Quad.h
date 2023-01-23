@@ -87,6 +87,8 @@ public:
 	Matrix3x3 worldMatrix;
 
 public:
+	void Translate();
+
 	Vector2D getSize() const;
 
 	// getter
