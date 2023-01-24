@@ -25,7 +25,6 @@ void Title::Update() {
 	}
 
 	color = Fade::FadeInOut(color, 5.0f, true);
-//	color = Fade::Flash(color, 5.0f);
 
 	//	ç¿ïWïœä∑
 	pos.worldMatrix.Translate(pos.worldPos);
