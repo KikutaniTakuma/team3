@@ -36,7 +36,7 @@ private:
 
 	static Quad pos;
 
-	static Vector2D playerPos;
+	static Vector2D plyPos;
 	static Vector2D emyPos;
 
 public:
@@ -81,7 +81,7 @@ public:
 	static void setData(int num, const int& x, const int& y);
 
 	inline static Vector2D getPlyPos() {
-		return playerPos;
+		return plyPos;
 	}
 	inline static Vector2D getEmyPos() {
 		return emyPos;

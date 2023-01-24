@@ -18,7 +18,7 @@ const int MapChip::kMapWidth = 199; //199
 const int MapChip::kMapHeight = 200;//200
 const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
-Vector2D MapChip::playerPos = Vector2D();
+Vector2D MapChip::plyPos = Vector2D();
 Vector2D MapChip::emyPos = Vector2D();
 
 
@@ -31,7 +31,7 @@ void MapChip::Initilize() {
 		for (int x = 0; x < kMapWidth; x++) {
 			if (data[y * MapChip::kMapWidth + x] == 55) {
 				data[y * MapChip::kMapWidth + x] = 0;
-				playerPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 			}
 			if (data[y * MapChip::kMapWidth + x] == 56) {
 				data[y * MapChip::kMapWidth + x] = 0;

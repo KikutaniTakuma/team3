@@ -20,7 +20,7 @@ Camera::Camera() :
 	size({ static_cast<float>(MapChip::kWindowWidth), static_cast<float>(MapChip::kWindowHeight) }),
 	scale(1.0f),
 	frame(new Frame),
-	shakeScale({ 1.0f,10.0f }),
+	shakeScale({ 10.0f,10.0f }),
 	shakeFlg(false),
 	drawLength(10.0f)
 {
@@ -110,8 +110,8 @@ void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const V
 
 
 void Camera::Shake() {
-	worldPos.x += static_cast<float>((rand() % static_cast<int>(shakeScale.x))) - shakeScale.x / 2.0f;
-	worldPos.y += static_cast<float>((rand() % static_cast<int>(shakeScale.y))) - shakeScale.y / 2.0f;
+	worldPos.x += static_cast<float>(MyMath::Random(static_cast<int>(-shakeScale.x), static_cast<int>(shakeScale.x)));
+	worldPos.y += static_cast<float>(MyMath::Random(static_cast<int>(-shakeScale.y), static_cast<int>(shakeScale.y)));
 }
 
 void Camera::DrawQuad(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {

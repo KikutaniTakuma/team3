@@ -10,7 +10,11 @@
 Enemy::Enemy(Camera* cameraPointa, Player* player)
 	:Object(cameraPointa),
 	player(player),
-	spd(10.0f)
+	spd(4.0f),
+	nmlSpd(spd),
+	lowSpd(0.0f),
+	shakeScale(Vector2D(10.0f,10.0f)),
+	lowTime(12)
 {
 	std::vector<float> data;
 	if(IOcsv::Input("./Data/EnemyData.csv", data))
@@ -22,11 +26,26 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	}
 
 	tentativPos = pos.worldPos;
+
+	frm.Restart();
 }
 
 void Enemy::Update() {
 	if (player) {
 		moveVec = { 0.0f };
+		tentativPos = pos.worldPos;
+
+		if (camera->shakeFlg) {
+			spd = lowSpd;
+		}
+		if (spd == lowSpd) {
+			frm.Start();
+		}
+		if(frm.frame > lowTime){
+			spd = nmlSpd;
+			frm.Stop();
+			frm.Restart();
+		}
 
 		/// プレイヤーの位置を見て徐々に近づいて行く
 		/// 速度は一定
@@ -55,12 +74,34 @@ void Enemy::Update() {
 	// 衝突
 	// 衝突したらブロックは空白にする
 
-	if (MapChip::GetType(tentativPos) == 1) {
-		Vector2D mapNum = MapChip::GetNum(tentativPos);
+	if (MapChip::GetType(pos.getSizeLeftTop() + tentativPos) == 1 ||
+		MapChip::GetType(pos.getSizeLeftUnder() + tentativPos) == 1||
+		MapChip::GetType(pos.getSizeRightTop() + tentativPos) == 1||
+		MapChip::GetType(pos.getSizeRightUnder() + tentativPos) == 1) {
+
+		Vector2D mapNum = MapChip::GetNum(pos.getSizeLeftTop() + tentativPos);
 		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+
+		mapNum = MapChip::GetNum(pos.getSizeLeftUnder() + tentativPos);
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+
+		mapNum = MapChip::GetNum(pos.getSizeRightTop() + tentativPos);
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+
+		mapNum = MapChip::GetNum(pos.getSizeRightUnder() + tentativPos);
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+
+		camera->shakeFlg = true;
+	}
+	else {
+		camera->shakeFlg = false;
 	}
 
-	this->Collision();
+	if (camera->shakeFlg) {
+		camera->shakeScale = shakeScale;
+	}
+
+	pos.worldPos = tentativPos;
 
 	pos.Translate();
 }
