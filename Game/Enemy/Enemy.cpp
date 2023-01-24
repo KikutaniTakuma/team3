@@ -75,9 +75,9 @@ void Enemy::Update() {
 	// è’ìÀÇµÇΩÇÁÉuÉçÉbÉNÇÕãÛîíÇ…Ç∑ÇÈ
 
 	if (MapChip::GetType(pos.getSizeLeftTop() + tentativPos) == 1 ||
-		MapChip::GetType(pos.getSizeLeftUnder() + tentativPos) == 1||
+		MapChip::GetType({ pos.getSizeLeftUnder().x + tentativPos.x, pos.getSizeLeftUnder().y + tentativPos.y + 1.0f }) == 1 ||
 		MapChip::GetType(pos.getSizeRightTop() + tentativPos) == 1||
-		MapChip::GetType(pos.getSizeRightUnder() + tentativPos) == 1) {
+		MapChip::GetType({ pos.getSizeRightUnder().x + tentativPos.x,pos.getSizeRightUnder().y + tentativPos.y + 1.0f }) == 1) {
 
 		Vector2D mapNum = MapChip::GetNum(pos.getSizeLeftTop() + tentativPos);
 		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
