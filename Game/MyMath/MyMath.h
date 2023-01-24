@@ -170,6 +170,13 @@ public:
 	static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
 
 	/// <summary>
+	/// 引数に入れた色のalpha値を返す
+	/// </summary>
+	/// <param name="color">色</param>
+	/// <returns></returns>
+	static unsigned int GetAlpha(unsigned int color);
+
+	/// <summary>
 	/// min以上max以下までのランダムな整数を返す
 	/// </summary>
 	/// <param name="min">最小値</param>
