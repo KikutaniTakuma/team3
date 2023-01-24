@@ -33,6 +33,7 @@ void Title::Update() {
 	}
 
 	color = Fade::FadeInOut(color, 5.0f, true);
+//	color = Fade::Flash(color, 5.0f);
 	if (MyMath::GetAlpha(color) >= 255U)
 	{
 		sceneFlag = true;
@@ -50,7 +51,7 @@ void Title::Reset() {
 void Title::Draw() {
 //	camera->DrawQuad(drawPos, tex, 0, false);
 	camera->DrawUI(drawPos, BG, 0, false, 0xffffffff);
-	camera->DrawUI(drawTestPos, BG, 0, false, color);
+	camera->DrawUI(drawTestPos, whiteBox, 0, false, color);
 }
 
 
