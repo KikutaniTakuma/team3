@@ -13,7 +13,7 @@ unsigned int Fade::FadeInOut(unsigned int color, float speed, bool InOut) {
 	
 	
 	InOut ? alpha += static_cast<unsigned int>(speed) : alpha -= static_cast<unsigned int>(speed);
-	alpha = static_cast<unsigned int>(MyMath::Clamp(static_cast<float>(alpha), 255.0f, 0.0f));
+	MyMath::Clamp(alpha, 255U, 0U);
 
 	return MyMath::GetRGB(red, green, blue, alpha);
 }
@@ -36,7 +36,7 @@ unsigned int Fade::Flash(unsigned int color, float speed) {
 	}
 
 	flag ? alpha -= static_cast<unsigned int>(speed) : alpha += static_cast<unsigned int>(speed);
-	alpha = static_cast<unsigned int>(MyMath::Clamp(static_cast<float>(alpha), 255.0f, 0.0f));
+	MyMath::Clamp(alpha, 255U, 0U);
 
 	return MyMath::GetRGB(red, green, blue, alpha);
 }
