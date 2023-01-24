@@ -5,16 +5,16 @@ class Fade {
 public:
 	Fade();
 private:
-	unsigned int red;
-	unsigned int green;
-	unsigned int blue;
-	unsigned int alpha;
-	bool flag;
 
 public:
-	unsigned int FadeIn(unsigned int color,float speed);
+	/// <summary>
+	/// FadeŠÖ”
+	/// </summary>
+	/// <param name="color">F</param>
+	/// <param name="speed">‘¬“x</param>
+	/// <param name="InOut">true:In false:Out</param>
+	/// <returns></returns>
+	static unsigned int FadeInOut(unsigned int color, float speed, bool InOut);
 
-	unsigned int FadeOut(unsigned int color,float speed);
-
-	unsigned int Flash(unsigned int color, float speed);
+	static unsigned int Flash(unsigned int color, float speed);
 };

@@ -41,6 +41,11 @@ void World::Draw() {
 	{
 	case Scene::Situation::TITLE:
 		/*title.Draw(*whiteBox);*/
+		camera->Update();
+		for (auto& i : object[Scene::Situation::TITLE]) {
+			i->Draw();
+		}
+
 		break;
 	case Scene::Situation::STAGE:
 
