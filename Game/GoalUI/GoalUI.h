@@ -9,6 +9,7 @@ public:
 private:	
 	////ゴールのポジション
 	class Goal *positionGoal;
+	Texture tex;
 	
 	//画面の大きさ(用意しているならそれを使用する)
 	float width;

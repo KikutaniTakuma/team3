@@ -7,6 +7,7 @@ GoalUI::GoalUI(Camera* camera)
 	color(0xffffffff)
 {
 	positionGoal = new Goal(camera);
+	tex.Set("./Resources/GoalUIType1.png", 64, 64, 64);
 }
 
 GoalUI::~GoalUI() {
@@ -26,11 +27,9 @@ void GoalUI::Update() {
 	}
 	if (pos.worldPos.y > height - pos.getSize().y / 2.0f) {
 		pos.worldPos.y = height - pos.getSize().y / 2.0f;
-		pos.worldPos.y *= -1;
 	}
 	else if (pos.worldPos.y < pos.getSize().y / 2.0f) {
 		pos.worldPos.y = pos.getSize().y / 2.0f;
-		pos.worldPos.y *= -1;
 	}
 	
 	pos.worldMatrix.Translate(pos.worldPos);
@@ -42,14 +41,14 @@ void GoalUI::Draw() {
 	if (positionGoal->getPos().x > 0 && positionGoal->getPos().x < width - pos.getSize().x / 2.0f) {
 		if (positionGoal->getPos().y > 0 && positionGoal->getPos().y < height - pos.getSize().y / 2.0f) {
 			//‚±‚Á‚¿‚ªƒS[ƒ‹‚ð•\Ž¦
-			camera->DrawUI(drawPos, whiteBox, 0, 0, color);
+			//camera->DrawUI(drawPos, tex, 0, 0, color);
 		}
 		else {
 			//‚±‚Á‚¿‚ªUI‚ð•\Ž¦
-			camera->DrawUI(drawPos, whiteBox, 0, 0, color);		}
+			camera->DrawUI(drawPos, tex, 0, 0, color);}
 	}
 	else {
-		camera->DrawUI(drawPos, whiteBox, 0, 0, color);
+		camera->DrawUI(drawPos, tex, 0, 0, color);
 	}
 }
 
