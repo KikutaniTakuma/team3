@@ -18,7 +18,7 @@ protected:
 	static Texture whiteBox;
 
 public:
-	void BeginProcess();
+	virtual void BeginProcess();
 
 	virtual void Update() = 0;
 
