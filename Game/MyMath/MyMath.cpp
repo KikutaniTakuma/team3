@@ -17,6 +17,12 @@ void MyMath::CoordinateChange(Vector2D& worldPos) {
 	worldPos.y = (worldPos.y * -1) + kCoodinateChangeConstant;
 }
 
+float MyMath::CoordinateChange(float worldPos) {
+	worldPos = (worldPos * -1) + kCoodinateChangeConstant;
+
+	return worldPos;
+}
+
 bool MyMath::CollisionRectangle(Vector2D LeftTop1, Vector2D size1, Vector2D LeftTop2, Vector2D size2) {
 	if (LeftTop1.x < LeftTop2.x + size2.x && LeftTop2.x < LeftTop1.x + size1.x) {
 		if (LeftTop1.y < LeftTop2.y - size2.y && LeftTop2.y < LeftTop1.y - size1.y) {
@@ -89,19 +95,6 @@ bool MyMath::isAngle(float deg, float maxDeg, float minDeg) {
 
 float MyMath::GetAngle(Vector2D pos, Vector2D origin) {
 	return MyMath::ToDeg(atan2f(pos.y - origin.y, pos.x - origin.x));
-}
-
-float MyMath::Clamp(float num,float max,float min)
-{
-	if (num < min) {
-		return num = min;
-	}
-	else if(num>max){
-		return num = max;
-	}
-	else {
-		return num;
-	}
 }
 
 unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha) {

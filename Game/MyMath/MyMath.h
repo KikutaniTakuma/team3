@@ -23,6 +23,8 @@ public:
 
 	static void CoordinateChange(Vector2D& worldPos);
 
+	static float CoordinateChange(float worldPos);
+
 	// O•½•û‚Ì’è—
 	static float PythagoreanTheorem(const float& x, const float& y);
 
@@ -153,8 +155,18 @@ public:
 		num2 = tmp;
 	}
 
-	static float Clamp(float num, float max, float min);
-
+	template<typename T>
+	static void Clamp(T& num, T max, T min) {
+		if (num < min) {
+			num = min;
+		}
+		else if (num > max) {
+			num = max;
+		}
+		else {
+			num;
+		}
+	}
 	static unsigned int GetRGB(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
 
 	/// <summary>
