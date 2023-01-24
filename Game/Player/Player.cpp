@@ -117,8 +117,10 @@ void Player::Update() {
 }
 
 // •`‰æˆ—ŠÖ”
-void Player::Draw(Texture& tex) {
-	camera->DrawQuad(drawPos, tex, 6, false, BLUE);
+void Player::Draw() {
+	camera->DrawQuad(drawPos, whiteBox, 6, false, BLUE);
+	Novice::ScreenPrintf(0, 0, "X = %f", pos.worldPos.x);
+	Novice::ScreenPrintf(0, 20, "Y = %f", pos.worldPos.y);
 }
 
 // ˆÚ“®ŠÖ”

@@ -49,7 +49,7 @@ private:
 public:
 	void Update() override;
 
-	void Draw(class Texture& tex) override;
+	void Draw() override;
 
 	void Reset() override;
 

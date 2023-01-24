@@ -82,8 +82,8 @@ void Goal::Update() {
 	{
 	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
 	//	button[i].setPos(rnd); 
-		Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
-		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);
+		/*Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
+		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);*/
 	}
 
 	pos.worldMatrix.Translate(pos.worldPos);
@@ -93,6 +93,6 @@ void Goal::Reset() {
 
 }
 
-void Goal::Draw(Texture& tex) {
+void Goal::Draw() {
 
 }

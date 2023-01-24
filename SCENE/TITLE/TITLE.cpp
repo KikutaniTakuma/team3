@@ -16,7 +16,7 @@ void Title::Reset() {
 
 }
 
-void Title::Draw(Texture& tex) {
+void Title::Draw() {
 //	camera->DrawQuad(drawPos, tex, 0, false);
-	camera->DrawUI(drawPos, tex, 0, false, 0x991111ff);
+	camera->DrawUI(drawPos, whiteBox, 0, false, 0x991111ff);
 }

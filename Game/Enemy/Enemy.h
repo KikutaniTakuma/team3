@@ -33,7 +33,7 @@ private:
 public:
 	void Update() override;
 
-	void Draw(Texture& tex) override;
+	void Draw() override;
 	
 	void Reset() override;
 };

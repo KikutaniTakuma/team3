@@ -6,7 +6,7 @@
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/MapChip/MapChip.h"
 
-const int MyMath::kCoodinateChangeConstant = 200 * 32;
+const int MyMath::kCoodinateChangeConstant =200*32; //200*32
 std::random_device MyMath::seed;
 std::mt19937_64 MyMath::engine(seed());
 std::uniform_int_distribution<> MyMath::rndInt;

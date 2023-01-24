@@ -16,7 +16,7 @@ public:
 
 	void Reset() override;
 
-	void Draw(class Texture& tex) override;
+	void Draw() override;
 
 };
 

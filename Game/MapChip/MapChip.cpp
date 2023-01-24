@@ -12,10 +12,10 @@ std::vector<int> MapChip::data;
 const int MapChip::kMapSize = 32;
 const int MapChip::kWindowWidth = 1280;
 const int MapChip::kWindowHeight = 720;
-const int MapChip::kStageNumberWidth = 6;
-const int MapChip::kStageNumberHeight = 11;
-const int MapChip::kMapWidth = 199;
-const int MapChip::kMapHeight = 200;
+const int MapChip::kStageNumberWidth = 6;//6
+const int MapChip::kStageNumberHeight = 11;//11
+const int MapChip::kMapWidth = 199; //199
+const int MapChip::kMapHeight = 200;//200
 const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 
@@ -23,7 +23,7 @@ Quad MapChip::pos;
 void MapChip::Initilize() {
 	MapChip::data.resize(MapChip::kMapHeight * MapChip::kMapWidth);
 
-	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);
+	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);//./Data/MapChipData.csv
 }
 void MapChip::SetCamera(Camera* cameraPointa) {
 	camera = cameraPointa;
@@ -86,10 +86,33 @@ void MapChip::Draw(Texture& texture) {
 	int y = 0;
 	pos.Set({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
-	int firstY = MapChip::kMapHeight - (static_cast<int>(camera->worldPos.y) / MapChip::kMapSize);
+	// カメラの映る範囲のマップチップの番号を取得
+	int firstY = (static_cast<int>(camera->getPos().y) / kMapSize) + (static_cast<int>(camera->getDrawSize().y / 2.0f) / kMapSize) + 1;
+	int lastY = (static_cast<int>(camera->getDrawSize().y / 2.0f) / kMapSize) - (static_cast<int>(camera->getPos().y) / kMapSize) - 1;
+	firstY += lastY + static_cast<int>(MapChip::GetNum(camera->worldPos).y);
+	/*int hoge = static_cast<int>(MapChip::GetNum(camera->worldPos).y);*/
+	
 
-	for (y = MapChip::kMapHeight - 1; y >= 0; y--) {
-		for (x = 0; x < MapChip::kMapWidth; x++) {
+	if (firstY > kMapHeight - 1) {
+		firstY = kMapHeight - 1;
+	}
+	if (lastY < 0) {
+		lastY = 0;
+	}
+
+	int firstX = (static_cast<int>(camera->getPos().x) / kMapSize) - (static_cast<int>(camera->getDrawSize().x / 2.0f) / kMapSize) - 1;
+	int lastX = (static_cast<int>(camera->getPos().x) / kMapSize) + (static_cast<int>(camera->getDrawSize().x / 2.0f) / kMapSize) + 1;
+
+	if (firstX < 0) {
+		firstX = 0;
+	}
+	if (lastX > kMapWidth) {
+		lastX = kMapWidth;
+	}
+
+	for (y = firstY; y >= lastY; y--) {
+		for (x = firstX; x < lastX; x++) {
+	
 			pos.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
 			MyMath::CoordinateChange(pos.worldPos);
 			pos.worldMatrix.Translate(pos.worldPos);

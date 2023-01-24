@@ -53,8 +53,8 @@ void Enemy::Update() {
 	pos.worldMatrix.Translate(pos.worldPos);
 }
 
-void Enemy::Draw(Texture& tex) {
-	camera->DrawQuad(drawPos, tex, 0, false);
+void Enemy::Draw() {
+	camera->DrawQuad(drawPos, whiteBox, 0, false);
 }
 
 void Enemy::Reset() {

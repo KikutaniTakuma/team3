@@ -39,6 +39,6 @@ void Button::Reset() {
 
 }
 
-void Button::Draw(class Texture& tex) {
+void Button::Draw() {
 
 }

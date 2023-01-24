@@ -40,16 +40,16 @@ void World::Draw() {
 	switch (scene.getScene())
 	{
 	case Scene::Situation::TITLE:
-		title.Draw();
+		/*title.Draw(*whiteBox);*/
 		break;
 	case Scene::Situation::STAGE:
 
 		camera->Update();
 
-		/*MapChip::Draw(*whiteBox);*/
+		MapChip::Draw(*whiteBox);
 
 		for (auto& i : object[Scene::Situation::STAGE]) {
-			i->Draw(*whiteBox);
+			i->Draw();
 		}
 
 		break;
@@ -100,11 +100,11 @@ World::World()
 
 	AddObj(Scene::Situation::STAGE, tmp);
 
-	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
+	/*AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));*/
 
 	AddObj(Scene::Situation::STAGE, new Goal(camera));
 
-	AddObj(Scene::TITLE, new Title(camera));
+	AddObj(Scene::Situation::TITLE, new Title(camera));
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
