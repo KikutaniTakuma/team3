@@ -13,7 +13,6 @@
 class World {
 public:
 	World();
-	World(int screenSizeX, int screenSizeY);
 	~World();
 
 private:

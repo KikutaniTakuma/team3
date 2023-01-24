@@ -123,6 +123,10 @@ void Quad::Translate() {
 	this->worldMatrix.Translate(worldPos);
 }
 
+void Quad::setVpvpMatrix(const Matrix3x3& tmp) {
+	vpvpMatrix = tmp;
+}
+
 Vector2D Quad::getSize() const {
 	return this->size;
 }
@@ -141,16 +145,16 @@ Vector2D Quad::getPosRightUnder() const {
 }
 
 Vector2D Quad::getMatrixLeftTop() const {
-	return leftTop * worldMatrix;
+	return leftTop * worldMatrix * vpvpMatrix;
 }
 Vector2D Quad::getMatrixLeftUnder() const {
-	return leftUnder * worldMatrix;
+	return leftUnder * worldMatrix * vpvpMatrix;
 }
 Vector2D Quad::getMatrixRightTop() const {
-	return rightTop * worldMatrix;
+	return rightTop * worldMatrix * vpvpMatrix;
 }
 Vector2D Quad::getMatrixRightUnder() const {
-	return rightUnder * worldMatrix;
+	return rightUnder * worldMatrix * vpvpMatrix;
 }
 
 const Vector2D& Quad::getSizeLeftTop() const {

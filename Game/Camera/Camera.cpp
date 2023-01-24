@@ -114,9 +114,9 @@ void Camera::Shake() {
 	worldPos.y += static_cast<float>((rand() % static_cast<int>(shakeScale.y))) - shakeScale.y / 2.0f;
 }
 
-void Camera::DrawQuad(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawQuad(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
-		quad.worldMatrix *= vpvpMatrix;
+		quad.setVpvpMatrix(vpvpMatrix);
 
 		if (!animationStop && animationSpd != 0) {
 			if (frame->frame % animationSpd == 0) {
@@ -137,9 +137,9 @@ void Camera::DrawQuad(Quad quad, Texture& texture, const int& animationSpd, cons
 	}
 }
 
-void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawQuad(Quad& quad, Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
-		quad.worldMatrix *= vpvpMatrix;
+		quad.setVpvpMatrix(vpvpMatrix);
 
 		if (!animationStop && animationSpd != 0) {
 			if (frame->frame % animationSpd == 0) {
@@ -161,9 +161,10 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animati
 }
 
 
-void Camera::DrawUI(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawUI(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+	Vector2D tmp = quad.worldPos;
 	quad.worldPos -= worldPos;
-	quad.worldMatrix *= vpvpMatrix;
+	quad.setVpvpMatrix(vpvpMatrix);
 
 	if (!animationStop && animationSpd != 0) {
 		if (frame->frame % animationSpd == 0) {
@@ -181,6 +182,8 @@ void Camera::DrawUI(Quad quad, Texture& texture, const int& animationSpd, const 
 		static_cast<int>(quad.getMatrixRightUnder().x), static_cast<int>(quad.getMatrixRightUnder().y),
 		texture.drawPos, 0, texture.width, texture.height, texture.textureHandle, color
 	);
+
+	quad.worldPos = tmp;
 }
 
 

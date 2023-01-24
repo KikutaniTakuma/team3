@@ -100,7 +100,7 @@ World::World()
 
 	AddObj(Scene::Situation::STAGE, tmp);
 
-	/*AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));*/
+	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
 
 	AddObj(Scene::Situation::STAGE, new Goal(camera));
 
@@ -109,33 +109,6 @@ World::World()
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
 //	Novice::SetWindowMode(kFullscreen);
-
-}
-
-World::World(int screenSizeX, int screenSizeY) {
-	// ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
-	Novice::Initialize(kWindowTitle, screenSizeX, screenSizeY);
-
-	camera = new Camera;
-
-	assert(camera);
-
-	MapChip::SetCamera(camera);
-
-	object.insert(std::make_pair(Scene::Situation::TITLE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::STAGE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));
-
-
-	Player* tmp = new Player(camera);
-
-	AddObj(Scene::Situation::STAGE, tmp);
-
-	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
-
-	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 
 }
 

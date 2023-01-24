@@ -81,12 +81,16 @@ private:
 
 	Vector2D size;
 
+	Matrix3x3 vpvpMatrix;
+
 public:
 	Vector2D worldPos;
 
 	Matrix3x3 worldMatrix;
 
 public:
+	void setVpvpMatrix(const Matrix3x3& tmp);
+
 	void Translate();
 
 	Vector2D getSize() const;

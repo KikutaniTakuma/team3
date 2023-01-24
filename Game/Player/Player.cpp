@@ -32,7 +32,7 @@ Player::Player(Camera* camera):
 			data[4]
 		};
 
-		pos.Set({ data[0],data[1] }, *size);
+		pos.Set(MapChip::getPlyPos(), *size);
 
 		spd = data[2];
 

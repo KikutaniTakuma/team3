@@ -1,7 +1,8 @@
 #pragma once
 
+#include "Game/Vector2D/Vector2D.h"
+
 class Texture;
-class Vector2D;
 class Quad;
 
 #include <vector>
@@ -34,6 +35,9 @@ private:
 	static const class Camera* camera;
 
 	static Quad pos;
+
+	static Vector2D playerPos;
+	static Vector2D emyPos;
 
 public:
 	static void Initilize();
@@ -75,4 +79,11 @@ public:
 
 	// setter
 	static void setData(int num, const int& x, const int& y);
+
+	inline static Vector2D getPlyPos() {
+		return playerPos;
+	}
+	inline static Vector2D getEmyPos() {
+		return emyPos;
+	}
 };

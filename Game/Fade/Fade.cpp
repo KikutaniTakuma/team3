@@ -16,7 +16,7 @@ unsigned int Fade::FadeIn(unsigned int color,float speed) {
 	alpha = color & 0xff;
 	
 	alpha += speed;
-	MyMath::Clamp(static_cast<float>(alpha), 255.0f, 0.0f);
+	MyMath::Clamp(alpha, 255u, 0u);
 
 	return MyMath::GetRGB(red, green, blue, alpha);
 }
@@ -28,7 +28,7 @@ unsigned int Fade::FadeOut(unsigned int color, float speed) {
 	alpha = color & 0xff;
 
 	alpha -= speed;
-	MyMath::Clamp(static_cast<float>(alpha), 255.0f, 0.0f);
+	MyMath::Clamp(alpha, 255u, 0u);
 
 	return MyMath::GetRGB(red, green, blue, alpha);
 }

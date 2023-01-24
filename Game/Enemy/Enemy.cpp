@@ -4,6 +4,7 @@
 #include "Game/KeyInput/KeyInput.h"
 #include "Game/MapChip/MapChip.h"
 #include "Game/Player/Player.h"
+#include "Game/MyMath/MyMath.h"
 #include <cmath>
 
 Enemy::Enemy(Camera* cameraPointa, Player* player)
@@ -14,11 +15,13 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	std::vector<float> data;
 	if(IOcsv::Input("./Data/EnemyData.csv", data))
 	{
-		pos.Set({ 640.0f, 360.0f }, { 32.0f, 32.0f });
+		pos.Set(MapChip::getEmyPos(), {32.0f, 32.0f});
 	}
 	else {
 		pos.Set({ data[0], data[1] }, { data[2], data[3] });
 	}
+
+	tentativPos = pos.worldPos;
 }
 
 void Enemy::Update() {
@@ -47,14 +50,23 @@ void Enemy::Update() {
 		}
 		tentativPos += moveVec;
 	}
+	// 移動したところがブロックだったら
+	// 移動ベクトルとは逆方向に移動(後で実装)
+	// 衝突
+	// 衝突したらブロックは空白にする
+
+	if (MapChip::GetType(tentativPos) == 1) {
+		Vector2D mapNum = MapChip::GetNum(tentativPos);
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+	}
 
 	this->Collision();
 
-	pos.worldMatrix.Translate(pos.worldPos);
+	pos.Translate();
 }
 
 void Enemy::Draw() {
-	camera->DrawQuad(drawPos, whiteBox, 0, false);
+	camera->DrawQuad(drawPos, whiteBox, 0, false, MyMath::GetRGB(255,0,0,255));
 }
 
 void Enemy::Reset() {
