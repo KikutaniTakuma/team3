@@ -61,8 +61,17 @@ void World::Draw() {
 
 		break;
 	case Scene::Situation::GAME_CLEAR:
+		for (auto& i : object[scene.getScene()]) {
+			i->Draw();
+		}
+
 		break;
 	case Scene::Situation::GAME_OVER:
+		camera->Update();
+		for (auto& i : object[scene.getScene()]) {
+			i->Draw();
+		}
+
 		break;
 	case Scene::Situation::MAX_SCENE:
 		break;
@@ -105,15 +114,17 @@ World::World()
 
 	Player* tmp = new Player(camera);
 
-	AddObj(Scene::Situation::STAGE, new GoalUI(camera));
-
 	AddObj(Scene::Situation::STAGE, tmp);
 
 	for (int i = 0; i < Enemy::kMaxEmyNum; i++) {
 		AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
 	}
 
-	AddObj(Scene::Situation::STAGE, new Goal(camera));
+	Goal* goal = new Goal(camera);
+
+	AddObj(Scene::Situation::STAGE, goal);
+
+	AddObj(Scene::Situation::STAGE, new GoalUI(camera, goal));
 
 	AddObj(Scene::Situation::TITLE, new Title(camera));
 	

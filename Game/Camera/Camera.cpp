@@ -167,7 +167,8 @@ void Camera::DrawQuad(Quad& quad, Texture& texture, float deg, const int& animat
 
 void Camera::DrawUI(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	Vector2D tmp = quad.worldPos;
-	quad.worldPos -= worldPos;
+	quad.worldPos += worldPos - (size/ 2.0f);
+	quad.Translate();
 	quad.setVpvpMatrix(vpvpMatrix);
 
 	if (!animationStop && animationSpd != 0) {
@@ -225,11 +226,11 @@ void Camera::TimeEnd() {
 }
 
 void Camera::CreateDelta() {
-	delta = (10000000.0f / (float)((double)end.QuadPart - (double)start.QuadPart)) / 60.0f;
+	delta = 60.0f /(10000000.0f / (float)((double)end.QuadPart - (double)start.QuadPart));
 }
 
 void Camera::FpsDraw() {
 	if (fpsDrwFlg) {
-		Novice::ScreenPrintf(0, 0, "%.0f", 60.0f * delta);
+		Novice::ScreenPrintf(0, 0, "%.0f", 60.0f / delta);
 	}
 }

@@ -4,7 +4,7 @@
 
 class GoalUI : public Object {
 public:
-	GoalUI(Camera* camera);
+	GoalUI(Camera* camera, class Goal* goal);
 	~GoalUI();
 private:	
 	////ゴールのポジション

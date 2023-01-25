@@ -139,7 +139,7 @@ public:
 	void CreateDelta();
 
 	inline float getDelta() {
-		return 1.0f / delta;
+		return delta;
 	}
 
 public:

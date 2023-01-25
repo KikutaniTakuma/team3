@@ -201,3 +201,12 @@ void MapChip::setData(int num, const int& x, const int& y) {
 
 	data[y * MapChip::kMapWidth + x] = num;
 }
+
+Vector2D MapChip::getEmyPos() {
+	static int count = -1;
+	count++;
+	if (count > Enemy::kMaxEmyNum) {
+		count = 0;
+	}
+	return emyPos[count];
+}
