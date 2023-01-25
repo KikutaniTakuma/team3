@@ -86,6 +86,9 @@ public:
 	inline static Vector2D getEmyPos() {
 		static int count = -1;
 		count++;
+		if (count > Enemy::kMaxEmyNum) {
+			count = 0;
+		}
 		return emyPos[count];
 	}
 };
