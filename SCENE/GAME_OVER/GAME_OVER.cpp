@@ -20,6 +20,8 @@ void Game_Over::BeginProcess() {
 }
 
 void Game_Over::Update() {
+	camera->shakeFlg = false;
+
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (KeyInput::Pushed(DIK_SPACE))
 	{

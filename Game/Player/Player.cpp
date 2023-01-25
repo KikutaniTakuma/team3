@@ -113,6 +113,9 @@ void Player::Update() {
 
 	pos.worldMatrix.Translate(pos.worldPos);
 
+	/*if (!(MapChip::GetNum(pos.worldPos).x < 20.0f) && !(MapChip::GetNum(pos.worldPos).x > 179.0f) &&
+		!(MapChip::GetNum(pos.worldPos).y < 20.0f )&& !(MapChip::GetNum(pos.worldPos).y > 180.0f)) {
+	}*/
 	camera->worldPos = pos.worldPos;
 }
 

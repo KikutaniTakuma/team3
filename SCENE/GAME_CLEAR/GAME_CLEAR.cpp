@@ -20,6 +20,8 @@ void Game_Clear::BeginProcess() {
 }
 
 void Game_Clear::Update() {
+	camera->shakeFlg = false;
+
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (KeyInput::Pushed(DIK_SPACE))
 	{
