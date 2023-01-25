@@ -61,7 +61,7 @@ void MapChip::Reset() {
 
 
 bool  MapChip::Collision(const Vector2D& pos) {
-	if (GetType(pos) == (int)MapChip::Type::BLOCK || GetType(pos) == 2 || GetType(pos) == 3 || GetType(pos) == 4) {
+	if (GetType(pos) == (int)MapChip::Type::BLOCK) {
 		return true;
 	}
 	else if(GetType(pos) == (int)MapChip::Type::NONE) {
@@ -149,12 +149,14 @@ void MapChip::Draw(Texture& texture) {
 				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200,200,200,0xff));
 
 				break;
-			case 2:
+			/*case 2:
 				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+
 			case 3:
 				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+
 			case 4:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));*/
 
 
 			default:
