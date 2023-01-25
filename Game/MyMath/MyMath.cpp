@@ -101,6 +101,10 @@ unsigned int MyMath::GetRGB(unsigned int red, unsigned int green, unsigned int b
 	return (red << 24) + (green << 16) + (blue << 8) + alpha;
 }
 
+unsigned int MyMath::GetAlpha(unsigned int color) {
+	return color & 0xff;
+}
+
 int MyMath::Random(int min, int max) {
 	if (min > max) {
 		Swap(min, max);
