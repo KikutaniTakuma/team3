@@ -3,7 +3,8 @@
 Texture Object::whiteBox = Texture();
 
 Object::Object(Camera* camera)
-	:camera(camera)
+	:camera(camera),
+	pos(Quad())
 {
 	if (!whiteBox) {
 		whiteBox.Set("./Resources/white1x1.png", 1, 1, 1);
@@ -12,4 +13,8 @@ Object::Object(Camera* camera)
 
 void Object::BeginProcess() {
 	drawPos = pos;
+}
+
+Quad Object::getPos() const {
+	return pos;
 }

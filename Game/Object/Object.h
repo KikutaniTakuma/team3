@@ -18,6 +18,8 @@ protected:
 	static Texture whiteBox;
 
 public:
+	Quad getPos() const;
+
 	virtual void BeginProcess();
 
 	virtual void Update() = 0;
