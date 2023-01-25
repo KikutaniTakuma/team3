@@ -14,10 +14,11 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
+	goalTexture.Set("./Resources/white1x1.png", 1, 1, 1);
 
 	this->player = player;
 
-	pos.Set(MapChip::getGoalPos(), { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
+	pos.Set(MapChip::getGoalPos(), { 64.0f,64.0f });
 }
 
 Goal::~Goal() {
@@ -110,7 +111,6 @@ void Goal::Update() {
 			scene = Situation::GAME_CLEAR;
 		}
 
-		Novice::ScreenPrintf(0, 200, "%f : %f", pos.worldPos.x, pos.worldPos.y);
 	}
 	//	‚»‚êˆÈŠO
 	else
@@ -132,5 +132,5 @@ void Goal::Reset() {
 }
 
 void Goal::Draw() {
-	
+	camera->DrawQuad(drawPos, goalTexture, 0, true, 0x00ff00ff);
 }

@@ -27,6 +27,9 @@ private:
 
 	Player* player;
 
+	//
+	Texture goalTexture;
+
 public:
 	//	ボタンの状態確認
 	void StateUpdate();
