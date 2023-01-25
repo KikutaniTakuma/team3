@@ -11,6 +11,7 @@ Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
 	goalAdvent = false;
 	count = 0;
 	rnd = { 0.0f,0.0f };
+	
 
 	pos.Set({ 1800.0f,4800.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }
@@ -53,8 +54,26 @@ void Goal::setBottonPos() {
 	{		
 		do {
 			//	óêêîÇ≈ê∂ê¨ÇµÇƒìñÇƒÇÕÇﬂÇÈ
-			rnd = { static_cast<float>((MyMath::Random((MapChip::kMapWidth / 2),0) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-				static_cast<float>((MyMath::Random(0,100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+			
+			switch (i)
+			{
+			case 0:	//	ç∂è„
+				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			case 1:	//	âEè„
+				rnd = { static_cast<float>((MyMath::Random(101, MapChip::kMapWidth) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			case 2:	//	ç∂â∫
+				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(101, MapChip::kMapHeight) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			case 3:	//	âEâ∫
+				rnd = { static_cast<float>((MyMath::Random(101, MapChip::kMapWidth) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(101, MapChip::kMapHeight) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			}
 
 		} while (MapChip::GetType(rnd) != static_cast<int>(MapChip::Type::NONE));
 
@@ -64,6 +83,10 @@ void Goal::setBottonPos() {
 
 Vector2D Goal::getPos() {
 	return pos.worldPos;
+}
+
+void Goal::setGoalPos(Vector2D pos) {
+	this->pos.worldPos = pos;
 }
 
 void Goal::Update() {
@@ -78,13 +101,13 @@ void Goal::Update() {
 		StateUpdate();
 	}
 
-	for (int i = 0; i < kMaxButton; i++)
-	{
-	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
-	//	button[i].setPos(rnd); 
-		/*Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
-		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);*/
-	}
+//	for (int i = 0; i < kMaxButton; i++)
+//	{
+//	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
+//	//	button[i].setPos(rnd); 
+//		/*Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
+//		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);*/
+//	}
 
 	pos.worldMatrix.Translate(pos.worldPos);
 }

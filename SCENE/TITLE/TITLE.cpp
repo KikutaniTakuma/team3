@@ -1,6 +1,7 @@
 #include "SCENE/TITLE/TITLE.h"
 #include "Game/Fade/Fade.h"
 #include "Game/MyMath/MyMath.h"
+#include "Game/KeyInput/KeyInput.h"
 
 Title::Title(Camera* camera) : Object(camera) {
 	pos.Set({640.0f,360.0f}, {1280.0f,720.0f});
@@ -27,18 +28,20 @@ void Title::BeginProcess() {
 
 void Title::Update() {
 	//	ÉVÅ[ÉìêÿÇËë÷Ç¶
-	if (sceneFlag)
+	if (KeyInput::Pushed(DIK_SPACE))
+	{
+		sceneFlag = true;
+	}
+	else if (MyMath::GetAlpha(color) >= 255U)
 	{
 		SceneChange();
 	}
 
-	color = Fade::FadeInOut(color, 5.0f, true);
-//	color = Fade::Flash(color, 5.0f);
-	if (MyMath::GetAlpha(color) >= 255U)
+	if (sceneFlag)
 	{
-		sceneFlag = true;
+		color = Fade::FadeInOut(color, 5.0f, true);
 	}
-
+	
 	//	ç¿ïWïœä∑
 	pos.Translate();
 	testPos.Translate();
@@ -46,6 +49,7 @@ void Title::Update() {
 
 void Title::Reset() {
 	sceneFlag = false;
+	color = 0x00000000;
 }
 
 void Title::Draw() {

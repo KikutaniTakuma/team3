@@ -21,7 +21,6 @@ private:
 	int count;
 	//
 	Vector2D rnd;
-	
 
 public:
 	//	ボタンの状態確認
@@ -30,6 +29,8 @@ public:
 	void setBottonPos();
 	//	ゴール座標の取得
 	Vector2D getPos();
+	//	ゴール座標の設定
+	void setGoalPos(Vector2D pos);
 
 	//
 	void Update() override;
