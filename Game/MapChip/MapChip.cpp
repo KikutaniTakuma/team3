@@ -23,6 +23,9 @@ Vector2D MapChip::plyPos = Vector2D();
 std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(Enemy::kMaxEmyNum);
 Vector2D MapChip::goalPos = Vector2D();
 
+Texture MapChip::block = Texture();
+Texture MapChip::tile = Texture();
+
 
 void MapChip::Initilize() {
 	MapChip::data.resize(MapChip::kMapHeight * MapChip::kMapWidth);
@@ -47,6 +50,9 @@ void MapChip::Initilize() {
 			}
 		}
 	}
+
+	block.Set("./Resources/Block.png", 64, 64, 64);
+	tile.Set("./Resources/Tile.png", 64, 64, 64);
 }
 void MapChip::SetCamera(Camera* cameraPointa) {
 	camera = cameraPointa;
@@ -142,11 +148,11 @@ void MapChip::Draw(Texture& texture) {
 
 			switch (data[y * MapChip::kMapWidth + x]) {
 			case (int)MapChip::Type::NONE:
-				camera->DrawQuad(pos, texture, 0, false, BLACK);
+				camera->DrawQuad(pos, tile, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
 
 				break;
 			case (int)MapChip::Type::BLOCK:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200,200,200,0xff));
+				camera->DrawQuad(pos, block, 0, false, WHITE);
 
 				break;
 			/*case 2:
@@ -160,7 +166,7 @@ void MapChip::Draw(Texture& texture) {
 
 
 			default:
-				camera->DrawQuad(pos, texture, 0, false, BLACK);
+				camera->DrawQuad(pos, tile, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
 
 				break;
 			}
@@ -223,7 +229,7 @@ Vector2D MapChip::getPlyPos() {
 Vector2D MapChip::getEmyPos() {
 	static int count = -1;
 	count++;
-	if (count > Enemy::kMaxEmyNum) {
+	if (count >= Enemy::kMaxEmyNum) {
 		count = 0;
 	}
 	return emyPos[count];

@@ -119,8 +119,8 @@ void Player::Update() {
 // ï`âÊèàóùä÷êî
 void Player::Draw() {
 	camera->DrawQuad(drawPos, whiteBox, 6, false, BLUE);
-	Novice::ScreenPrintf(0, 0, "X = %f", pos.worldPos.x);
-	Novice::ScreenPrintf(0, 20, "Y = %f", pos.worldPos.y);
+	/*Novice::ScreenPrintf(0, 0, "X = %f", pos.worldPos.x);
+	Novice::ScreenPrintf(0, 20, "Y = %f", pos.worldPos.y);*/
 }
 
 // à⁄ìÆä÷êî

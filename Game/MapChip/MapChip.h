@@ -41,6 +41,9 @@ private:
 	static std::vector<Vector2D> emyPos;
 	static Vector2D goalPos;
 
+	static Texture block;
+	static Texture tile;
+
 public:
 	static void Initilize();
 
