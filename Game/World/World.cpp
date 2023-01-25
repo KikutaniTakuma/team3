@@ -106,13 +106,9 @@ World::World()
 
 	MapChip::SetCamera(camera);
 
-
-	/*object.insert(std::make_pair(Scene::Situation::TITLE, std::vector<Object*>(0)));*/
 	object.insert(std::make_pair(Scene::Situation::STAGE, new Stage(camera)));
 	object.insert(std::make_pair(Scene::Situation::TITLE, new Title(camera)));
-	/*object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));*/
+	object.insert(std::make_pair(Scene::Situation::GAME_OVER, new Game_Over(camera)));
 
 
 	/*Player* tmp = new Player(camera);

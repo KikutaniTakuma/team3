@@ -4,8 +4,9 @@
 #include "Game/Astar/Astar.h"
 #include "Game/Frame/Frame.h"
 #include "Game/Sound/Sound.h"
+#include "SCENE/Scene/Scene.h"
 
-class Enemy : public Object {
+class Enemy : public Object, Scene {
 public:
 	enum Dirextion {
 		LEFT = 0,

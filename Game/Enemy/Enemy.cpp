@@ -176,6 +176,10 @@ void Enemy::Update() {
 
 	pos.worldPos = tentativPos;
 
+	if (pos.Collision(player->getQuad())) {
+		scene = Situation::GAME_OVER;
+	}
+
 	pos.Translate();
 }
 
