@@ -138,9 +138,7 @@ public:
 
 	void CreateDelta();
 
-	inline float getDelta() {
-		return delta;
-	}
+	float getDelta();
 
 public:
 	bool fpsDrwFlg;
