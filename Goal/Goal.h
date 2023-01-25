@@ -3,8 +3,9 @@
 #include "Button/Button.h"
 #include "Game/Object/Object.h"
 #include <array>
+//#include "SCENE/Scene/Scene.h"
 
-class Goal : public Object
+class Goal : public Object//, Scene
 {
 public:
 	Goal(Camera* camera, class Player* player);
@@ -36,7 +37,7 @@ public:
 	//	ÉSÅ[Éãç¿ïWÇÃê›íË
 	void setGoalPos(Vector2D pos);
 	//
-	bool getGoalAdvent();
+	bool getGameClear();
 	//
 	void Update() override;
 

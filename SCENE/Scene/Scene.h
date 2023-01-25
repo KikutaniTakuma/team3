@@ -18,9 +18,9 @@ public:
 protected:
 	static Situation scene;
 	static Situation preScene;
-
-	bool IsChange() const;
-
+public:
+	static bool IsChange();
+protected:
 	std::vector<class Object*> obj;
 
 public:

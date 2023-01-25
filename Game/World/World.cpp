@@ -31,6 +31,8 @@ const char* kWindowTitle = "Å‚‚É–Ê”’‚¢ƒQ[ƒ€‚É‚È‚é—\’è";
 
 // XVˆ—
 void World::Update() {
+	
+
 	object[scene.getScene()]->Update();
 }
 
@@ -207,6 +209,12 @@ void World::MainLoop() {
 		this->Input();
 
 		this->Reset();
+//-----
+		if (scene.IsChange())
+		{
+			object[Scene::Situation::TITLE]->Reset();
+			object[Scene::Situation::STAGE]->Reset();
+		}
 
 		// ”ñ“¯Šúˆ—‚Ì‚½‚ß‚Ìˆ—
 		this->BeginProcess();

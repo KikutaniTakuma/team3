@@ -4,6 +4,7 @@
 #include "Game/Texture/Texture.h"
 #include "Game/Player/Player.h"
 
+
 Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	for (auto& i:button)
 	{
@@ -92,8 +93,8 @@ void Goal::setGoalPos(Vector2D pos) {
 	this->pos.worldPos = pos;
 }
 
-bool Goal::getGoalAdvent() {
-	return goalAdvent;
+bool Goal::getGameClear() {
+	return gameClear;
 }
 
 void Goal::Update() {
@@ -105,7 +106,8 @@ void Goal::Update() {
 		if (pos.Collision(player->getQuad()))
 		{
 			//	クリアフラグを立てる
-			gameClear = true;
+		//	gameClear = true;
+		//	scene = Situation::GAME_CLEAR;
 		}
 
 		Novice::ScreenPrintf(0, 200, "%f : %f", pos.worldPos.x, pos.worldPos.y);

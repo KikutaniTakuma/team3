@@ -15,6 +15,6 @@ void Scene::Update() {
 	preScene = scene;
 }
 
-bool Scene::IsChange() const{
+bool Scene::IsChange() {
 	return scene != preScene;
 }
