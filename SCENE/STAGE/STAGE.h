@@ -1,16 +1,19 @@
 #pragma once
+#include "Game/Object/Object.h"
+#include "SCENE/Scene/Scene.h"
 
-class Stage
+class Stage : public Object, Scene
 {
 public:
-	Stage();
+	Stage(Camera* camera);
 	~Stage();
 
 private:
 
 public:
-	void Update();
-	void Draw();
-
+	void BeginProcess()override;
+	void Update() override;
+	void Draw() override;
+	void Reset() override;
 };
 

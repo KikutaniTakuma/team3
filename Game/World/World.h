@@ -23,17 +23,13 @@ private:
 	void Update();
 	void Draw();
 
-	void AddObj(Scene::Situation scene, class Object* obj);
-
 public:
 	void MainLoop();
 
 private:
 	class Camera* camera;
 
-	std::map<Scene::Situation, std::vector<Object*>> object;
-
-	class Texture* whiteBox;
+	std::map<Scene::Situation, class Object*> object;
 
 
 private:

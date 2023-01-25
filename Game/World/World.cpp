@@ -31,56 +31,57 @@ const char* kWindowTitle = "Å‚‚É–Ê”’‚¢ƒQ[ƒ€‚É‚È‚é—\’è";
 
 // XVˆ—
 void World::Update() {
-	for (auto& i : object[scene.getScene()]) {
-		i->Update();
-	}
+	object[scene.getScene()]->Update();
 }
 
 // •`‰æˆ—
 void World::Draw() {
+	camera->Update();
+
+	object[scene.getScene()]->Draw();
 	
-	switch (scene.getScene())
-	{
-	case Scene::Situation::TITLE:
-		/*title.Draw(*whiteBox);*/
-		camera->Update();
-		for (auto& i : object[Scene::Situation::TITLE]) {
-			i->Draw();
-		}
+	//switch (scene.getScene())
+	//{
+	//case Scene::Situation::TITLE:
+	//	/*title.Draw(*whiteBox);*/
+	//	camera->Update();
+	//	for (auto& i : object[Scene::Situation::TITLE]) {
+	//		i->Draw();
+	//	}
 
-		break;
-	case Scene::Situation::STAGE:
+	//	break;
+	//case Scene::Situation::STAGE:
 
-		camera->Update();
+	//	camera->Update();
 
-		MapChip::Draw(*whiteBox);
+	//	MapChip::Draw(*whiteBox);
 
-		for (auto& i : object[Scene::Situation::STAGE]) {
-			i->Draw();
-		}
+	//	for (auto& i : object[Scene::Situation::STAGE]) {
+	//		i->Draw();
+	//	}
 
-		break;
-	case Scene::Situation::GAME_CLEAR:
-		camera->Update();
-		for (auto& i : object[scene.getScene()]) {
-			i->Draw();
-		}
+	//	break;
+	//case Scene::Situation::GAME_CLEAR:
+	//	camera->Update();
+	//	for (auto& i : object[scene.getScene()]) {
+	//		i->Draw();
+	//	}
 
-		break;
-	case Scene::Situation::GAME_OVER:
-		camera->Update();
-		for (auto& i : object[scene.getScene()]) {
-			i->Draw();
-		}
+	//	break;
+	//case Scene::Situation::GAME_OVER:
+	//	camera->Update();
+	//	for (auto& i : object[scene.getScene()]) {
+	//		i->Draw();
+	//	}
 
-		break;
-	case Scene::Situation::MAX_SCENE:
-		break;
+	//	break;
+	//case Scene::Situation::MAX_SCENE:
+	//	break;
 
-	default:
+	//default:
 
-		break;
-	}
+	//	break;
+	//}
 
 }
 
@@ -106,14 +107,15 @@ World::World()
 	MapChip::SetCamera(camera);
 
 
-	object.insert(std::make_pair(Scene::Situation::TITLE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::STAGE, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
+	/*object.insert(std::make_pair(Scene::Situation::TITLE, std::vector<Object*>(0)));*/
+	object.insert(std::make_pair(Scene::Situation::STAGE, new Stage(camera)));
+	object.insert(std::make_pair(Scene::Situation::TITLE, new Title(camera)));
+	/*object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
 	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));*/
 
 
-	Player* tmp = new Player(camera);
+	/*Player* tmp = new Player(camera);
 
 	AddObj(Scene::Situation::STAGE, tmp);
 
@@ -125,17 +127,13 @@ World::World()
 
 	AddObj(Scene::Situation::STAGE, goal);
 
-	AddObj(Scene::Situation::STAGE, new GoalUI(camera, goal));
+	AddObj(Scene::Situation::STAGE, new GoalUI(camera, goal));*/
 
-	AddObj(Scene::Situation::TITLE, new Title(camera));
+	/*AddObj(Scene::Situation::TITLE, new Title(camera));
 
 	AddObj(Scene::Situation::GAME_CLEAR, new Game_Clear(camera));
 
-	AddObj(Scene::Situation::GAME_OVER, new Game_Over(camera));
-	
-	
-
-	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
+	AddObj(Scene::Situation::GAME_OVER, new Game_Over(camera));*/
 
 //	Novice::SetWindowMode(kFullscreen);
 
@@ -144,12 +142,8 @@ World::World()
 World::~World() {
 	delete camera;
 
-	delete whiteBox;
-
 	for (auto& i : object) {
-		for (auto& j : i.second) {
-			delete j;
-		}
+		delete i.second;
 	}
 
 	MapChip::Finalize();
@@ -158,15 +152,9 @@ World::~World() {
 	Novice::Finalize();
 }
 
-void World::AddObj(Scene::Situation scene, Object* obj) {
-	object[scene].push_back(obj);
-}
-
 void World::BeginProcess() {
 	for (auto& i : object) {
-		for (auto& j : i.second) {
-			j->BeginProcess();
-		}
+		i.second->BeginProcess();
 	}
 }
 
@@ -186,9 +174,7 @@ void World::Reset() {
 		if (KeyInput::Released(DIK_R)) {
 			MapChip::Reset();
 			for (auto& i : object) {
-				for (auto& j : i.second) {
-					j->Reset();
-				}
+				i.second->Reset();
 			}
 		}
 	}
