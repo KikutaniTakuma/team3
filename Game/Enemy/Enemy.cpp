@@ -17,8 +17,8 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	lowSpd(0.0f),
 	shakeScale(Vector2D(10.0f,10.0f)),
 	stopFlg(false),
-	lowTime(6),
-	rndLen(400.0f),
+	lowTime(12),
+	rndLen(200.0f),
 	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
 	blockBrkFlg(false)
 {
