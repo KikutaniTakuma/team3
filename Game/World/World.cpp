@@ -188,8 +188,6 @@ void World::MainLoop() {
 	// フレームの開始
 	Novice::BeginFrame();
 
-	scene.Update();
-
 	this->Input();
 
 	this->Reset();
@@ -207,6 +205,8 @@ void World::MainLoop() {
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
 		Novice::BeginFrame();
+
+		scene.Update();
 
 		this->Input();
 
