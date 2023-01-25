@@ -37,7 +37,7 @@ private:
 	static Quad pos;
 
 	static Vector2D plyPos;
-	static Vector2D emyPos;
+	static std::vector<Vector2D> emyPos;
 
 public:
 	static void Initilize();
@@ -84,6 +84,8 @@ public:
 		return plyPos;
 	}
 	inline static Vector2D getEmyPos() {
-		return emyPos;
+		static int count = -1;
+		count++;
+		return emyPos[count];
 	}
 };

@@ -1,13 +1,18 @@
 #include "Frame.h"
+#include "Game/Camera/Camera.h"
+#include <cmath>
 
-Frame::Frame(void) {
-	frame = 0;
-	startFlag = false;
-}
+Frame::Frame(void):
+	frame(0),
+	startFlag(false),
+	add(1.0f)
+{}
 
-void Frame::Start(void) {
+void Frame::Start(float delta) {
 	if (startFlag == true) {
-		frame++;
+		add *= delta;
+		frame += static_cast<unsigned long long>(floor(add));
+		add = 1.0f;
 	}
 }
 

@@ -2,6 +2,8 @@
 
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/Matrix3x3/Matrix3x3.h"
+#include "Game/MapChip/MapChip.h"
+#include <windows.h>
 
 class Camera {
 public:
@@ -74,7 +76,7 @@ public:
 	/// <para>ture:‰f‚Á‚Ä‚é</para>
 	/// <para>false:‰f‚Á‚Ä‚È‚¢</para>
 	/// </returns>
-	bool isDraw(Vector2D pos, const float& drawLength = 10.0f) const;
+	bool isDraw(Vector2D pos, const float& drawLength = MapChip::kMapSize) const;
 
 	Vector2D getPos() const;
 	Vector2D getDrawLeftTop() const;
@@ -124,4 +126,24 @@ private:
 public:
 	// ƒtƒŒ[ƒ€
 	class Frame* frame;
+
+private:
+	LARGE_INTEGER start, end;
+	float delta;
+
+public:
+	void TimeStart();
+
+	void TimeEnd();
+
+	void CreateDelta();
+
+	inline float getDelta() {
+		return 1.0f / delta;
+	}
+
+public:
+	bool fpsDrwFlg;
+
+	void FpsDraw();
 };

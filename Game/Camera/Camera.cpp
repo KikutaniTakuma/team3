@@ -22,7 +22,11 @@ Camera::Camera() :
 	frame(new Frame),
 	shakeScale({ 10.0f,10.0f }),
 	shakeFlg(false),
-	drawLength(10.0f)
+	drawLength(MapChip::kMapSize),
+	delta(1.0f),
+	fpsDrwFlg(true),
+	start(LARGE_INTEGER()),
+	end(LARGE_INTEGER())
 {
 	viewMatrix.Translate(worldPos);
 	viewMatrix.Inverse();
@@ -210,4 +214,22 @@ Vector2D Camera::getDrawRightBottom() const {
 }
 Vector2D Camera::getDrawSize() const {
 	return size;
+}
+
+void Camera::TimeStart() {
+	QueryPerformanceCounter(&start);
+}
+
+void Camera::TimeEnd() {
+	QueryPerformanceCounter(&end);
+}
+
+void Camera::CreateDelta() {
+	delta = (10000000.0f / (float)((double)end.QuadPart - (double)start.QuadPart)) / 60.0f;
+}
+
+void Camera::FpsDraw() {
+	if (fpsDrwFlg) {
+		Novice::ScreenPrintf(0, 0, "%.0f", 60.0f * delta);
+	}
 }

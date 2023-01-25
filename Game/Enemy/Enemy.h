@@ -13,6 +13,8 @@ public:
 		DOWN
 	};
 
+	static const int kMaxEmyNum;
+
 public:
 	Enemy() = delete;
 	Enemy(Camera* cameraPointa, class Player* player);
@@ -28,9 +30,12 @@ private:
 	float lowSpd;
 
 	Vector2D shakeScale;
+	bool stopFlg;
 
 	Frame frm;
 	unsigned int lowTime;
+
+	float rndLen;
 
 public:
 	const class Player* player;
