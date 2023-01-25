@@ -22,7 +22,7 @@ Camera::Camera() :
 	frame(new Frame),
 	shakeScale({ 10.0f,10.0f }),
 	shakeFlg(false),
-	drawLength(MapChip::kMapSize),
+	drawLength(static_cast<float>(MapChip::kMapSize)),
 	delta(1.0f),
 	fpsDrwFlg(true),
 	start(LARGE_INTEGER()),
