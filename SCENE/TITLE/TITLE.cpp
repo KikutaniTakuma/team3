@@ -18,8 +18,6 @@ Title::~Title() {
 
 void Title::SceneChange() {
 	scene = Situation::STAGE;
-	sceneFlag = false;
-	color = 0x00000000;
 }
 
 
