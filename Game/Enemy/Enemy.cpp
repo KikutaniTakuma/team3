@@ -18,7 +18,9 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	shakeScale(Vector2D(10.0f,10.0f)),
 	stopFlg(false),
 	lowTime(6),
-	rndLen(400.0f)
+	rndLen(400.0f),
+	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
+	blockBrkFlg(false)
 {
 	std::vector<float> data;
 	if(IOcsv::Input("./Data/EnemyData.csv", data))
@@ -158,11 +160,13 @@ void Enemy::Update() {
 		stopFlg = true;
 		if (camera->isDraw(pos.worldPos)) {
 			camera->shakeFlg = true;
+			blockBrkFlg = true;
 		}
 	}
 	else {
 		if (camera->isDraw(pos.worldPos)) {
 			camera->shakeFlg = false;
+			blockBrkFlg = false;
 		}
 	}
 
@@ -177,6 +181,12 @@ void Enemy::Update() {
 
 void Enemy::Draw() {
 	camera->DrawQuad(drawPos, whiteBox, 0, false, MyMath::GetRGB(255,0,0,255));
+
+	if (camera->isDraw(drawPos.worldPos)) {
+		if (blockBrkFlg) {
+			blockBrk.SoundEffect(0.5f);
+		}
+	}
 }
 
 void Enemy::Reset() {

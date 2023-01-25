@@ -3,6 +3,7 @@
 #include "Game/Object/Object.h"
 #include "Game/Astar/Astar.h"
 #include "Game/Frame/Frame.h"
+#include "Game/Sound/Sound.h"
 
 class Enemy : public Object {
 public:
@@ -36,6 +37,9 @@ private:
 	unsigned int lowTime;
 
 	float rndLen;
+
+	Sound blockBrk;
+	bool blockBrkFlg;
 
 public:
 	const class Player* player;
