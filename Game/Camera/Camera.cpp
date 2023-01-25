@@ -167,7 +167,7 @@ void Camera::DrawQuad(Quad& quad, Texture& texture, float deg, const int& animat
 
 void Camera::DrawUI(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	Vector2D tmp = quad.worldPos;
-	quad.worldPos += worldPos - (size/ 2.0f);
+	quad.worldPos += (worldPos - (size/ 2.0f));
 	quad.Translate();
 	quad.setVpvpMatrix(vpvpMatrix);
 
