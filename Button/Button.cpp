@@ -7,7 +7,7 @@
 
 Button::Button(Camera* camera) : Object(camera) {
 	isPushButton = false;
-
+	buttonTexture = whiteBox;
 	pos.Set({ 0.0f,0.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }
 
@@ -44,5 +44,12 @@ void Button::Reset() {
 }
 
 void Button::Draw() {
-
+	if (isPushButton)
+	{
+		camera->DrawQuad(drawPos, buttonTexture, 0, true, 0xff0000ff);
+	}
+	else
+	{
+		camera->DrawQuad(drawPos, buttonTexture, 0, true, 0x0000ffff);
+	}
 }

@@ -11,8 +11,8 @@ public:
 private:
 	//	押されたらtrue
 	bool isPushButton;
-	
-
+	//	
+	Texture buttonTexture;
 public:
 	//	プレイヤーとの衝突用の関数
 	void Collision(Quad playerPos);

@@ -12,7 +12,8 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	goalAdvent = false;
 	count = 0;
 	rnd = { 0.0f,0.0f };
-	
+	gameClear = false;
+
 	this->player = player;
 
 	pos.Set({ 1800.0f,4800.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
@@ -97,9 +98,10 @@ void Goal::Update() {
 	{
 		/*ゴール座標をpos.x = 0としたとき、x座標が0以下ならクリアフラグをtrueにし、シーンを切り替える*/
 		//	プレイヤーとの衝突判定
-		if (false)
+		if (pos.Collision(player->getQuad()))
 		{
-
+			//	クリアフラグを立てる
+			gameClear = true;
 		}
 	}
 	//	それ以外
@@ -108,13 +110,10 @@ void Goal::Update() {
 		StateUpdate();
 	}
 	
-
-//	for (int i = 0; i < kMaxButton; i++)
+//	//	ボタンとプレイヤーの衝突判定
+//	for (auto& i : button)
 //	{
-//	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
-//	//	button[i].setPos(rnd); 
-//		/*Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
-//		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);*/
+//		i->Collision(player->getQuad());
 //	}
 
 	pos.worldMatrix.Translate(pos.worldPos);
@@ -125,5 +124,5 @@ void Goal::Reset() {
 }
 
 void Goal::Draw() {
-
+	
 }

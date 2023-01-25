@@ -21,8 +21,8 @@ private:
 	int count;
 	//
 	Vector2D rnd;
-	//	シーン切り替え
-	void SceneChange();
+	//	シーン切り替え用フラグ
+	bool gameClear;
 
 	Player* player;
 
