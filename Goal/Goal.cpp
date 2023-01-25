@@ -85,6 +85,10 @@ Vector2D Goal::getPos() {
 	return pos.worldPos;
 }
 
+void Goal::setGoalPos(Vector2D pos) {
+	this->pos.worldPos = pos;
+}
+
 void Goal::Update() {
 	//	ÉSÅ[ÉãÇ™äJÇ¢ÇΩÇÁ
 	if (goalAdvent)
@@ -97,13 +101,13 @@ void Goal::Update() {
 		StateUpdate();
 	}
 
-	for (int i = 0; i < kMaxButton; i++)
-	{
-	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
-	//	button[i].setPos(rnd); 
-		/*Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
-		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);*/
-	}
+//	for (int i = 0; i < kMaxButton; i++)
+//	{
+//	//	Vector2D rnd = { MyMath::Random(0,100),MyMath::Random(0,100) };
+//	//	button[i].setPos(rnd); 
+//		/*Novice::ScreenPrintf(50, 100 + (i * 20), "%f",button[i]->getPos().x);
+//		Novice::ScreenPrintf(50, 200 + (i * 20), "%f",button[i]->getPos().y);*/
+//	}
 
 	pos.worldMatrix.Translate(pos.worldPos);
 }

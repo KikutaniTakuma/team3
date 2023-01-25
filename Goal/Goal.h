@@ -29,6 +29,8 @@ public:
 	void setBottonPos();
 	//	ゴール座標の取得
 	Vector2D getPos();
+	//	ゴール座標の設定
+	void setGoalPos(Vector2D pos);
 
 	//
 	void Update() override;
