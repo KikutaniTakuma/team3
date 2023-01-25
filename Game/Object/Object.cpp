@@ -15,6 +15,6 @@ void Object::BeginProcess() {
 	drawPos = pos;
 }
 
-Quad Object::getPos() const {
+Quad Object::getQuad() const {
 	return pos;
 }
