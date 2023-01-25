@@ -212,12 +212,7 @@ void World::MainLoop() {
 		this->Input();
 
 		this->Reset();
-//-----
-		if (scene.IsChange())
-		{
-			object[Scene::Situation::STAGE]->Reset();
-			object[Scene::Situation::TITLE]->Reset();
-		}
+
 
 		// ”ñ“¯Šúˆ—‚Ì‚½‚ß‚Ìˆ—
 		this->BeginProcess();
@@ -230,6 +225,13 @@ void World::MainLoop() {
 
 		update.join();
 		draw.join();
+
+		//-----
+		if (scene.IsChange())
+		{
+			object[Scene::Situation::STAGE]->Reset();
+			object[Scene::Situation::TITLE]->Reset();
+		}
 
 		/*this->Update();
 		this->Draw();*/
