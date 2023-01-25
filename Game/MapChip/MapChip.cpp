@@ -21,6 +21,7 @@ const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();
 std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(Enemy::kMaxEmyNum);
+Vector2D goalPos = Vector2D();
 
 
 void MapChip::Initilize() {
@@ -40,6 +41,10 @@ void MapChip::Initilize() {
 				emyPos[count] = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 				count++;
 			}
+			if (data[y * MapChip::kMapWidth + x] == 50) {
+				data[y * MapChip::kMapWidth + x] = 0;
+				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+			}
 		}
 	}
 }
@@ -56,7 +61,7 @@ void MapChip::Reset() {
 
 
 bool  MapChip::Collision(const Vector2D& pos) {
-	if (GetType(pos) == (int)MapChip::Type::BLOCK) {
+	if (GetType(pos) == (int)MapChip::Type::BLOCK || GetType(pos) == 2 || GetType(pos) == 3 || GetType(pos) == 4) {
 		return true;
 	}
 	else if(GetType(pos) == (int)MapChip::Type::NONE) {
@@ -144,6 +149,13 @@ void MapChip::Draw(Texture& texture) {
 				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200,200,200,0xff));
 
 				break;
+			case 2:
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+			case 3:
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+			case 4:
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+
 
 			default:
 				camera->DrawQuad(pos, texture, 0, false, BLACK);
@@ -202,6 +214,10 @@ void MapChip::setData(int num, const int& x, const int& y) {
 	data[y * MapChip::kMapWidth + x] = num;
 }
 
+Vector2D MapChip::getPlyPos() {
+	return plyPos;
+}
+
 Vector2D MapChip::getEmyPos() {
 	static int count = -1;
 	count++;
@@ -209,4 +225,8 @@ Vector2D MapChip::getEmyPos() {
 		count = 0;
 	}
 	return emyPos[count];
+}
+
+Vector2D getGoalPos() {
+	return goalPos;
 }

@@ -38,6 +38,7 @@ private:
 
 	static Vector2D plyPos;
 	static std::vector<Vector2D> emyPos;
+	static Vector2D goalPos;
 
 public:
 	static void Initilize();
@@ -80,8 +81,8 @@ public:
 	// setter
 	static void setData(int num, const int& x, const int& y);
 
-	inline static Vector2D getPlyPos() {
-		return plyPos;
-	}
+	static Vector2D getPlyPos();
 	static Vector2D getEmyPos();
+
+	static Vector2D getGoalPos();
 };
