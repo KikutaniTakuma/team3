@@ -45,7 +45,7 @@ void MapChip::Initilize() {
 				count++;
 			}
 			if (data[y * MapChip::kMapWidth + x] == 50) {
-				data[y * MapChip::kMapWidth + x] = 0;
+				data[y * MapChip::kMapWidth + x] = 1;
 				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 			}
 		}
