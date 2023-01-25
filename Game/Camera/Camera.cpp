@@ -226,7 +226,7 @@ void Camera::TimeEnd() {
 }
 
 void Camera::CreateDelta() {
-	delta = (10000000.0f / (float)((double)end.QuadPart - (double)start.QuadPart)) / 60.0f;
+	delta = static_cast<float>(60.0 / (10000000.0 / ((double)end.QuadPart - (double)start.QuadPart)));
 }
 
 float Camera::getDelta() {
@@ -235,6 +235,6 @@ float Camera::getDelta() {
 
 void Camera::FpsDraw() {
 	if (fpsDrwFlg) {
-		Novice::ScreenPrintf(0, 0, "%.0f", 60.0f * delta);
+		Novice::ScreenPrintf(0, 0, "%.0f", 60.0f / delta);
 	}
 }

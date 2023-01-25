@@ -10,7 +10,9 @@ Frame::Frame(void):
 
 void Frame::Start(float delta) {
 	if (startFlag == true) {
-		add *= delta;
+		if (delta > 1.0f) {
+			add *= delta;
+		}
 		frame += static_cast<unsigned long long>(floor(add));
 		add = 1.0f;
 	}
