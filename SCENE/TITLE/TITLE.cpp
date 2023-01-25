@@ -27,6 +27,7 @@ void Title::BeginProcess() {
 }
 
 void Title::Update() {
+
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (KeyInput::Pushed(DIK_SPACE))
 	{

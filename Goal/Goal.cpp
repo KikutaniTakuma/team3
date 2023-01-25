@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "Game/MapChip/MapChip.h"
 #include "Game/Texture/Texture.h"
+#include "Game/Player/Player.h"
 
 Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
 	for (auto& i:button)
@@ -28,7 +29,7 @@ Goal::~Goal() {
 	ボタンが押されたらそのボタンをtrueにする
 	trueになっているボタンの数（num）を記録し、num = 4でゴールをtrueにする
 	ゴールがtrueになったら、マップ数字（ゴール = 2）を壁から空気へ、
-	ゴール座標をpos.x = 0としたとき、x座標が0以下ならクリアフラグをtrueにし、シーンを切り替える
+	ゴール座標とプレイヤーの衝突判定をとり、trueになればシーン切り替え
 
 */
 
@@ -94,12 +95,18 @@ void Goal::Update() {
 	if (goalAdvent)
 	{
 		/*ゴール座標をpos.x = 0としたとき、x座標が0以下ならクリアフラグをtrueにし、シーンを切り替える*/
+		//	プレイヤーとの衝突判定
+		if (false)
+		{
+
+		}
 	}
 	//	それ以外
 	else
 	{
 		StateUpdate();
 	}
+	
 
 //	for (int i = 0; i < kMaxButton; i++)
 //	{

@@ -21,6 +21,8 @@ private:
 	int count;
 	//
 	Vector2D rnd;
+	//	シーン切り替え
+	void SceneChange();
 
 public:
 	//	ボタンの状態確認

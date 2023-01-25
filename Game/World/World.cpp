@@ -61,6 +61,7 @@ void World::Draw() {
 
 		break;
 	case Scene::Situation::GAME_CLEAR:
+		camera->Update();
 		for (auto& i : object[scene.getScene()]) {
 			i->Draw();
 		}
@@ -127,6 +128,8 @@ World::World()
 	AddObj(Scene::Situation::STAGE, new GoalUI(camera, goal));
 
 	AddObj(Scene::Situation::TITLE, new Title(camera));
+
+	AddObj(Scene::Situation::GAME_CLEAR, new Game_Clear(camera));
 	
 	
 
