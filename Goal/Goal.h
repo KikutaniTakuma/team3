@@ -35,7 +35,8 @@ public:
 	Vector2D getPos();
 	//	ƒS[ƒ‹À•W‚Ìİ’è
 	void setGoalPos(Vector2D pos);
-
+	//
+	bool getGoalAdvent();
 	//
 	void Update() override;
 

@@ -92,6 +92,10 @@ void Goal::setGoalPos(Vector2D pos) {
 	this->pos.worldPos = pos;
 }
 
+bool Goal::getGoalAdvent() {
+	return goalAdvent;
+}
+
 void Goal::Update() {
 	//	ゴールが開いたら
 	if (goalAdvent)
@@ -103,6 +107,8 @@ void Goal::Update() {
 			//	クリアフラグを立てる
 			gameClear = true;
 		}
+
+		Novice::ScreenPrintf(0, 200, "%f : %f", pos.worldPos.x, pos.worldPos.y);
 	}
 	//	それ以外
 	else
