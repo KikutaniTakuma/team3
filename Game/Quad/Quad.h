@@ -73,6 +73,8 @@ public:
 
 	Quad operator+(const Vector2D& vec);
 
+	bool Collision(const Quad& tmp);
+
 private:
 	Vector2D leftTop;
 	Vector2D leftUnder;

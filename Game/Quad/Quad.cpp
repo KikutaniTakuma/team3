@@ -119,6 +119,15 @@ Quad Quad::operator+(const Vector2D& vec){
 	return quad;
 }
 
+bool Quad::Collision(const Quad& tmp) {
+	if (leftTop.x < tmp.rightTop.x && tmp.leftTop.x < rightTop.x) {
+		if (leftTop.y > tmp.leftUnder.y && tmp.leftTop.y > leftUnder.y) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void Quad::Translate() {
 	this->worldMatrix.Translate(worldPos);
 }
