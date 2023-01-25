@@ -120,19 +120,14 @@ Quad Quad::operator+(const Vector2D& vec){
 }
 
 bool Quad::Collision(const Quad& tmp) {
-	if (leftTop.x < tmp.rightTop.x && tmp.leftTop.x < rightTop.x) {
+	/*if (leftTop.x < tmp.rightTop.x && tmp.leftTop.x < rightTop.x) {
 		if (leftTop.y < tmp.leftUnder.y && tmp.leftTop.y < leftUnder.y) {
 			return true;
 		}
 	}
-	return false;
-
-	/*if (LeftTop1.x < LeftTop2.x + size2.x && LeftTop2.x < LeftTop1.x + size1.x) {
-		if (LeftTop1.y < LeftTop2.y - size2.y && LeftTop2.y < LeftTop1.y - size1.y) {
-			return true;
-		}
-	}
 	return false;*/
+
+	return MyMath::PythagoreanTheorem(abs(worldPos.x - tmp.worldPos.x), abs(worldPos.y - tmp.worldPos.y)) < MyMath::PythagoreanTheorem(size.x, size.y));
 }
 
 void Quad::Translate() {
