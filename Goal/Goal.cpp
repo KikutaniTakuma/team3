@@ -4,7 +4,7 @@
 #include "Game/Texture/Texture.h"
 #include "Game/Player/Player.h"
 
-Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
+Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	for (auto& i:button)
 	{
 		i = new Button(camera);
@@ -13,6 +13,7 @@ Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	
+	this->player = player;
 
 	pos.Set({ 1800.0f,4800.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }

@@ -7,7 +7,7 @@
 class Goal : public Object
 {
 public:
-	Goal(Camera* camera);
+	Goal(Camera* camera, class Player* player);
 	~Goal();
 
 private:
@@ -23,6 +23,8 @@ private:
 	Vector2D rnd;
 	//	シーン切り替え
 	void SceneChange();
+
+	Player* player;
 
 public:
 	//	ボタンの状態確認
