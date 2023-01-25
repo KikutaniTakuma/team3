@@ -14,6 +14,7 @@
 #include <Novice.h>
 #include <assert.h>
 #include <thread>
+#include <time.h>
 
 #include "Goal/Goal.h"
 
@@ -108,7 +109,9 @@ World::World()
 
 	AddObj(Scene::Situation::STAGE, tmp);
 
-	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
+	for (int i = 0; i < Enemy::kMaxEmyNum; i++) {
+		AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
+	}
 
 	AddObj(Scene::Situation::STAGE, new Goal(camera));
 
@@ -208,15 +211,25 @@ void World::MainLoop() {
 		// ”ñ“¯Šúˆ—‚Ì‚½‚ß‚Ìˆ—
 		this->BeginProcess();
 
-		std::thread update(&World::Update, this);
+		camera->TimeStart();
 
-		std::thread draw(&World::Draw, this);
+		update = std::thread(&World::Update, this);
+
+		draw = std::thread(&World::Draw, this);
 
 		update.join();
 		draw.join();
 
+		/*this->Update();
+		this->Draw();*/
+
 		// ƒtƒŒ[ƒ€‚ÌI—¹
 		Novice::EndFrame();
+
+		camera->TimeEnd();
+		camera->CreateDelta();
+
+		camera->FpsDraw();
 
 		if (KeyInput::Released(DIK_ESCAPE)) { break; }
 	}

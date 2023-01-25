@@ -7,6 +7,7 @@
 #include "Game/Camera/Camera.h"
 
 #include "Game/IOcsv/IOcsv.h"
+#include "Game/Enemy/Enemy.h"
 
 std::vector<int> MapChip::data;
 const int MapChip::kMapSize = 32;
@@ -19,7 +20,7 @@ const int MapChip::kMapHeight = 200;//200
 const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();
-Vector2D MapChip::emyPos = Vector2D();
+std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(Enemy::kMaxEmyNum);
 
 
 void MapChip::Initilize() {
@@ -27,15 +28,17 @@ void MapChip::Initilize() {
 
 	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);//./Data/MapChipData.csv
 
+	int count = 0;
 	for (int y = 0; y < kMapHeight; y++) {
 		for (int x = 0; x < kMapWidth; x++) {
 			if (data[y * MapChip::kMapWidth + x] == 55) {
 				data[y * MapChip::kMapWidth + x] = 0;
 				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 			}
-			if (data[y * MapChip::kMapWidth + x] == 56) {
+			if (data[y * MapChip::kMapWidth + x] == 56 && count < Enemy::kMaxEmyNum) {
 				data[y * MapChip::kMapWidth + x] = 0;
-				emyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+				emyPos[count] = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+				count++;
 			}
 		}
 	}
@@ -102,7 +105,7 @@ void MapChip::Draw(Texture& texture) {
 	pos.Set({ 0.0f,0.0f }, { kMapSize, kMapSize });
 
 	// カメラの映る範囲のマップチップの番号を取得
-	int firstY = (static_cast<int>(camera->getPos().y) / kMapSize) + (static_cast<int>(camera->getDrawSize().y / 2.0f) / kMapSize) + 1;
+	int firstY = (static_cast<int>(camera->getPos().y) / kMapSize) + (static_cast<int>((camera->getDrawSize().y) / 2.0f) / kMapSize) + 1;
 	int lastY = (static_cast<int>(camera->getDrawSize().y / 2.0f) / kMapSize) - (static_cast<int>(camera->getPos().y) / kMapSize) - 1;
 	firstY += lastY + static_cast<int>(MapChip::GetNum(camera->worldPos).y);
 	/*int hoge = static_cast<int>(MapChip::GetNum(camera->worldPos).y);*/
@@ -138,7 +141,7 @@ void MapChip::Draw(Texture& texture) {
 
 				break;
 			case (int)MapChip::Type::BLOCK:
-				camera->DrawQuad(pos, texture, 0, false, WHITE);
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200,200,200,0xff));
 
 				break;
 

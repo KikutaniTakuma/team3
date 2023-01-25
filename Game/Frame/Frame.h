@@ -4,6 +4,10 @@ class Frame {
 public:
 	Frame(void);
 
+private:
+	float add;
+
+public:
 	// フレーム
 	unsigned long long frame;
 
@@ -11,7 +15,7 @@ public:
 	bool startFlag;
 
 	// スタート関数
-	void Start(void);
+	void Start(float delta = 1.0f);
 
 	// 停止
 	void Pause(void);

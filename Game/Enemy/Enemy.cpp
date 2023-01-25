@@ -7,6 +7,8 @@
 #include "Game/MyMath/MyMath.h"
 #include <cmath>
 
+const int Enemy::kMaxEmyNum = 4;
+
 Enemy::Enemy(Camera* cameraPointa, Player* player)
 	:Object(cameraPointa),
 	player(player),
@@ -14,7 +16,9 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	nmlSpd(spd),
 	lowSpd(0.0f),
 	shakeScale(Vector2D(10.0f,10.0f)),
-	lowTime(12)
+	stopFlg(false),
+	lowTime(12),
+	rndLen(200.0f)
 {
 	std::vector<float> data;
 	if(IOcsv::Input("./Data/EnemyData.csv", data))
@@ -35,39 +39,99 @@ void Enemy::Update() {
 		moveVec = { 0.0f };
 		tentativPos = pos.worldPos;
 
-		if (camera->shakeFlg) {
+		if (stopFlg) {
 			spd = lowSpd;
 		}
 		if (spd == lowSpd) {
-			frm.Start();
+			frm.Start(camera->getDelta());
 		}
 		if(frm.frame > lowTime){
+			stopFlg = false;
 			spd = nmlSpd;
 			frm.Stop();
 			frm.Restart();
 		}
 
-		/// プレイヤーの位置を見て徐々に近づいて行く
-		/// 速度は一定
-		/// 斜め走行はなし
-		/// 縦と横で長いほうを移動する(縦<横の場合横方向に動く)
-		if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
-			if (player->getWorldPosY() < pos.worldPos.y) {
+		// ランダム範囲内にいないときはプレイヤーに向かう
+		if (!camera->isDraw(pos.worldPos, rndLen + camera->drawLength) && camera->isDraw(pos.worldPos, rndLen)) {
+			int rnd = MyMath::Random(1, 4);
+
+			if (rnd == 1) {
 				moveVec.y -= spd;
 			}
-			else {
+			else if (rnd == 2) {
 				moveVec.y += spd;
 			}
-		}
-		else {
-			if (player->getWorldPosX() < pos.worldPos.x) {
+			else if (rnd == 3) {
 				moveVec.x -= spd;
 			}
-			else {
+			else if (rnd == 4) {
 				moveVec.x += spd;
 			}
+
+			tentativPos += moveVec * camera->getDelta();
 		}
-		tentativPos += moveVec;
+
+		else {
+			/// プレイヤーの位置を見て徐々に近づいて行く
+			/// 速度は一定
+			/// 斜め走行はなし
+			/// 縦と横で長いほうを移動する(縦<横の場合横方向に動く)
+			/*if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
+				if (player->getWorldPosY() < pos.worldPos.y) {
+					moveVec.y -= spd;
+				}
+				else {
+					moveVec.y += spd;
+				}
+			}
+			else {
+				if (player->getWorldPosX() < pos.worldPos.x) {
+					moveVec.x -= spd;
+				}
+				else {
+					moveVec.x += spd;
+				}
+			}
+			tentativPos += moveVec * camera->getDelta();*/
+
+			// 上の逆バージョン
+			if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
+				if (MapChip::GetNum(pos.worldPos).y == MapChip::GetNum(player->getWorldPos()).y) {
+					if (player->getWorldPosX() < pos.worldPos.x) {
+						moveVec.x -= spd;
+					}
+					else {
+						moveVec.x += spd;
+					}
+				}
+				else if (player->getWorldPosY() < pos.worldPos.y) {
+					moveVec.y -= spd;
+				}
+				else if (player->getWorldPosY() >= pos.worldPos.y) {
+					moveVec.y += spd;
+				}
+			}
+			else {
+				if (MapChip::GetNum(pos.worldPos).x == MapChip::GetNum(player->getWorldPos()).x) {
+					if (player->getWorldPosY() < pos.worldPos.y) {
+						moveVec.y -= spd;
+					}
+					else if (player->getWorldPosY() >= pos.worldPos.y) {
+						moveVec.y += spd;
+					}
+				}
+				else if (player->getWorldPosX() < pos.worldPos.x) {
+					moveVec.x -= spd;
+				}
+				else if(player->getWorldPosX() >= pos.worldPos.x){
+					moveVec.x += spd;
+				}
+			}
+			tentativPos += moveVec * camera->getDelta();
+
+		}
+
 	}
 	// 移動したところがブロックだったら
 	// 移動ベクトルとは逆方向に移動(後で実装)
@@ -91,10 +155,15 @@ void Enemy::Update() {
 		mapNum = MapChip::GetNum(pos.getSizeRightUnder() + tentativPos);
 		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-		camera->shakeFlg = true;
+		stopFlg = true;
+		if (camera->isDraw(pos.worldPos)) {
+			camera->shakeFlg = true;
+		}
 	}
 	else {
-		camera->shakeFlg = false;
+		if (camera->isDraw(pos.worldPos)) {
+			camera->shakeFlg = false;
+		}
 	}
 
 	if (camera->shakeFlg) {

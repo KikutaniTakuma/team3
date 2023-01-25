@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <map>
+#include <thread>
 
 
 #include "SCENE/TITLE/TITLE.h"
@@ -37,6 +38,10 @@ private:
 
 private:
 	Scene scene;
+
+	std::thread update;
+
+	std::thread draw;
 
 	//Title title;
 	//Stage stage;
