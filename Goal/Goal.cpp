@@ -107,7 +107,7 @@ void Goal::Update() {
 		{
 			//	クリアフラグを立てる
 		//	gameClear = true;
-		//	scene = Situation::GAME_CLEAR;
+			scene = Situation::GAME_CLEAR;
 		}
 
 		Novice::ScreenPrintf(0, 200, "%f : %f", pos.worldPos.x, pos.worldPos.y);

@@ -32,7 +32,6 @@ const char* kWindowTitle = "Å‚‚É–Ê”’‚¢ƒQ[ƒ€‚É‚È‚é—\’è";
 // XVˆ—
 void World::Update() {
 	
-
 	object[scene.getScene()]->Update();
 }
 
@@ -110,7 +109,11 @@ World::World()
 
 	object.insert(std::make_pair(Scene::Situation::STAGE, new Stage(camera)));
 	object.insert(std::make_pair(Scene::Situation::TITLE, new Title(camera)));
+	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, new Game_Clear(camera)));
 	object.insert(std::make_pair(Scene::Situation::GAME_OVER, new Game_Over(camera)));
+	/*object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
+	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));*/
 
 
 	/*Player* tmp = new Player(camera);
@@ -212,8 +215,8 @@ void World::MainLoop() {
 //-----
 		if (scene.IsChange())
 		{
-			object[Scene::Situation::TITLE]->Reset();
 			object[Scene::Situation::STAGE]->Reset();
+			object[Scene::Situation::TITLE]->Reset();
 		}
 
 		// ”ñ“¯Šúˆ—‚Ì‚½‚ß‚Ìˆ—
