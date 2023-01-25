@@ -10,6 +10,7 @@
 #include "Game/Texture/Texture.h"
 #include "Game/Camera/Camera.h"
 #include "Game/Enemy/Enemy.h"
+#include"Game/GoalUI/GoalUI.h"
 #include <Novice.h>
 #include <assert.h>
 #include <thread>
@@ -103,6 +104,8 @@ World::World()
 
 	Player* tmp = new Player(camera);
 
+	AddObj(Scene::Situation::STAGE, new GoalUI(camera));
+
 	AddObj(Scene::Situation::STAGE, tmp);
 
 	AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
@@ -110,6 +113,8 @@ World::World()
 	AddObj(Scene::Situation::STAGE, new Goal(camera));
 
 	AddObj(Scene::Situation::TITLE, new Title(camera));
+	
+	
 
 	this->whiteBox = new Texture("./Resources/white1x1.png", 32, 32, 32);
 

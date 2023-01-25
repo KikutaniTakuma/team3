@@ -12,7 +12,7 @@ Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
 	count = 0;
 	rnd = { 0.0f,0.0f };
 
-	pos.Set({ 0.0f,0.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
+	pos.Set({ 1800.0f,4800.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }
 
 Goal::~Goal() {

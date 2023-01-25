@@ -7,7 +7,7 @@
 #include <functional>
 #include <vector>
 
-//class Effect : public Quad {
+//class Effect : public Object {
 //public:
 //	struct Emitter
 //	{
