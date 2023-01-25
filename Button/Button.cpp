@@ -11,9 +11,9 @@ Button::Button(Camera* camera) : Object(camera) {
 	pos.Set({ 0.0f,0.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }
 
-void Button::Collision(Vector2D playerPos,Vector2D playerSize) {
+void Button::Collision(Quad playerPos) {
 	//	Õ“Ë”»’è
-	if (MyMath::CollisionRectangle(this->pos.worldPos, this->pos.getSize(), playerPos, playerSize))
+	if (pos.Collision(playerPos))
 	{
 		isPushButton = true;
 	}
@@ -31,12 +31,16 @@ Vector2D Button::getPos() {
 	return this->pos.worldPos;
 }
 
+void Button::BeginProcess() {
+
+}
+
 void Button::Update() {
 
 }
 
 void Button::Reset() {
-
+	isPushButton = false;
 }
 
 void Button::Draw() {

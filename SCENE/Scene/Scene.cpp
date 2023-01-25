@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include "SCENE/Scene/Scene.h"
 
 Scene::Situation Scene::scene = Scene::Situation::TITLE;
 Scene::Situation Scene::preScene = scene;

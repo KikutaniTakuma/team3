@@ -15,7 +15,7 @@ private:
 
 public:
 	//	プレイヤーとの衝突用の関数
-	void Collision(Vector2D playerPos, Vector2D playerSize);
+	void Collision(Quad playerPos);
 
 	//	ボタンの状態取得
 	bool getPushButton();
@@ -23,6 +23,8 @@ public:
 	//	ボタンの座標の設定
 	void setPos(Vector2D pos);
 	Vector2D getPos();
+
+	void BeginProcess() override;
 
 	void Update() override;
 

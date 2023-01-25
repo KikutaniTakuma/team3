@@ -39,5 +39,5 @@ void Game_Clear::Reset() {
 }
 
 void Game_Clear::Draw() {
-	camera->DrawUI(drawPos, BG, 0, false, 0xffffffff);
+	camera->DrawUI(drawPos, BG, 0, false, 0xbbbbbbff);
 }
