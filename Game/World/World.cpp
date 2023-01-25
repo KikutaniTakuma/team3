@@ -229,6 +229,7 @@ void World::MainLoop() {
 		//-----
 		if (scene.IsChange())
 		{
+			MapChip::Reset();
 			object[Scene::Situation::STAGE]->Reset();
 			object[Scene::Situation::TITLE]->Reset();
 		}
