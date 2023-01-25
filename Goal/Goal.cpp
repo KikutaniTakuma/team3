@@ -11,6 +11,7 @@ Goal::Goal(Camera* camera) :Object(camera), kMaxButton(4) {
 	goalAdvent = false;
 	count = 0;
 	rnd = { 0.0f,0.0f };
+	
 
 	pos.Set({ 1800.0f,4800.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
 }
@@ -53,8 +54,26 @@ void Goal::setBottonPos() {
 	{		
 		do {
 			//	óêêîÇ≈ê∂ê¨ÇµÇƒìñÇƒÇÕÇﬂÇÈ
-			rnd = { static_cast<float>((MyMath::Random((MapChip::kMapWidth / 2),0) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-				static_cast<float>((MyMath::Random(0,100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+			
+			switch (i)
+			{
+			case 0:	//	ç∂è„
+				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			case 1:	//	âEè„
+				rnd = { static_cast<float>((MyMath::Random(101, MapChip::kMapWidth) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			case 2:	//	ç∂â∫
+				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(101, MapChip::kMapHeight) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			case 3:	//	âEâ∫
+				rnd = { static_cast<float>((MyMath::Random(101, MapChip::kMapWidth) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(101, MapChip::kMapHeight) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				break;
+			}
 
 		} while (MapChip::GetType(rnd) != static_cast<int>(MapChip::Type::NONE));
 

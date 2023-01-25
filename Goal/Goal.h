@@ -21,7 +21,6 @@ private:
 	int count;
 	//
 	Vector2D rnd;
-	
 
 public:
 	//	ボタンの状態確認
