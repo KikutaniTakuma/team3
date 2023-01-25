@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game/Vector2D/Vector2D.h"
+#include "Game/Texture/Texture.h"
 
 class Texture;
 class Quad;

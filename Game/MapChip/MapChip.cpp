@@ -21,7 +21,7 @@ const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();
 std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(Enemy::kMaxEmyNum);
-Vector2D goalPos = Vector2D();
+Vector2D MapChip::goalPos = Vector2D();
 
 
 void MapChip::Initilize() {
@@ -227,6 +227,6 @@ Vector2D MapChip::getEmyPos() {
 	return emyPos[count];
 }
 
-Vector2D getGoalPos() {
+Vector2D MapChip::getGoalPos() {
 	return goalPos;
 }
