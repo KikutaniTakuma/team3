@@ -130,6 +130,8 @@ World::World()
 	AddObj(Scene::Situation::TITLE, new Title(camera));
 
 	AddObj(Scene::Situation::GAME_CLEAR, new Game_Clear(camera));
+
+	AddObj(Scene::Situation::GAME_OVER, new Game_Over(camera));
 	
 	
 
