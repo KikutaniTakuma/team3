@@ -14,7 +14,7 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
-	goalTexture.Set("./Resources/white1x1.png", 1, 1, 1);
+	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
 
 	this->player = player;
 

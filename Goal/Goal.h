@@ -27,6 +27,7 @@ private:
 
 	Player* player;
 
+public:
 	//
 	Texture goalTexture;
 
