@@ -50,9 +50,9 @@ private:
 
 
 public:
-	void Update() override;
+	virtual void Update() override;
 
-	void Draw() override;
+	virtual void Draw() override;
 	
-	void Reset() override;
+	virtual void Reset() override;
 };
