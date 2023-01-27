@@ -45,6 +45,10 @@ float MyMath::PythagoreanTheorem(const float& x, const float& y) {
 	return sqrtf(powf(x, 2.0f) + powf(y, 2.0f));
 }
 
+float MyMath::PythagoreanTheorem(const Vector2D& pos1, const Vector2D& pos2) {
+	return sqrtf(powf(abs(pos1.x - pos2.x), 2.0f) + powf(abs(pos1.y - pos2.y), 2.0f));
+}
+
 float MyMath::Normalize(const float& x, const float& y) {
 	return x / MyMath::PythagoreanTheorem(x, y);
 }

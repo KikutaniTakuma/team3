@@ -6,7 +6,7 @@
 #include "Game/Sound/Sound.h"
 #include "SCENE/Scene/Scene.h"
 
-class Enemy : public Object, Scene {
+class Enemy : public Object, public Scene {
 public:
 	enum Dirextion {
 		LEFT = 0,
@@ -21,7 +21,7 @@ public:
 	Enemy() = delete;
 	Enemy(Camera* cameraPointa, class Player* player);
 
-private:
+protected:
 	Vector2D moveVec;
 
 	Vector2D tentativPos;
@@ -45,7 +45,7 @@ private:
 public:
 	const class Player* player;
 
-private:
+protected:
 	void Collision();
 
 

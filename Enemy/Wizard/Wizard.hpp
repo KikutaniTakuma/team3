@@ -5,7 +5,7 @@
 class Wizard final : public Enemy {
 public:
 	Wizard() = delete;
-	Wizard(Camera* camera);
+	Wizard(Camera* camera, class Player* player);
 
 public:
 	void Update() override;

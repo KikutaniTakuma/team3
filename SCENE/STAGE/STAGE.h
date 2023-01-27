@@ -9,6 +9,7 @@ public:
 	~Stage();
 
 private:
+	std::vector<class Enemy*> emy;
 
 public:
 	void BeginProcess()override;

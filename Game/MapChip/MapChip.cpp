@@ -13,10 +13,13 @@ std::vector<int> MapChip::data;
 const int MapChip::kMapSize = 32;
 const int MapChip::kWindowWidth = 1280;
 const int MapChip::kWindowHeight = 720;
-const int MapChip::kStageNumberWidth = 6;//6
-const int MapChip::kStageNumberHeight = 11;//11
 const int MapChip::kMapWidth = 199; //199
 const int MapChip::kMapHeight = 200;//200
+const float MapChip::kMapMaxPosX = static_cast<float>((MapChip::kMapWidth - 1) * MapChip::kMapSize);
+const float MapChip::kMapMaxPosY = static_cast<float>((MapChip::kMapHeight - 1) * MapChip::kMapSize);
+const float MapChip::kMapMinPosX = static_cast<float>(MapChip::kMapSize);
+const float MapChip::kMapMinPosY = static_cast<float>(MapChip::kMapSize);
+
 const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();

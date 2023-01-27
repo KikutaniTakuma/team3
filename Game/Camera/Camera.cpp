@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <limits.h>
 
+LARGE_INTEGER Camera::start, Camera::end;
+float Camera::delta = 0.0f;
+
 Camera::Camera() :
 	worldPos({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
 	screenPos(Vector2D()),
@@ -23,10 +26,7 @@ Camera::Camera() :
 	shakeScale({ 10.0f,10.0f }),
 	shakeFlg(false),
 	drawLength(static_cast<float>(MapChip::kMapSize)),
-	delta(1.0f),
-	fpsDrwFlg(true),
-	start(LARGE_INTEGER()),
-	end(LARGE_INTEGER())
+	fpsDrwFlg(true)
 {
 	viewMatrix.Translate(worldPos);
 	viewMatrix.Inverse();

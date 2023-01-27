@@ -1,4 +1,5 @@
 #include "Game/Easing/Easing.h"
+#include "Game/Camera/Camera.h"
 
 Easing::Easing() :
 	spd(0.0f),
@@ -37,7 +38,7 @@ Vector2D Easing::Update() {
 	if (!(easeT > 1.0f)) {
 		currentPos = (1.0f - T) * startPos + T * endPos;
 	}
-	easeT += spd;
+	easeT += spd * Camera::getDelta();
 
 	return currentPos;
 }

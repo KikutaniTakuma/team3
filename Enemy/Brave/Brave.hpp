@@ -5,7 +5,7 @@
 class Brave final : public Enemy {
 public:
 	Brave() = delete;
-	Brave(Camera* camera);
+	Brave(Camera* camera, class Player* player);
 
 public:
 	void Update() override;

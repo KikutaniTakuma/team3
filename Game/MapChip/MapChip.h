@@ -26,10 +26,13 @@ public:
 	static const int kMapSize;
 	static const int kWindowWidth;
 	static const int kWindowHeight;
-	static const int kStageNumberWidth;
-	static const int kStageNumberHeight;
 	static const int kMapWidth;
 	static const int kMapHeight;
+	static const float kMapMaxPosX;
+	static const float kMapMaxPosY;
+	static const float kMapMinPosX;
+	static const float kMapMinPosY;
+
 	static std::vector<int> data;
 
 private:

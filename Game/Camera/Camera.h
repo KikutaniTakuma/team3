@@ -128,17 +128,17 @@ public:
 	class Frame* frame;
 
 private:
-	LARGE_INTEGER start, end;
-	float delta;
+	static LARGE_INTEGER start, end;
+	static float delta;
 
 public:
-	void TimeStart();
+	static void TimeStart();
 
-	void TimeEnd();
+	static void TimeEnd();
 
-	void CreateDelta();
+	static void CreateDelta();
 
-	float getDelta();
+	static float getDelta();
 
 public:
 	bool fpsDrwFlg;

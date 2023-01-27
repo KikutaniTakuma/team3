@@ -28,6 +28,9 @@ public:
 	// O•½•û‚Ì’è—
 	static float PythagoreanTheorem(const float& x, const float& y);
 
+	// O•½•û‚Ì’è—
+	static float PythagoreanTheorem(const Vector2D& pos1, const Vector2D& pos2);
+
 	// ³‹K‰»
 	// ‘æˆêˆø”‚ª³‹K‰»‚³‚ê‚é
 	static float Normalize(const float& x, const float& y);

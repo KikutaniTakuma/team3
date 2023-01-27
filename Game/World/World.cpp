@@ -217,14 +217,17 @@ void World::MainLoop() {
 		// ”ñ“¯Šúˆ—‚Ì‚½‚ß‚Ìˆ—
 		this->BeginProcess();
 
-		camera->TimeStart();
+		Camera::TimeStart();
 
-		update = std::thread(&World::Update, this);
+		/*update = std::thread(&World::Update, this);
 
 		draw = std::thread(&World::Draw, this);
 
 		update.join();
-		draw.join();
+		draw.join();*/
+
+		this->Update();
+		this->Draw();
 
 		//-----
 		if (scene.IsChange())
@@ -236,14 +239,11 @@ void World::MainLoop() {
 			object[Scene::Situation::GAME_OVER]->Reset();
 		}
 
-		/*this->Update();
-		this->Draw();*/
-
 		// ƒtƒŒ[ƒ€‚ÌI—¹
 		Novice::EndFrame();
 
-		camera->TimeEnd();
-		camera->CreateDelta();
+		Camera::TimeEnd();
+		Camera::CreateDelta();
 
 		camera->FpsDraw();
 
