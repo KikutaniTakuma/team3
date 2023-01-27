@@ -13,7 +13,7 @@ Vector2D::Vector2D(const Vector2D& num) {
 	this->x = num.x;
 	this->y = num.y;
 }
-Vector2D::Vector2D(float X, float Y) {
+Vector2D::Vector2D(const float& X, const float& Y) {
 	this->x = X;
 	this->y = Y;
 }

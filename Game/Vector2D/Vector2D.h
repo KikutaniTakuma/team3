@@ -6,7 +6,7 @@ class Vector2D {
 public:
 	// コンストラクタ
 	Vector2D();
-	Vector2D(float X, float Y);
+	Vector2D(const float& X, const float& Y);
 
 	// コピーコンストラクタ
 	Vector2D(const Vector2D& num);

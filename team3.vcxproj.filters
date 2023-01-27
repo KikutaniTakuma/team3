@@ -197,9 +197,6 @@
     <ClCompile Include="Game\Effect\Effect.cpp">
       <Filter>Game\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Enemy\Enemy.cpp">
-      <Filter>Enenmy</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Easing\Easing.cpp">
       <Filter>Game\Easing</Filter>
     </ClCompile>
@@ -232,6 +229,18 @@
     </ClCompile>
     <ClCompile Include="SCENE\Scene\Scene.cpp">
       <Filter>Situation\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Enemy.cpp">
+      <Filter>Enenmy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Wizard\Wizard.cpp">
+      <Filter>Enenmy\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Heavy\Heavy.cpp">
+      <Filter>Enenmy\Heavy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Brave\Brave.cpp">
+      <Filter>Enenmy\Brave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +376,6 @@
     <ClInclude Include="Game\Effect\Effect.h">
       <Filter>Game\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Enemy\Enemy.h">
-      <Filter>Enenmy</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Easing\Easing.h">
       <Filter>Game\Easing</Filter>
     </ClInclude>
@@ -402,6 +408,18 @@
     </ClInclude>
     <ClInclude Include="SCENE\Scene\Scene.h">
       <Filter>Situation\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Enemy.h">
+      <Filter>Enenmy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Wizard\Wizard.hpp">
+      <Filter>Enenmy\Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Heavy\Heavy.hpp">
+      <Filter>Enenmy\Heavy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Brave\Brave.hpp">
+      <Filter>Enenmy\Brave</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

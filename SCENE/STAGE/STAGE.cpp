@@ -1,6 +1,6 @@
 #include "SCENE/STAGE/STAGE.h"
 #include "Game/Player/Player.h"
-#include "Game/Enemy/Enemy.h"
+#include "Enemy/Enemy.h"
 #include "Game/GoalUI/GoalUI.h"
 #include "Goal/Goal.h"
 #include "Game/MapChip/MapChip.h"

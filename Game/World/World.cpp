@@ -9,7 +9,7 @@
 #include "Game/MapChip/MapChip.h"
 #include "Game/Texture/Texture.h"
 #include "Game/Camera/Camera.h"
-#include "Game/Enemy/Enemy.h"
+#include "Enemy/Enemy.h"
 #include"Game/GoalUI/GoalUI.h"
 #include <Novice.h>
 #include <assert.h>

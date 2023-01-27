@@ -7,7 +7,7 @@
 #include "Game/Camera/Camera.h"
 
 #include "Game/IOcsv/IOcsv.h"
-#include "Game/Enemy/Enemy.h"
+#include "Enemy/Enemy.h"
 
 std::vector<int> MapChip::data;
 const int MapChip::kMapSize = 32;
