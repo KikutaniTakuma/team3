@@ -1,34 +1,63 @@
 #pragma once
 
-#include "Game/Vector2D/Vector2D.h"
-#include "Game/Quad/Quad.h"
 #include "Game/Object/Object.h"
+#include "Game/Frame/Frame.h"
+#include "Game/Easing/Easing.h"
+#include <array>
+#include <Novice.h>
 
-#include <functional>
-#include <vector>
+class Effect : public Object {
+private:
+	struct Emitter {
+		Vector2D rightTop;
+		Vector2D leftBottom;
+	};
 
-//class Effect : public Object {
-//public:
-//	struct Emitter
-//	{
-//		Vector2D pos;
-//		Vector2D size;
-//	};
-//
-//	struct Particle
-//	{
-//		Quad pos;
-//
-//	};
-//
-//
-//public:
-//	Effect() = delete;
-//
-//	Effect(Camera* cameraPointa);
-//
-//private:
-//
-//
-//
-//};
+	struct Particle {
+		Vector2D pos;
+		Vector2D moveVec;
+		float spd;
+		float size;
+		bool flg;
+		int alpha;
+		Easing ease;
+	};
+
+public:
+	enum class Mode {
+		Absorption,
+		Fluffy,
+		Powerups,
+		Bullet
+	};
+
+public:
+	Effect(Camera* camera, Mode mode, int frequency);
+
+public:
+	bool flg;
+	Vector2D worldPos;
+
+private:
+	Mode mode;
+	Emitter emitter;
+	Quad particleBuf;
+	std::array<Particle, std::size_t(1000)> particle;
+	Frame frame;
+	int frequency;
+	float acceleration;
+	int count;
+
+	BlendMode blend;
+
+public:
+	void Update() override;
+	void Draw() override;
+	void Reset();
+
+private:
+	void Absorption();
+	void Fluffy();
+	void Powerups();
+	void Bullet();
+};

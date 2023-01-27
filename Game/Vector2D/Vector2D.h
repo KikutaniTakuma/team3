@@ -6,7 +6,7 @@ class Vector2D {
 public:
 	// コンストラクタ
 	Vector2D();
-	Vector2D(const float& X, const float& Y);
+	Vector2D(float X, float Y);
 
 	// コピーコンストラクタ
 	Vector2D(const Vector2D& num);
@@ -76,4 +76,6 @@ public:
 	// =================================================================================
 
 	const class Complex& GetComplex() const;
+
+	void Rotate(float degree);
 };

@@ -2,6 +2,8 @@
 #include "Game/Matrix3x3/Matrix3x3.h"
 #include "Game/Complex/Complex.h"
 #include <assert.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Vector2D::Vector2D() {
 	this->x = 0.0f;
@@ -11,7 +13,7 @@ Vector2D::Vector2D(const Vector2D& num) {
 	this->x = num.x;
 	this->y = num.y;
 }
-Vector2D::Vector2D(const float& X, const float& Y) {
+Vector2D::Vector2D(float X, float Y) {
 	this->x = X;
 	this->y = Y;
 }
@@ -273,4 +275,11 @@ const Complex& Vector2D::GetComplex() const {
 	const Complex& tmp = *this;
 
 	return tmp;
+}
+
+void Vector2D::Rotate(float degree) {
+	degree *= static_cast<float>(M_PI) / 180.0f;
+
+	x *= cosf(degree);
+	y *= sinf(degree);
 }
