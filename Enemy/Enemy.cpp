@@ -201,12 +201,7 @@ void Enemy::Update() {
 	else {
 		if (camera->isDraw(pos.worldPos)) {
 			camera->shakeFlg = false;
-			blockBrkFlg = false;
 		}
-	}
-
-	if (!camera->isDraw(pos.worldPos)) {
-		camera->shakeFlg = false;
 		blockBrkFlg = false;
 	}
 

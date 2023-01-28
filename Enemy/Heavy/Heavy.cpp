@@ -172,8 +172,8 @@ void Heavy::Update() {
 
 				if (camera->isDraw(pos.worldPos)) {
 					camera->shakeFlg = true;
+					blockBrkFlg = true;
 				}
-				blockBrkFlg = true;
 			}
 			else {
 				camera->shakeFlg = false;

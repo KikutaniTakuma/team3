@@ -211,6 +211,8 @@ void World::MainLoop() {
 
 		camera->FpsDraw();
 
-		if (KeyInput::Released(DIK_ESCAPE)) { break; }
+		if (KeyInput::Released(DIK_ESCAPE) || 
+			Gamepad::getButton(Gamepad::Button::LEFT_SHOULDER) && Gamepad::getButton(Gamepad::Button::RIGHT_SHOULDER) && Gamepad::Released(Gamepad::Button::START))
+		{ break; }
 	}
 }

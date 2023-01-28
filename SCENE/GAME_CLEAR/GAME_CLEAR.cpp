@@ -1,5 +1,6 @@
 #include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
 #include "Game/KeyInput/KeyInput.h"
+#include "Game/Gamepad/Gamepad.h"
 
 Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	sceneFlag = false;
@@ -19,7 +20,7 @@ void Game_Clear::Update() {
 	camera->shakeFlg = false;
 
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
-	if (KeyInput::Pushed(DIK_SPACE))
+	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
 	{
 		sceneFlag = true;
 	}

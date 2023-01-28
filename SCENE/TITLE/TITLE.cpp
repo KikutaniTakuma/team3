@@ -2,6 +2,7 @@
 #include "Game/Fade/Fade.h"
 #include "Game/MyMath/MyMath.h"
 #include "Game/KeyInput/KeyInput.h"
+#include "Game/Gamepad/Gamepad.h"
 
 Title::Title(Camera* camera) : Object(camera) {
 	pos.Set({640.0f,360.0f}, {1280.0f,720.0f});
@@ -24,7 +25,7 @@ void Title::Update() {
 	camera->shakeFlg = false;
 
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
-	if (KeyInput::Pushed(DIK_SPACE))
+	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
 	{
 		sceneFlag = true;
 	}
