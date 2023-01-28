@@ -125,6 +125,9 @@
     <Filter Include="Enenmy\Wizard">
       <UniqueIdentifier>{f90f6fc8-e323-4c46-9edd-d55ff5efa33a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Effect\Absoration">
+      <UniqueIdentifier>{0198f782-5d7a-4f41-90c8-21e11a58004b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Enemy\Brave\Brave.cpp">
       <Filter>Enenmy\Brave</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Effect\Absoration\Absoration.cpp">
+      <Filter>Game\Effect\Absoration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -420,6 +426,9 @@
     </ClInclude>
     <ClInclude Include="Enemy\Brave\Brave.hpp">
       <Filter>Enenmy\Brave</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Effect\Absoration\Absoration.hpp">
+      <Filter>Game\Effect\Absoration</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
