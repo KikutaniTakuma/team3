@@ -31,10 +31,6 @@ Vector2D Button::getPos() {
 	return this->pos.worldPos;
 }
 
-void Button::BeginProcess() {
-
-}
-
 void Button::Update() {
 
 }
@@ -46,10 +42,10 @@ void Button::Reset() {
 void Button::Draw() {
 	if (isPushButton)
 	{
-		camera->DrawQuad(drawPos, buttonTexture, 0, true, 0xff0000ff);
+		camera->DrawQuad(pos, buttonTexture, 0, true, 0xff0000ff);
 	}
 	else
 	{
-		camera->DrawQuad(drawPos, buttonTexture, 0, true, 0x0000ffff);
+		camera->DrawQuad(pos, buttonTexture, 0, true, 0x0000ffff);
 	}
 }

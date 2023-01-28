@@ -11,10 +11,6 @@ Object::Object(Camera* camera)
 	}
 }
 
-void Object::BeginProcess() {
-	drawPos = pos;
-}
-
 Quad Object::getQuad() const {
 	return pos;
 }

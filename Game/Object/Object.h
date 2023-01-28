@@ -13,14 +13,11 @@ protected:
 	Camera* camera;
 
 	Quad pos;
-	Quad drawPos;
 
 	static Texture whiteBox;
 
 public:
 	Quad getQuad() const;
-
-	virtual void BeginProcess();
 
 	virtual void Update() = 0;
 

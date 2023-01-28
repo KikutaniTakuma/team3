@@ -15,10 +15,6 @@ void Game_Over::SceneChange() {
 	scene = Situation::TITLE;
 }
 
-void Game_Over::BeginProcess() {
-	drawPos = pos;
-}
-
 void Game_Over::Update() {
 	camera->shakeFlg = false;
 
@@ -41,5 +37,5 @@ void Game_Over::Reset() {
 }
 
 void Game_Over::Draw() {
-	camera->DrawUI(drawPos, BG, 0, false, 0xbbbbbbff);
+	camera->DrawUI(pos, BG, 0, false, 0xbbbbbbff);
 }

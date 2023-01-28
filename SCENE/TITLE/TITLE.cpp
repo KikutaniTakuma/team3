@@ -20,12 +20,6 @@ void Title::SceneChange() {
 	scene = Situation::STAGE;
 }
 
-
-void Title::BeginProcess() {
-	drawPos = pos;
-	drawTestPos = testPos;
-}
-
 void Title::Update() {
 	camera->shakeFlg = false;
 
@@ -56,8 +50,8 @@ void Title::Reset() {
 
 void Title::Draw() {
 //	camera->DrawQuad(drawPos, tex, 0, false);
-	camera->DrawUI(drawPos, BG, 0, false, 0xffffffff);
-	camera->DrawUI(drawTestPos, whiteBox, 0, false, color);
+	camera->DrawUI(pos, BG, 0, false, 0xffffffff);
+	camera->DrawUI(testPos, whiteBox, 0, false, color);
 }
 
 

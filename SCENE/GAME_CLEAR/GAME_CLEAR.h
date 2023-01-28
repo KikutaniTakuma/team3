@@ -17,9 +17,6 @@ private:
 	Texture BG;
 
 public:
-	//	
-	void BeginProcess() override;
-
 	void Update() override;
 
 	void Reset() override;

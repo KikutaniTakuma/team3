@@ -225,23 +225,23 @@ void Enemy::Draw() {
 	switch (dir)
 	{
 	case Enemy::Direction::LEFT:
-		camera->DrawQuad(drawPos, left, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, left, 0, false, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	case Enemy::Direction::RIGHT:
-		camera->DrawQuad(drawPos, right, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, right, 0, false, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	case Enemy::Direction::FRONT:
-		camera->DrawQuad(drawPos, front, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, front, 0, false, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	case Enemy::Direction::BACK:
-		camera->DrawQuad(drawPos, back, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, back, 0, false, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	default:
 		assert(!"Enemy Direction Exception Error");
 		break;
 	}
 
-	if (camera->isDraw(drawPos.worldPos)) {
+	if (camera->isDraw(pos.worldPos)) {
 		if (blockBrkFlg) {
 			blockBrk.SoundEffect(0.5f);
 		}

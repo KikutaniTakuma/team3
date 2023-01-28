@@ -194,9 +194,9 @@ void Heavy::Update() {
 }
 
 void Heavy::Draw() {
-	camera->DrawQuad(drawPos, whiteBox, 0, false, MyMath::GetRGB(0xff, 0x0, 0xff, 0xff));
+	camera->DrawQuad(pos, whiteBox, 0, false, MyMath::GetRGB(0xff, 0x0, 0xff, 0xff));
 
-	if (camera->isDraw(drawPos.worldPos)) {
+	if (camera->isDraw(pos.worldPos)) {
 		if (blockBrkFlg) {
 			blockBrk.SoundEffect(0.5f);
 		}

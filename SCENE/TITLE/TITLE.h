@@ -18,11 +18,8 @@ private:
 	unsigned int color;
 
 	Quad testPos;
-	Quad drawTestPos;
 
 public:
-	//	
-	void BeginProcess() override;
 
 	void Update() override;
 

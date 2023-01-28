@@ -132,5 +132,5 @@ void Goal::Reset() {
 }
 
 void Goal::Draw() {
-	camera->DrawQuad(drawPos, goalTexture, 0, true, 0x00ff00ff);
+	camera->DrawQuad(pos, goalTexture, 0, true, 0x00ff00ff);
 }

@@ -17,7 +17,6 @@ public:
 	~World();
 
 private:
-	void BeginProcess();
 	void Input();
 	void Reset();
 	void Update();

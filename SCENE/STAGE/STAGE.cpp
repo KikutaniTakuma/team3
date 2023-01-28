@@ -33,15 +33,6 @@ Stage::~Stage() {
 	}
 }
 
-void Stage::BeginProcess() {
-	for (auto& i : obj) {
-		i->BeginProcess();
-	}
-	for (auto& i : emy) {
-		i->BeginProcess();
-	}
-}
-
 void Stage::Update() {
 	for (auto& i : obj) {
 		i->Update();

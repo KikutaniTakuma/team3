@@ -12,7 +12,6 @@ private:
 	std::vector<class Enemy*> emy;
 
 public:
-	void BeginProcess()override;
 	void Update() override;
 	void Draw() override;
 	void Reset() override;

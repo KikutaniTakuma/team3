@@ -153,12 +153,6 @@ World::~World() {
 	Novice::Finalize();
 }
 
-void World::BeginProcess() {
-	for (auto& i : object) {
-		i.second->BeginProcess();
-	}
-}
-
 void World::Input() {
 	// キー入力
 	KeyInput::Input();
@@ -182,26 +176,6 @@ void World::Reset() {
 }
 
 void World::MainLoop() {
-	/// 
-	/// 初期フレーム処理
-	/// 
-	
-	// フレームの開始
-	Novice::BeginFrame();
-
-	this->Input();
-
-	this->Reset();
-
-	this->Update();
-
-	// フレームの終了
-	Novice::EndFrame();
-
-	///
-	/// ===============================================
-	/// 
-
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -213,20 +187,10 @@ void World::MainLoop() {
 
 		this->Reset();
 
-
-		// 非同期処理のための処理
-		this->BeginProcess();
-
 		Camera::TimeStart();
 
-		/*update = std::thread(&World::Update, this);
-
-		draw = std::thread(&World::Draw, this);
-
-		update.join();
-		draw.join();*/
-
 		this->Update();
+
 		this->Draw();
 
 		//-----

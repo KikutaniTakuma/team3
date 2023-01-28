@@ -24,8 +24,6 @@ public:
 	void setPos(Vector2D pos);
 	Vector2D getPos();
 
-	void BeginProcess() override;
-
 	void Update() override;
 
 	void Reset() override;
