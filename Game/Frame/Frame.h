@@ -6,16 +6,17 @@ public:
 
 private:
 	float add;
+	long double frame;
 
 public:
 	// フレーム
-	unsigned long long frame;
+	unsigned long long getFrame() const;
 
 	// スタートフラグ
 	bool startFlag;
 
 	// スタート関数
-	void Start(float delta = 1.0f);
+	void Start();
 
 	// 停止
 	void Pause(void);

@@ -50,9 +50,9 @@ void Enemy::Update() {
 		spd = lowSpd;
 	}
 	if (spd == lowSpd) {
-		frm.Start(camera->getDelta());
+		frm.Start();
 	}
-	if (frm.frame > lowTime) {
+	if (frm.getFrame() > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
 		frm.Stop();

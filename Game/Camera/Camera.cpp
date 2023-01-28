@@ -58,7 +58,7 @@ void Camera::Update() {
 	vpvpMatrix = viewMatrix * NorDevMatrix * viewPortMatrix;
 
 	frame->Start();
-	if (frame->frame > ULLONG_MAX) {
+	if (frame->getFrame() > ULLONG_MAX) {
 		frame->Stop();
 		frame->Restart();
 	}
@@ -66,7 +66,7 @@ void Camera::Update() {
 
 void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const float& scale, const bool& shake) {
 	frame->Start();
-	if (frame->frame > ULLONG_MAX) {
+	if (frame->getFrame() > ULLONG_MAX) {
 		frame->Stop();
 		frame->Restart();
 	}
@@ -90,7 +90,7 @@ void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const f
 
 void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const Vector2D& drawLeftTop, const Vector2D& drawRightBottom, const bool& shake) {
 	frame->Start();
-	if (frame->frame > ULLONG_MAX) {
+	if (frame->getFrame() > ULLONG_MAX) {
 		frame->Stop();
 		frame->Restart();
 	}
@@ -123,7 +123,7 @@ void Camera::DrawQuad(Quad& quad, Texture& texture, const int& animationSpd, con
 		quad.setVpvpMatrix(vpvpMatrix);
 
 		if (!animationStop && animationSpd != 0) {
-			if (frame->frame % animationSpd == 0) {
+			if (frame->getFrame() % animationSpd == 0) {
 				texture.drawPos += texture.width;
 				if (texture.drawPos > texture.spriteSize - texture.width) {
 					texture.drawPos = 0;
@@ -146,7 +146,7 @@ void Camera::DrawQuad(Quad& quad, Texture& texture, float deg, const int& animat
 		quad.setVpvpMatrix(vpvpMatrix);
 
 		if (!animationStop && animationSpd != 0) {
-			if (frame->frame % animationSpd == 0) {
+			if (frame->getFrame() % animationSpd == 0) {
 				texture.drawPos += texture.width;
 				if (texture.drawPos > texture.spriteSize - texture.width) {
 					texture.drawPos = 0;
@@ -172,7 +172,7 @@ void Camera::DrawUI(Quad& quad, Texture& texture, const int& animationSpd, const
 	quad.setVpvpMatrix(vpvpMatrix);
 
 	if (!animationStop && animationSpd != 0) {
-		if (frame->frame % animationSpd == 0) {
+		if (frame->getFrame() % animationSpd == 0) {
 			texture.drawPos += texture.width;
 			if (texture.drawPos > texture.spriteSize - texture.width) {
 				texture.drawPos = 0;

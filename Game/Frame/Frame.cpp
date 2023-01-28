@@ -3,19 +3,21 @@
 #include <cmath>
 
 Frame::Frame(void):
-	frame(0),
+	frame(0.0L),
 	startFlag(false),
 	add(1.0f)
 {}
 
-void Frame::Start(float delta) {
+void Frame::Start() {
 	if (startFlag == true) {
-		if (delta > 1.0f) {
-			add *= delta;
-		}
-		frame += static_cast<unsigned long long>(floor(add));
+		add *= Camera::getDelta();
+		frame += static_cast<long double>(add);
 		add = 1.0f;
 	}
+}
+
+unsigned long long Frame::getFrame() const {
+	return static_cast<unsigned long long>(roundl(frame));
 }
 
 void Frame::Pause(void) {
@@ -24,7 +26,7 @@ void Frame::Pause(void) {
 
 void Frame::Stop(void){
 	startFlag = false;
-	frame = 0;
+	frame = 0.0L;
 }
 
 void Frame::Restart(void) {
