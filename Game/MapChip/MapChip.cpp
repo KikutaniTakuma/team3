@@ -55,7 +55,7 @@ void MapChip::Initilize() {
 	}
 
 	block.Set("./Resources/Block.png", 64, 64, 64);
-	tile.Set("./Resources/Tile.png", 64, 64, 64);
+	tile.Set("./Resources/Tile.png", 32, 32, 32);
 }
 void MapChip::SetCamera(Camera* cameraPointa) {
 	camera = cameraPointa;
