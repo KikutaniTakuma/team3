@@ -31,10 +31,15 @@ protected:
 	float nmlSpd;
 	float lowSpd;
 
+	float maxSpd;
+	float accel;
+	int freq;
+	Frame freqCount;
+
 	Vector2D shakeScale;
 	bool stopFlg;
 
-	Frame frm;
+	Frame lowCount;
 	unsigned int lowTime;
 
 	float rndLen;

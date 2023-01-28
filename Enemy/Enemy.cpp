@@ -16,6 +16,10 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	spd(4.0f),
 	nmlSpd(spd),
 	lowSpd(0.0f),
+	maxSpd(9.0f),
+	accel(0.3f),
+	freq(1200),
+	freqCount(Frame()),
 	shakeScale(Vector2D(10.0f, 10.0f)),
 	stopFlg(false),
 	lowTime(12),
@@ -38,7 +42,8 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 
 	tentativPos = pos.worldPos;
 
-	frm.Restart();
+	lowCount.Restart();
+	freqCount.Restart();
 }
 
 void Enemy::Update() {
@@ -46,17 +51,28 @@ void Enemy::Update() {
 	moveVec = { 0.0f };
 	tentativPos = pos.worldPos;
 
+	if (nmlSpd < maxSpd) {
+		freqCount.Start();
+
+		if (freqCount.frame > freq) {
+			nmlSpd += accel;
+
+			freqCount.Stop();
+			freqCount.Restart();
+		}
+	}
+
 	if (stopFlg) {
 		spd = lowSpd;
 	}
 	if (spd == lowSpd) {
-		frm.Start(camera->getDelta());
+		lowCount.Start(camera->getDelta());
 	}
-	if (frm.frame > lowTime) {
+	if (lowCount.frame > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
-		frm.Stop();
-		frm.Restart();
+		lowCount.Stop();
+		lowCount.Restart();
 	}
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
@@ -173,27 +189,29 @@ void Enemy::Update() {
 	// 衝突
 	// 衝突したらブロックは空白にする
 
-	if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
-		MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f }) == 1 ||
-		MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1 ||
-		MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f }) == 1) {
+	if (!stopFlg) {
+		if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
+			MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f }) == 1 ||
+			MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1 ||
+			MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f }) == 1) {
 
-		Vector2D mapNum = MapChip::GetNum(pos.getPosLeftTop());
-		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			Vector2D mapNum = MapChip::GetNum(pos.getPosLeftTop());
+			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-		mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
-		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
+			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-		mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
-		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
+			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-		mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
-		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
+			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-		stopFlg = true;
-		if (camera->isDraw(pos.worldPos)) {
-			camera->shakeFlg = true;
-			blockBrkFlg = true;
+			stopFlg = true;
+			if (camera->isDraw(pos.worldPos)) {
+				camera->shakeFlg = true;
+				blockBrkFlg = true;
+			}
 		}
 	}
 	else {
@@ -201,6 +219,14 @@ void Enemy::Update() {
 			camera->shakeFlg = false;
 			blockBrkFlg = false;
 		}
+		else {
+
+		}
+	}
+
+	if (!camera->isDraw(pos.worldPos)) {
+		camera->shakeFlg = false;
+		blockBrkFlg = false;
 	}
 
 	if (camera->shakeFlg) {

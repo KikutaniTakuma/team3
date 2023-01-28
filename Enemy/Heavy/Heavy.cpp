@@ -21,13 +21,13 @@ void Heavy::Update() {
 
 	if (stopFlg) {
 		spd = lowSpd;
-		frm.Start(camera->getDelta());
+		lowCount.Start(camera->getDelta());
 	}
-	if (frm.frame > lowTime) {
+	if (lowCount.frame > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
-		frm.Stop();
-		frm.Restart();
+		lowCount.Stop();
+		lowCount.Restart();
 	}
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
