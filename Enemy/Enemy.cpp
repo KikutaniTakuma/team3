@@ -21,8 +21,19 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	lowTime(12),
 	rndLen(200.0f),
 	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
-	blockBrkFlg(false)
+	blockBrkFlg(false),
+	front(Texture("./Resources/Enemy/EnemyFront.png",128,32,32)),
+	back(Texture("./Resources/Enemy/EnemyBack.png", 128, 32, 32)),
+	right(Texture("./Resources/Enemy/EnemyRight.png", 128, 32, 32)),
+	left(Texture("./Resources/Enemy/EnemyLeft.png", 128, 32, 32)),
+	dir(Direction::FRONT)
 {
+	// テクスチャーが正常に読み込まれているか
+	assert(front);
+	assert(back);
+	assert(right);
+	assert(left);
+
 	pos.Set(MapChip::getEmyPos(), { 32.0f, 32.0f });
 
 	tentativPos = pos.worldPos;
@@ -130,6 +141,31 @@ void Enemy::Update() {
 
 	this->Collision();
 
+	if (moveVec.x > 0.0f) {
+		dir = Direction::RIGHT;
+		if (moveVec.y > 0.0f && moveVec.y > moveVec.x) {
+			dir = Direction::BACK;
+		}
+		else if (moveVec.y < 0.0f && -moveVec.y > moveVec.x) {
+			dir = Direction::FRONT;
+		}
+	}
+	else if (moveVec.x < 0.0f) {
+		dir = Direction::LEFT;
+		if (moveVec.y > 0.0f && -moveVec.y < moveVec.x) {
+			dir = Direction::BACK;
+		}
+		else if (moveVec.y < 0.0f && moveVec.y < moveVec.x) {
+			dir = Direction::FRONT;
+		}
+	}
+	else if (moveVec.y > 0.0f) {
+		dir = Direction::BACK;
+	}
+	else if (moveVec.y < 0.0f) {
+		dir = Direction::FRONT;
+	}
+
 	pos.worldPos = tentativPos;
 
 	// 移動したところがブロックだったら
@@ -179,7 +215,24 @@ void Enemy::Update() {
 }
 
 void Enemy::Draw() {
-	camera->DrawQuad(drawPos, whiteBox, 0, false, MyMath::GetRGB(255,0,0,255));
+	switch (dir)
+	{
+	case Enemy::Direction::LEFT:
+		camera->DrawQuad(drawPos, left, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::RIGHT:
+		camera->DrawQuad(drawPos, right, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::FRONT:
+		camera->DrawQuad(drawPos, front, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::BACK:
+		camera->DrawQuad(drawPos, back, 0, false, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	default:
+		assert(!"Enemy Direction Exception Error");
+		break;
+	}
 
 	if (camera->isDraw(drawPos.worldPos)) {
 		if (blockBrkFlg) {

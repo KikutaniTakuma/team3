@@ -1,20 +1,20 @@
 #pragma once
 
 #include "Game/Object/Object.h"
-#include "Game/Astar/Astar.h"
 #include "Game/Frame/Frame.h"
 #include "Game/Sound/Sound.h"
 #include "SCENE/Scene/Scene.h"
 
 class Enemy : public Object, public Scene {
-public:
-	enum Dirextion {
+protected:
+	enum class Direction : short {
 		LEFT = 0,
 		RIGHT,
-		UP,
-		DOWN
+		FRONT,
+		BACK
 	};
 
+public:
 	static const int kMaxEmyNum;
 
 public:
@@ -41,6 +41,15 @@ protected:
 
 	Sound blockBrk;
 	bool blockBrkFlg;
+
+	// テクスチャ
+	Texture front;
+	Texture back;
+	Texture right;
+	Texture left;
+
+	// 方向
+	Direction dir;
 
 public:
 	const class Player* player;
