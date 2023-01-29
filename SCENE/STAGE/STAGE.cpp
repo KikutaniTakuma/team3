@@ -12,7 +12,6 @@ Stage::Stage(Camera* camera) :
 {
 	Player* player = new Player(camera);
 	Goal* goal = new Goal(camera, player);
-	obj.push_back(goal);
 	obj.push_back(player);
 
 	for (int i = 0; i < Enemy::kMaxEmyNum - 1; i++) {
@@ -22,6 +21,8 @@ Stage::Stage(Camera* camera) :
 	emy.push_back(new Heavy(camera, player));
 
 	obj.push_back(new GoalUI(camera, goal));
+
+	obj.push_back(goal);
 }
 
 Stage::~Stage() {
@@ -66,7 +67,7 @@ void Stage::Reset() {
 	Player* player = new Player(camera);
 	Goal* goal = new Goal(camera, player);
 
-	obj.push_back(goal);
+	/*obj.push_back(goal);*/
 	obj.push_back(player);
 
 	for (int i = 0; i < Enemy::kMaxEmyNum -1; i++) {
@@ -75,4 +76,6 @@ void Stage::Reset() {
 	emy.push_back(new Heavy(camera, player));
 
 	obj.push_back(new GoalUI(camera, goal));
+
+	obj.push_back(goal);
 }

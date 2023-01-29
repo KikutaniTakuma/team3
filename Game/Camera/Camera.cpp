@@ -118,9 +118,9 @@ void Camera::Shake() {
 	worldPos.y += static_cast<float>(MyMath::Random(static_cast<int>(-shakeScale.y), static_cast<int>(shakeScale.y)));
 }
 
-void Camera::DrawQuad(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawQuad(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
-		quad.setVpvpMatrix(vpvpMatrix);
+		quad.worldMatrix *= vpvpMatrix;
 
 		if (!animationStop && animationSpd != 0) {
 			if (frame->getFrame() % animationSpd == 0) {
@@ -141,9 +141,9 @@ void Camera::DrawQuad(Quad& quad, Texture& texture, const int& animationSpd, con
 	}
 }
 
-void Camera::DrawQuad(Quad& quad, Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
-		quad.setVpvpMatrix(vpvpMatrix);
+		quad.worldMatrix *= vpvpMatrix;
 
 		if (!animationStop && animationSpd != 0) {
 			if (frame->getFrame() % animationSpd == 0) {
@@ -165,11 +165,10 @@ void Camera::DrawQuad(Quad& quad, Texture& texture, float deg, const int& animat
 }
 
 
-void Camera::DrawUI(Quad& quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
-	Vector2D tmp = quad.worldPos;
+void Camera::DrawUI(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
 	quad.worldPos += (worldPos - (size/ 2.0f));
 	quad.Translate();
-	quad.setVpvpMatrix(vpvpMatrix);
+	quad.worldMatrix *= vpvpMatrix;
 
 	if (!animationStop && animationSpd != 0) {
 		if (frame->getFrame() % animationSpd == 0) {
@@ -187,8 +186,6 @@ void Camera::DrawUI(Quad& quad, Texture& texture, const int& animationSpd, const
 		static_cast<int>(quad.getMatrixRightUnder().x), static_cast<int>(quad.getMatrixRightUnder().y),
 		texture.drawPos, 0, texture.width, texture.height, texture.textureHandle, color
 	);
-
-	quad.worldPos = tmp;
 }
 
 

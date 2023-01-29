@@ -41,48 +41,7 @@ void World::Draw() {
 
 	object[scene.getScene()]->Draw();
 	
-	//switch (scene.getScene())
-	//{
-	//case Scene::Situation::TITLE:
-	//	/*title.Draw(*whiteBox);*/
-	//	camera->Update();
-	//	for (auto& i : object[Scene::Situation::TITLE]) {
-	//		i->Draw();
-	//	}
-
-	//	break;
-	//case Scene::Situation::STAGE:
-
-	//	camera->Update();
-
-	//	MapChip::Draw(*whiteBox);
-
-	//	for (auto& i : object[Scene::Situation::STAGE]) {
-	//		i->Draw();
-	//	}
-
-	//	break;
-	//case Scene::Situation::GAME_CLEAR:
-	//	camera->Update();
-	//	for (auto& i : object[scene.getScene()]) {
-	//		i->Draw();
-	//	}
-
-	//	break;
-	//case Scene::Situation::GAME_OVER:
-	//	camera->Update();
-	//	for (auto& i : object[scene.getScene()]) {
-	//		i->Draw();
-	//	}
-
-	//	break;
-	//case Scene::Situation::MAX_SCENE:
-	//	break;
-
-	//default:
-
-	//	break;
-	//}
+	
 
 }
 

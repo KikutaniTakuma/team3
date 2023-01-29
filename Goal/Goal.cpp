@@ -84,6 +84,7 @@ void Goal::setBottonPos() {
 		} while (MapChip::GetType(rnd) == static_cast<int>(MapChip::Type::BLOCK));
 
 		button[i]->setPos(rnd);
+		button[i]->Update();
 	}
 }
 

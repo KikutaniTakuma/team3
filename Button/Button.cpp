@@ -33,7 +33,7 @@ Vector2D Button::getPos() {
 }
 
 void Button::Update() {
-
+	pos.Translate();
 }
 
 void Button::Reset() {
