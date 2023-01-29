@@ -19,6 +19,7 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	this->player = player;
 
 	pos.Set(MapChip::getGoalPos(), { 64.0f,64.0f });
+	setBottonPos();
 }
 
 Goal::~Goal() {
@@ -80,7 +81,7 @@ void Goal::setBottonPos() {
 				break;
 			}
 
-		} while (MapChip::GetType(rnd) != static_cast<int>(MapChip::Type::NONE));
+		} while (MapChip::GetType(rnd) == static_cast<int>(MapChip::Type::BLOCK));
 
 		button[i]->setPos(rnd);
 	}
@@ -115,6 +116,10 @@ void Goal::Update() {
 	//	‚»‚êˆÈŠO
 	else
 	{
+		for (int i = 0; i < kMaxButton; i++)
+		{
+			button[i]->Collision(player->getQuad());
+		}
 		StateUpdate();
 	}
 	
@@ -128,9 +133,20 @@ void Goal::Update() {
 }
 
 void Goal::Reset() {
-
+	goalAdvent = true;
+	count = 0;
+	rnd = { 0.0f,0.0f };
+	gameClear = false;
+	pos.Set(MapChip::getGoalPos(), { 64.0f,64.0f });
+	setBottonPos();
 }
 
 void Goal::Draw() {
 	camera->DrawQuad(pos, goalTexture, 0, true, 0x00ff00ff);
+	for (int i = 0; i < kMaxButton; i++)
+	{
+		button[i]->Draw();
+		Novice::ScreenPrintf(0, 100 + (i * 20), "%0.1f %0.1f", button[i]->getPos().x, button[i]->getPos().y);
+		Novice::ScreenPrintf(0, 200, "%0.1f %0.1f", player->getWorldPosX(), player->getWorldPosY());
+	}
 }

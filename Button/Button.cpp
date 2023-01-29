@@ -7,8 +7,9 @@
 
 Button::Button(Camera* camera) : Object(camera) {
 	isPushButton = false;
-	buttonTexture = whiteBox;
-	pos.Set({ 0.0f,0.0f }, { (float)MapChip::kMapSize,(float)MapChip::kMapSize });
+//	buttonTexture = whiteBox;
+	buttonTexture.Set("./Resources/white1x1.png", 1, 1, 1);
+	pos.Set({ 0.0f,0.0f }, /*{ (float)MapChip::kMapSize,(float)MapChip::kMapSize }*/{ 32.0f,32.0f });
 }
 
 void Button::Collision(Quad playerPos) {
@@ -46,6 +47,7 @@ void Button::Draw() {
 	}
 	else
 	{
+		camera->DrawUI(pos, buttonTexture, 0, true, 0xff0000ff);
 		camera->DrawQuad(pos, buttonTexture, 0, true, 0x0000ffff);
 	}
 }

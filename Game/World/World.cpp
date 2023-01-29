@@ -136,7 +136,7 @@ World::World()
 
 	AddObj(Scene::Situation::GAME_OVER, new Game_Over(camera));*/
 
-	Novice::SetWindowMode(kFullscreen);
+//	Novice::SetWindowMode(kFullscreen);
 
 }
 
