@@ -199,14 +199,15 @@ void Enemy::Update() {
 		}
 	}
 	else {
-		if (camera->isDraw(pos.worldPos)) {
-			camera->shakeFlg = false;
-		}
+		camera->shakeFlg = false;
 		blockBrkFlg = false;
 	}
 
 	if (camera->shakeFlg) {
 		camera->shakeScale = shakeScale;
+		if (!camera->isDraw(pos.worldPos)) {
+			camera->shakeFlg = false;
+		}
 	}
 
 	if (pos.Collision(player->getQuad())) {

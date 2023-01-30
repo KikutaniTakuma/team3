@@ -113,10 +113,18 @@ void Heavy::Update() {
 
 	if (rushFlg) {
 		tentativPos = rushEase.Update();
+		moveVec = tentativPos - pos.worldPos;
 	}
-	else {
-		tentativPos += moveVec * camera->getDelta();
+
+	if (moveVec.x > static_cast<float>(MapChip::kMapSize)) {
+		moveVec.x = static_cast<float>(MapChip::kMapSize);
 	}
+	if (moveVec.x > -static_cast<float>(MapChip::kMapSize)) {
+		moveVec.x = static_cast<float>(MapChip::kMapSize);
+	}
+	
+	tentativPos += moveVec * camera->getDelta();
+	
 
 	this->Collision();
 
@@ -184,6 +192,10 @@ void Heavy::Update() {
 	else {
 		camera->shakeFlg = false;
 		rushFlg = false;
+	}
+
+	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg) {
+		camera->shakeFlg = false;
 	}
 
 	if (pos.Collision(player->getQuad())) {
