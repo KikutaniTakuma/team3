@@ -112,8 +112,7 @@ void Heavy::Update() {
 	}
 
 	if (rushFlg) {
-		tentativPos = rushEase.Update();
-		moveVec = tentativPos - pos.worldPos;
+		moveVec = rushEase.Update() - pos.worldPos;
 	}
 
 	if (moveVec.x > static_cast<float>(MapChip::kMapSize)) {

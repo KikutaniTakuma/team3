@@ -48,25 +48,6 @@ void Quad::Set(const Vector2D& worldPos, const Vector2D& size) {
 	this->worldMatrix.Affin({ 1.0f,1.0f }, 0.0f, worldPos);
 }
 
-void Quad::Scale(const float& scale) {
-	if (scale >= 0.0f) {
-		leftTop *= scale;
-		leftUnder *= scale;
-		rightTop *= scale;
-		rightUnder *= scale;
-	}
-}
-
-void Quad::Rotate(float deg) {
-	Matrix3x3 rotate;
-	rotate.Rotate(deg);
-
-	this->leftTop *= rotate;
-	this->leftUnder *= rotate;
-	this->rightTop *= rotate;
-	this->rightUnder *= rotate;
-}
-
 const Quad& Quad::operator=(const Quad& tmp) {
 	this->size = tmp.size;
 
@@ -80,43 +61,6 @@ const Quad& Quad::operator=(const Quad& tmp) {
 	this->worldMatrix = tmp.worldMatrix;
 
 	return *this;
-}
-
-Quad Quad::operator*(const  Matrix3x3& matrix) {
-	Quad quad;
-
-	quad.leftTop *= matrix;
-	quad.leftUnder *= matrix;
-	quad.rightTop *= matrix;
-	quad.rightUnder *= matrix;
-	
-	return quad;
-}
-
-const Quad& Quad::operator*=(const  Matrix3x3& matrix) {
-	this->leftTop *= matrix;
-	this->leftUnder *= matrix;
-	this->rightTop *= matrix;
-	this->rightUnder *= matrix;
-
-	return *this;
-}
-
-Quad Quad::operator+(const Vector2D& vec){
-	Quad quad;
-
-	quad.leftTop = leftTop + vec;
-
-	quad.leftUnder = leftUnder + vec;
-
-	quad.rightTop = rightTop + vec;
-
-	quad.rightUnder = rightUnder + vec;
-
-
-	quad.worldPos = worldPos+vec;
-
-	return quad;
 }
 
 bool Quad::Collision(const Quad& tmp) {

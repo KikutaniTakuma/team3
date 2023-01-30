@@ -38,40 +38,11 @@ public:
 	void Set(const Vector2D& worldPos, const Vector2D& size);
 
 	/// <summary>
-	/// スケーリング
-	/// </summary>
-	/// <param name="scale">大きさ</param>
-	void Scale(const float& scale);
-
-	/// <summary>
-	/// 回転
-	/// </summary>
-	/// <param name="deg">degree</param>
-	void Rotate(float deg);
-
-	/// <summary>
 	/// 代入
 	/// </summary>
 	/// <param name="quad">quad</param>
 	/// <returns>const参照Quad</returns>
 	const Quad& operator=(const Quad& quad);
-
-	/// <summary>
-	/// 掛け算
-	/// 4点を掛ける
-	/// </summary>
-	/// <param name="matrix">行列</param>
-	/// <returns>Quad</returns>
-	Quad operator*(const Matrix3x3& matrix);
-
-	/// <summary>
-	/// 代入掛け算
-	/// </summary>
-	/// <param name="matrix">行列</param>
-	/// <returns>const参照Quad</returns>
-	const Quad& operator*=(const Matrix3x3& matrix);
-
-	Quad operator+(const Vector2D& vec);
 
 	bool Collision(const Quad& tmp);
 
