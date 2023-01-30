@@ -10,10 +10,9 @@
 #include "Game/Texture/Texture.h"
 #include "Game/Camera/Camera.h"
 #include "Enemy/Enemy.h"
-#include"Game/GoalUI/GoalUI.h"
+#include "Game/GoalUI/GoalUI.h"
 #include <Novice.h>
 #include <assert.h>
-#include <thread>
 #include <time.h>
 
 #include "Goal/Goal.h"
@@ -70,32 +69,6 @@ World::World()
 	object.insert(std::make_pair(Scene::Situation::TITLE, new Title(camera)));
 	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, new Game_Clear(camera)));
 	object.insert(std::make_pair(Scene::Situation::GAME_OVER, new Game_Over(camera)));
-	/*object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::GAME_OVER, std::vector<Object*>(0)));
-	object.insert(std::make_pair(Scene::Situation::MAX_SCENE, std::vector<Object*>(0)));*/
-
-
-	/*Player* tmp = new Player(camera);
-
-	AddObj(Scene::Situation::STAGE, tmp);
-
-	for (int i = 0; i < Enemy::kMaxEmyNum; i++) {
-		AddObj(Scene::Situation::STAGE, new Enemy(camera, tmp));
-	}
-
-	Goal* goal = new Goal(camera);
-
-	AddObj(Scene::Situation::STAGE, goal);
-
-	AddObj(Scene::Situation::STAGE, new GoalUI(camera, goal));*/
-
-	/*AddObj(Scene::Situation::TITLE, new Title(camera));
-
-	AddObj(Scene::Situation::GAME_CLEAR, new Game_Clear(camera));
-
-	AddObj(Scene::Situation::GAME_OVER, new Game_Over(camera));*/
-
-//	Novice::SetWindowMode(kFullscreen);
 
 }
 
