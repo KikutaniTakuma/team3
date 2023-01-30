@@ -119,8 +119,14 @@ void Heavy::Update() {
 	if (moveVec.x > static_cast<float>(MapChip::kMapSize)) {
 		moveVec.x = static_cast<float>(MapChip::kMapSize);
 	}
-	if (moveVec.x > -static_cast<float>(MapChip::kMapSize)) {
-		moveVec.x = static_cast<float>(MapChip::kMapSize);
+	if (moveVec.x < -static_cast<float>(MapChip::kMapSize)) {
+		moveVec.x = -static_cast<float>(MapChip::kMapSize);
+	}
+	if (moveVec.y > static_cast<float>(MapChip::kMapSize)) {
+		moveVec.y = static_cast<float>(MapChip::kMapSize);
+	}
+	if (moveVec.y < -static_cast<float>(MapChip::kMapSize)) {
+		moveVec.y = -static_cast<float>(MapChip::kMapSize);
 	}
 	
 	tentativPos += moveVec * camera->getDelta();
