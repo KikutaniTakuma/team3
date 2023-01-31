@@ -19,7 +19,7 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	shakeScale(Vector2D(10.0f, 10.0f)),
 	stopFlg(false),
 	lowTime(12),
-	rndLen(200.0f),
+	rndLen(100.0f),
 	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
 	blockBrkFlg(false),
 	front(Texture("./Resources/Enemy/BraveFront.png",128,32,32)),
