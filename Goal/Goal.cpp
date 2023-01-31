@@ -10,7 +10,7 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	{
 		i = new Button(camera);
 	}
-	goalAdvent = false;
+	goalAdvent = true;
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
@@ -151,6 +151,7 @@ void Goal::Draw() {
 	else {
 		camera->DrawQuad(pos, nGoalTexture, 0, true, 0xffffffff);
 	}
+
 	for (int i = 0; i < kMaxButton; i++)
 	{
 		button[i]->Draw();
