@@ -6,22 +6,11 @@
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/MapChip/MapChip.h"
 
-const int MyMath::kCoodinateChangeConstant =200*32; //200*32
 std::random_device MyMath::seed;
 std::mt19937_64 MyMath::engine(seed());
 std::uniform_int_distribution<> MyMath::rndInt;
 std::uniform_real_distribution<> MyMath::rndReal;
 
-
-void MyMath::CoordinateChange(Vector2D& worldPos) {
-	worldPos.y = (worldPos.y * -1) + kCoodinateChangeConstant;
-}
-
-float MyMath::CoordinateChange(float worldPos) {
-	worldPos = (worldPos * -1) + kCoodinateChangeConstant;
-
-	return worldPos;
-}
 
 bool MyMath::CollisionRectangle(Vector2D LeftTop1, Vector2D size1, Vector2D LeftTop2, Vector2D size2) {
 	if (LeftTop1.x < LeftTop2.x + size2.x && LeftTop2.x < LeftTop1.x + size1.x) {

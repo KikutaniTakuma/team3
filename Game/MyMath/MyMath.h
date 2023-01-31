@@ -9,10 +9,6 @@ private:
 	inline MyMath(){}
 	inline ~MyMath(){}
 
-public:
-	// ワールド座標を変換時の定数
-	static const int kCoodinateChangeConstant;
-
 private:
 	static std::random_device seed;
 	static std::mt19937_64 engine;
@@ -20,10 +16,6 @@ private:
 	static std::uniform_real_distribution<> rndReal;
 
 public:
-
-	static void CoordinateChange(Vector2D& worldPos);
-
-	static float CoordinateChange(float worldPos);
 
 	// 三平方の定理
 	static float PythagoreanTheorem(const float& x, const float& y);

@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-LARGE_INTEGER Camera::start, Camera::end;
+std::chrono::system_clock::time_point Camera::start, Camera::end;
 float Camera::delta = 0.0f;
 bool Camera::hitStop = false;
 bool Camera::fpsDrwFlg = true;
@@ -123,7 +123,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const uns
 	if (isDraw(quad.worldPos,drawLength)) {
 		quad.worldMatrix *= vpvpMatrix;
 
-		animationSpd *= delta;
+		animationSpd *= delta * static_cast<float>(!hitStop);
 
 		if (animationSpd != 0) {
 			if (frame->getFrame() % static_cast<int>(animationSpd) == 0) {
@@ -150,7 +150,7 @@ void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsig
 	quad.Translate();
 	quad.worldMatrix *= vpvpMatrix;
 
-	animationSpd *= delta;
+	animationSpd *= delta * static_cast<float>(!hitStop);
 
 	if (animationSpd != 0) {
 		if (frame->getFrame() % static_cast<int>(animationSpd) == 0) {
@@ -197,12 +197,15 @@ Vector2D Camera::getDrawSize() const {
 }
 
 void Camera::DeltaStart() {
-	QueryPerformanceCounter(&start);
+	start = std::chrono::system_clock::now();
 }
 
 void Camera::DeltaEnd() {
-	QueryPerformanceCounter(&end);
-	delta = static_cast<float>(60.0 / (10000000.0 / ((double)end.QuadPart - (double)start.QuadPart))) * static_cast<float>(!hitStop);
+	end = std::chrono::system_clock::now();
+}
+
+void Camera::DeltaCreate() {
+	delta = static_cast<float>(60.0 / (1000000000.0 / static_cast<double>(std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count())));
 }
 
 float Camera::getDelta() {

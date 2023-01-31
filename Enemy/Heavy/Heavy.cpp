@@ -189,15 +189,15 @@ void Heavy::Update() {
 		rightTop != 0.0f &&
 		rightUnder != 0.0f &&
 
-		leftTop.x != static_cast<float>(MapChip::kMapWidth -1) &&
-		leftUnder.x != static_cast<float>(MapChip::kMapWidth - 1) &&
-		rightTop.x != static_cast<float>(MapChip::kMapWidth - 1) &&
-		rightUnder.x != static_cast<float>(MapChip::kMapWidth - 1) &&
+		leftTop.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
+		leftUnder.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
+		rightTop.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
+		rightUnder.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
 
-		leftTop.y != static_cast<float>(MapChip::kMapHeight - 1) &&
-		leftUnder.y != static_cast<float>(MapChip::kMapHeight - 1) &&
-		rightTop.y != static_cast<float>(MapChip::kMapHeight - 1) &&
-		rightUnder.y != static_cast<float>(MapChip::kMapHeight - 1))
+		leftTop.y != static_cast<float>(MapChip::getMapHeight() - 1) &&
+		leftUnder.y != static_cast<float>(MapChip::getMapHeight() - 1) &&
+		rightTop.y != static_cast<float>(MapChip::getMapHeight() - 1) &&
+		rightUnder.y != static_cast<float>(MapChip::getMapHeight() - 1))
 	{
 		pos.worldPos = tentativPos;
 

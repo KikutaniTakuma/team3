@@ -79,16 +79,16 @@ void Goal::setBottonPos() {
 					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
 				break;
 			case 1:	//	âEè„
-				rnd = { static_cast<float>((MyMath::Random(101, MapChip::kMapWidth) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+				rnd = { static_cast<float>((MyMath::Random(101, MapChip::getMapWidth()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
 					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
 				break;
 			case 2:	//	ç∂â∫
 				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-					static_cast<float>((MyMath::Random(101, MapChip::kMapHeight) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+					static_cast<float>((MyMath::Random(101, MapChip::getMapHeight()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
 				break;
 			case 3:	//	âEâ∫
-				rnd = { static_cast<float>((MyMath::Random(101, MapChip::kMapWidth) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-					static_cast<float>((MyMath::Random(101, MapChip::kMapHeight) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
+				rnd = { static_cast<float>((MyMath::Random(101, MapChip::getMapWidth()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
+					static_cast<float>((MyMath::Random(101, MapChip::getMapHeight()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
 				break;
 			}
 

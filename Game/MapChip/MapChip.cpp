@@ -9,21 +9,27 @@
 #include "Game/IOcsv/IOcsv.h"
 #include "Enemy/Enemy.h"
 
-std::vector<int> MapChip::data;
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+
+std::vector<int> MapChip::data = std::vector<int>(0);
 const int MapChip::kMapSize = 32;
 const int MapChip::kWindowWidth = 1280;
 const int MapChip::kWindowHeight = 720;
-const int MapChip::kMapWidth = 199; //199
-const int MapChip::kMapHeight = 200;//200
-const float MapChip::kMapMaxPosX = static_cast<float>((MapChip::kMapWidth - 1) * MapChip::kMapSize);
-const float MapChip::kMapMaxPosY = static_cast<float>((MapChip::kMapHeight - 1) * MapChip::kMapSize);
-const float MapChip::kMapMinPosX = static_cast<float>(MapChip::kMapSize);
-const float MapChip::kMapMinPosY = static_cast<float>(MapChip::kMapSize);
+int MapChip::coodinateChangeConstant = 0;
+
+int MapChip::mapWidth = 0; //199
+int MapChip::mapHeight = 0;//200
+float MapChip::mapMaxPosX = static_cast<float>((MapChip::mapWidth - 1) * MapChip::kMapSize);
+float MapChip::mapMaxPosY = static_cast<float>((MapChip::mapHeight - 1) * MapChip::kMapSize);
+float MapChip::mapMinPosX = static_cast<float>(MapChip::kMapSize);
+float MapChip::mapMinPosY = static_cast<float>(MapChip::kMapSize);
 
 const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();
-std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(Enemy::kMaxEmyNum);
+std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(0);
 Vector2D MapChip::goalPos = Vector2D();
 
 Texture MapChip::block = Texture();
@@ -31,25 +37,26 @@ Texture MapChip::tile = Texture();
 
 
 void MapChip::Initilize() {
-	MapChip::data.resize(MapChip::kMapHeight * MapChip::kMapWidth);
+	MapChip::LoadMap("./Data/mappu2_-_1.csv");//./Data/MapChipData.csv
 
-	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);//./Data/MapChipData.csv
+	mapMaxPosX = static_cast<float>((MapChip::mapWidth - 1) * MapChip::kMapSize);
+	mapMaxPosY = static_cast<float>((MapChip::mapHeight - 1) * MapChip::kMapSize);
+	mapMinPosX = static_cast<float>(MapChip::kMapSize);
+	mapMinPosY = static_cast<float>(MapChip::kMapSize);
 
-	int count = 0;
-	for (int y = 0; y < kMapHeight; y++) {
-		for (int x = 0; x < kMapWidth; x++) {
-			if (data[y * MapChip::kMapWidth + x] == 55) {
-				data[y * MapChip::kMapWidth + x] = 0;
-				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+	for (int y = 0; y < mapHeight; y++) {
+		for (int x = 0; x < mapWidth; x++) {
+			if (data[y * MapChip::mapWidth + x] == 55) {
+				data[y * MapChip::mapWidth + x] = 0;
+				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 			}
-			if (data[y * MapChip::kMapWidth + x] == 56 && count < Enemy::kMaxEmyNum) {
-				data[y * MapChip::kMapWidth + x] = 0;
-				emyPos[count] = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
-				count++;
+			if (data[y * MapChip::mapWidth + x] == 56) {
+				data[y * MapChip::mapWidth + x] = 0;
+				emyPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize))));
 			}
-			if (data[y * MapChip::kMapWidth + x] == 50) {
-				data[y * MapChip::kMapWidth + x] = 1;
-				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), MyMath::CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+			if (data[y * MapChip::mapWidth + x] == 50) {
+				data[y * MapChip::mapWidth + x] = 1;
+				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 			}
 		}
 	}
@@ -65,7 +72,7 @@ void MapChip::Finalize() {
 }
 
 void MapChip::Reset() {
-	IOcsv::Input("./Data/mappu2_-_1.csv", MapChip::data);
+	MapChip::LoadMap("./Data/mappu2_-_1.csv");
 }
 
 
@@ -82,18 +89,18 @@ bool  MapChip::Collision(const Vector2D& pos) {
 }
 
 int MapChip::GetType(Vector2D worldPos) {
-	MyMath::CoordinateChange(worldPos);
+	CoordinateChange(worldPos);
 
 	int y = (int)worldPos.y / MapChip::kMapSize;
 	int x = (int)worldPos.x / MapChip::kMapSize;
 
-	MyMath::CoordinateChange(worldPos);
+	CoordinateChange(worldPos);
 
-	if (x >= MapChip::kMapWidth || y >= MapChip::kMapHeight || x < 0 || y < 0) {
+	if (x >= MapChip::mapWidth || y >= MapChip::mapHeight || x < 0 || y < 0) {
 		return (int)MapChip::Type::NONE;
 	}
 	else {
-		return data[y * MapChip::kMapWidth + x];
+		return data[y * MapChip::mapWidth + x];
 	}
 }
 
@@ -105,11 +112,21 @@ Vector2D MapChip::GetPos(Vector2D worldPos) {
 }
 
 Vector2D MapChip::GetNum(Vector2D worldPos) {
-	MyMath::CoordinateChange(worldPos);
+	CoordinateChange(worldPos);
 	Vector2D mapChipPos;
 	mapChipPos.x = static_cast<float>((static_cast<int>(worldPos.x) / kMapSize));
 	mapChipPos.y = static_cast<float>((static_cast<int>(worldPos.y - 1.0f) / kMapSize));
 	return mapChipPos;
+}
+
+void MapChip::CoordinateChange(Vector2D& worldPos) {
+	worldPos.y = (worldPos.y * -1) + coodinateChangeConstant;
+}
+
+float MapChip::CoordinateChange(float worldPosY) {
+	worldPosY = (worldPosY * -1) + coodinateChangeConstant;
+
+	return worldPosY;
 }
 
 
@@ -125,8 +142,8 @@ void MapChip::Draw(Texture& texture) {
 	/*int hoge = static_cast<int>(MapChip::GetNum(camera->worldPos).y);*/
 	
 
-	if (firstY > kMapHeight - 1) {
-		firstY = kMapHeight - 1;
+	if (firstY > mapHeight - 1) {
+		firstY = mapHeight - 1;
 	}
 	if (lastY < 0) {
 		lastY = 0;
@@ -138,18 +155,18 @@ void MapChip::Draw(Texture& texture) {
 	if (firstX < 0) {
 		firstX = 0;
 	}
-	if (lastX > kMapWidth) {
-		lastX = kMapWidth;
+	if (lastX > mapWidth) {
+		lastX = mapWidth;
 	}
 
 	for (y = firstY; y >= lastY; y--) {
 		for (x = firstX; x < lastX; x++) {
 	
 			pos.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
-			MyMath::CoordinateChange(pos.worldPos);
+			CoordinateChange(pos.worldPos);
 			pos.worldMatrix.Translate(pos.worldPos);
 
-			switch (data[y * MapChip::kMapWidth + x]) {
+			switch (data[y * MapChip::mapWidth + x]) {
 			case (int)MapChip::Type::NONE:
 				camera->DrawQuad(pos, tile, 0, MyMath::GetRGB(200, 200, 200, 0xff));
 
@@ -210,19 +227,80 @@ void MapChip::CollisionBlock(Quad& pos, Vector2D& moveVec) {
 	// 5, 掛けたそれぞれのベクトルを足したものを移動ベクトルを掛ける
 }
 
-void MapChip::LoadMap(std::string fileName) {
-	IOcsv::Input(fileName.c_str(), MapChip::data);
+int MapChip::LoadMap(std::string fileName) {
+	// ファイルバッファー(コンストラクタで開く)
+	std::ifstream fileBuff(fileName);
+
+	// もしファイルが開かなかったり、なかったら1を返す
+	if (!fileBuff) { return 1; }
+
+	else
+	{
+		// バッファ
+		std::string lineBuff;
+		std::string buff;
+
+		// イテレータ
+		auto id = data.begin();
+
+		// 引数の要素数バッファー
+		auto size = data.size();
+		auto num = 0;
+
+		bool widthFlg = true;
+		mapWidth = 0;
+		mapHeight = 0;
+
+		// 一行取得
+		while (getline(fileBuff, lineBuff))
+		{
+			// 変換
+			std::istringstream line(lineBuff);
+
+			// 区切り文字以前のstringを取得
+			while (getline(line, buff, ','))
+			{
+				// buffに格納されている文字がすべて数字なら数値(int型)に変えて代入
+				if (std::all_of(buff.cbegin(), buff.cend(), isdigit))
+				{
+					if (num >= size) {
+						data.push_back(stoi(buff));
+						if (widthFlg) {
+							mapWidth++;
+						}
+					}
+					else {
+						*id = stoi(buff);// stringをintへ変換し保存
+						id++;
+						num++;
+						if (widthFlg) {
+							mapWidth++;
+						}
+					}
+				}
+			}
+
+			if (widthFlg) {
+				widthFlg = false;
+			}
+			mapHeight++;
+		}
+
+		coodinateChangeConstant = mapHeight * kMapSize;
+
+		return 0;
+	}
 }
 
 
 int MapChip::getData(const int& x, const int& y) {
-	return data[y * MapChip::kMapWidth + x];
+	return data[y * MapChip::mapWidth + x];
 }
 
 void MapChip::setData(int num, const int& x, const int& y) {
 	if (num >= (int)Type::kMaxNum) { num = 0; }
 
-	data[y * MapChip::kMapWidth + x] = num;
+	data[y * MapChip::mapWidth + x] = num;
 }
 
 Vector2D MapChip::getPlyPos() {
@@ -232,7 +310,7 @@ Vector2D MapChip::getPlyPos() {
 Vector2D MapChip::getEmyPos() {
 	static int count = -1;
 	count++;
-	if (count >= Enemy::kMaxEmyNum) {
+	if (count >= emyPos.size()) {
 		count = 0;
 	}
 	return emyPos[count];

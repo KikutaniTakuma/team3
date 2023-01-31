@@ -3,7 +3,7 @@
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/Matrix3x3/Matrix3x3.h"
 #include "Game/MapChip/MapChip.h"
-#include <windows.h>
+#include <chrono>
 
 class Camera {
 public:
@@ -120,7 +120,7 @@ public:
 	class Frame* frame;
 
 private:
-	static LARGE_INTEGER start, end;
+	static std::chrono::system_clock::time_point start, end;
 	static float delta;
 
 public:
@@ -128,10 +128,12 @@ public:
 
 	static void DeltaEnd();
 
+	static void DeltaCreate();
+
 	static float getDelta();
 
 public:
-	static  bool fpsDrwFlg;
+	static bool fpsDrwFlg;
 
 	static void FpsDraw();
 };

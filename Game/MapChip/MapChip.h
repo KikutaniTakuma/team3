@@ -26,12 +26,40 @@ public:
 	static const int kMapSize;
 	static const int kWindowWidth;
 	static const int kWindowHeight;
-	static const int kMapWidth;
-	static const int kMapHeight;
-	static const float kMapMaxPosX;
-	static const float kMapMaxPosY;
-	static const float kMapMinPosX;
-	static const float kMapMinPosY;
+	static int coodinateChangeConstant;
+
+private:
+	static int mapWidth;
+	static int mapHeight;
+	static float mapMaxPosX;
+	static float mapMaxPosY;
+	static float mapMinPosX;
+	static float mapMinPosY;
+
+public:
+	static void CoordinateChange(Vector2D& worldPos);
+
+	static float CoordinateChange(float worldPosY);
+
+	static inline int getMapWidth() {
+		return mapWidth;
+	}
+	static inline int getMapHeight() {
+		return mapHeight;
+	}
+	static inline float getMapMaxPosX() {
+		return mapMaxPosX;
+	}
+	static inline float getMapMaxPosY() {
+		return mapMaxPosY;
+	}
+	static inline float getMapMinPosX() {
+		return mapMinPosX;
+	}
+	static inline float getMapMinPosY() {
+		return mapMinPosY;
+	}
+
 
 	static std::vector<int> data;
 
@@ -80,7 +108,7 @@ public:
 	/// 特定のマップチップ読み込み
 	/// </summary>
 	/// <param name="fileName">読み込みたいファイルパス</param>
-	static void LoadMap(std::string fileName);
+	static int LoadMap(std::string fileName);
 
 	// getter
 	static int getData(const int& x, const int& y);

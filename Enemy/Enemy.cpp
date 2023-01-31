@@ -248,16 +248,16 @@ void Enemy::Reset() {
 }
 
 void Enemy::Collision() {
-	if (tentativPos.x > MapChip::kMapMaxPosX - pos.getSize().x / 2.0f) {
-		tentativPos.x = MapChip::kMapMaxPosX - pos.getSize().x / 2.0f;
+	if (tentativPos.x > MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f) {
+		tentativPos.x = MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f;
 	}
-	if (tentativPos.x < MapChip::kMapMinPosX + pos.getSize().x / 2.0f) {
-		tentativPos.x = MapChip::kMapMinPosX + pos.getSize().x / 2.0f;
+	if (tentativPos.x < MapChip::getMapMinPosX() + pos.getSize().x / 2.0f) {
+		tentativPos.x = MapChip::getMapMinPosX() + pos.getSize().x / 2.0f;
 	}
-	if (tentativPos.y > MapChip::kMapMaxPosY - pos.getSize().y / 2.0f) {
-		tentativPos.y = MapChip::kMapMaxPosY - pos.getSize().y / 2.0f;
+	if (tentativPos.y > MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f) {
+		tentativPos.y = MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f;
 	}
-	if (tentativPos.y < MapChip::kMapMinPosY + pos.getSize().y / 2.0f) {
-		tentativPos.y = MapChip::kMapMinPosY + pos.getSize().y / 2.0f;
+	if (tentativPos.y < MapChip::getMapMinPosY() + pos.getSize().y / 2.0f) {
+		tentativPos.y = MapChip::getMapMinPosY() + pos.getSize().y / 2.0f;
 	}
 }
