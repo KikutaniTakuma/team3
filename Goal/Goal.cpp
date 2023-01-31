@@ -17,7 +17,7 @@ Goal::Goal(Camera* camera, Player* player) :
 	for (auto& i : buttonUI) {
 		i = new GoalUI(camera);
 	}
-	goalAdvent = true;
+	goalAdvent = false;
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
@@ -174,7 +174,9 @@ void Goal::Draw() {
 			button[i]->Draw();
 		}
 		else {
-			buttonUI[i]->Draw();
+			if (!button[i]->getPushButton()) {
+				buttonUI[i]->Draw();
+			}
 		}
 //		Novice::ScreenPrintf(0, 100 + (i * 20), "%0.1f %0.1f", button[i]->getPos().x, button[i]->getPos().y);
 //		Novice::ScreenPrintf(0, 200, "%0.1f %0.1f", player->getWorldPosX(), player->getWorldPosY());
