@@ -51,8 +51,8 @@ void Title::Reset() {
 
 void Title::Draw() {
 //	camera->DrawQuad(drawPos, tex, 0, false);
-	camera->DrawUI(pos, BG, 0, 0xffffffff);
-	camera->DrawUI(testPos, whiteBox, 0, color);
+	camera->DrawUI(pos, BG, 0.0f, 0xffffffff);
+	camera->DrawUI(testPos, whiteBox, 0.0f, color);
 }
 
 

@@ -121,7 +121,7 @@ void Player::Update() {
 
 // •`‰æˆ—ŠÖ”
 void Player::Draw() {
-	camera->DrawQuad(pos, whiteBox, 6, BLUE);
+	camera->DrawQuad(pos, whiteBox, 6.0f, BLUE);
 	/*Novice::ScreenPrintf(0, 0, "X = %f", pos.worldPos.x);
 	Novice::ScreenPrintf(0, 20, "Y = %f", pos.worldPos.y);*/
 }

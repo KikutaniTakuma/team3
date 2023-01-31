@@ -48,7 +48,7 @@ void GoalUI::Draw() {
 	//画面の中にゴールがあるかを判別
 	////存在する場合ゴールを表示し、ない場合UIを表示する
 	if (!camera->isDraw(goalPos)) {
-		camera->DrawUI(pos, goalTexture, 0, color);
+		camera->DrawUI(pos, goalTexture, 0.0f, color);
 	}
 	/*Novice::ScreenPrintf(0, 20, "GoalPos %0.1f", positionGoal->getPos().x);
 	Novice::ScreenPrintf(0, 40, "GoalPos %0.1f", positionGoal->getPos().y);*/

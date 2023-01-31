@@ -15,6 +15,7 @@
 LARGE_INTEGER Camera::start, Camera::end;
 float Camera::delta = 0.0f;
 bool Camera::hitStop = false;
+bool Camera::fpsDrwFlg = true;
 
 Camera::Camera() :
 	worldPos({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
@@ -26,8 +27,7 @@ Camera::Camera() :
 	frame(new Frame),
 	shakeScale({ 10.0f,10.0f }),
 	shakeFlg(false),
-	drawLength(static_cast<float>(MapChip::kMapSize)),
-	fpsDrwFlg(true)
+	drawLength(static_cast<float>(MapChip::kMapSize))
 {
 	viewMatrix.Translate(worldPos);
 	viewMatrix.Inverse();
@@ -119,14 +119,14 @@ void Camera::Shake() {
 	worldPos.y += static_cast<float>(MyMath::Random(static_cast<int>(-shakeScale.y), static_cast<int>(shakeScale.y)));
 }
 
-void Camera::DrawQuad(Quad quad, Texture& texture, int animationSpd, const unsigned int& color) const {
+void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
 		quad.worldMatrix *= vpvpMatrix;
 
 		animationSpd *= delta;
 
 		if (animationSpd != 0) {
-			if (frame->getFrame() % animationSpd == 0) {
+			if (frame->getFrame() % static_cast<int>(animationSpd) == 0) {
 				texture.drawPos += texture.width;
 				if (texture.drawPos > texture.spriteSize - texture.width) {
 					texture.drawPos = 0;
@@ -145,7 +145,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, int animationSpd, const unsig
 }
 
 
-void Camera::DrawUI(Quad quad, Texture& texture, int animationSpd, const unsigned int& color) const {
+void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsigned int& color) const {
 	quad.worldPos += (worldPos - (size/ 2.0f));
 	quad.Translate();
 	quad.worldMatrix *= vpvpMatrix;
@@ -153,7 +153,7 @@ void Camera::DrawUI(Quad quad, Texture& texture, int animationSpd, const unsigne
 	animationSpd *= delta;
 
 	if (animationSpd != 0) {
-		if (frame->getFrame() % animationSpd == 0) {
+		if (frame->getFrame() % static_cast<int>(animationSpd) == 0) {
 			texture.drawPos += texture.width;
 			if (texture.drawPos > texture.spriteSize - texture.width) {
 				texture.drawPos = 0;
@@ -196,15 +196,12 @@ Vector2D Camera::getDrawSize() const {
 	return size;
 }
 
-void Camera::TimeStart() {
+void Camera::DeltaStart() {
 	QueryPerformanceCounter(&start);
 }
 
-void Camera::TimeEnd() {
+void Camera::DeltaEnd() {
 	QueryPerformanceCounter(&end);
-}
-
-void Camera::CreateDelta() {
 	delta = static_cast<float>(60.0 / (10000000.0 / ((double)end.QuadPart - (double)start.QuadPart))) * static_cast<float>(!hitStop);
 }
 

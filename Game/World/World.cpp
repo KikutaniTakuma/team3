@@ -110,6 +110,8 @@ void World::Reset() {
 void World::MainLoop() {
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
+		Camera::DeltaStart();
+
 		// フレームの開始
 		Novice::BeginFrame();
 
@@ -118,8 +120,6 @@ void World::MainLoop() {
 		this->Input();
 
 		this->Reset();
-
-		Camera::TimeStart();
 
 		this->Update();
 
@@ -138,10 +138,9 @@ void World::MainLoop() {
 		// フレームの終了
 		Novice::EndFrame();
 
-		Camera::TimeEnd();
-		Camera::CreateDelta();
+		Camera::DeltaEnd();
 
-		camera->FpsDraw();
+		Camera::FpsDraw();
 
 		if (KeyInput::Released(DIK_ESCAPE) || 
 			Gamepad::getButton(Gamepad::Button::LEFT_SHOULDER) && Gamepad::getButton(Gamepad::Button::RIGHT_SHOULDER) && Gamepad::Released(Gamepad::Button::START))

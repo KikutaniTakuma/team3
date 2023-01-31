@@ -164,10 +164,10 @@ void Goal::Reset() {
 void Goal::Draw() {
 	if (goalAdvent)
 	{
-		camera->DrawQuad(pos, goalTexture, 0, 0x00ff00ff);
+		camera->DrawQuad(pos, goalTexture, 0.0f, 0x00ff00ff);
 	}
 	else if(!goalAdvent){
-		camera->DrawQuad(pos, nGoalTexture, 0, 0xffffffff);
+		camera->DrawQuad(pos, nGoalTexture, 0.0f, 0xffffffff);
 	}
 	for (int i = 0; i < button.size();i++) {
 		if (camera->isDraw(button[i]->getPos())) {
