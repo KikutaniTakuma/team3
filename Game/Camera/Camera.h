@@ -44,18 +44,7 @@ public:
 	/// <param name="animationSpd">数字を大きくするほど遅くなる</param>
 	/// <param name="animationStop">trueならアニメーションさせない</param>
 	/// <param name="color">特に指定しない場合WHITEになる</param>
-	void DrawQuad(class Quad quad, class Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color = 0xffffffff) const;
-
-	/// <summary>
-	/// DrawQuad
-	/// </summary>
-	/// <param name="quad"></param>
-	/// <param name="texture"></param>
-	/// <param name="deg">角度(度数法)。表示上のみ回転させる</param>
-	/// <param name="animationSpd">数字を大きくするほど遅くなる</param>
-	/// <param name="animationStop">trueならアニメーションさせない</param>
-	/// <param name="color">特に指定しない場合WHITEになる</param>
-	void DrawQuad(class Quad quad, class Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color = 0xffffffff) const;
+	void DrawQuad(class Quad quad, class Texture& texture, int animationSpd, const unsigned int& color = 0xffffffff) const;
 
 	/// <summary>
 	/// DrawUI
@@ -65,7 +54,7 @@ public:
 	/// <param name="texture"></param>
 	/// <param name="animationSpd">数字を大きくするほど遅くなる</param>
 	/// <param name="animationStop">trueならアニメーションさせない</param>
-	void DrawUI(class Quad quad, class Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color = 0xffffffff) const;
+	void DrawUI(class Quad quad, class Texture& texture,int animationSpd, const unsigned int& color = 0xffffffff) const;
 
 	/// <summary>
 	/// カメラ内に映ってるかどうか
@@ -97,6 +86,9 @@ public:
 	bool shakeFlg;
 
 	float drawLength;
+
+	// ヒットストップ
+	static bool hitStop;
 
 private:
 	Vector2D screenPos;

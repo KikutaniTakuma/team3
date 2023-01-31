@@ -38,5 +38,5 @@ void Game_Over::Reset() {
 }
 
 void Game_Over::Draw() {
-	camera->DrawUI(pos, BG, 0, false, 0xbbbbbbff);
+	camera->DrawUI(pos, BG, 0, 0xbbbbbbff);
 }

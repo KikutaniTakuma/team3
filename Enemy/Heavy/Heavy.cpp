@@ -260,16 +260,16 @@ void Heavy::Draw() {
 	switch (dir)
 	{
 	case Enemy::Direction::LEFT:
-		camera->DrawQuad(pos, left, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, left, 12, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	case Enemy::Direction::RIGHT:
-		camera->DrawQuad(pos, right, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, right, 12, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	case Enemy::Direction::FRONT:
-		camera->DrawQuad(pos, front, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, front, 12, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	case Enemy::Direction::BACK:
-		camera->DrawQuad(pos, back, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(pos, back, 12, MyMath::GetRGB(255, 255, 255, 255));
 		break;
 	default:
 		assert(!"Enemy Direction Exception Error");

@@ -44,10 +44,10 @@ void Button::Reset() {
 void Button::Draw() {
 	if (isPushButton)
 	{
-		camera->DrawQuad(pos, onButtonTexture, 0, true, 0xff0000ff);
+		camera->DrawQuad(pos, onButtonTexture, 0, 0xff0000ff);
 	}
 	else
 	{
-		camera->DrawQuad(pos, offButtonTexture, 0, true, 0x0000ffff);
+		camera->DrawQuad(pos, offButtonTexture, 0, 0x0000ffff);
 	}
 }

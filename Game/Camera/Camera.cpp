@@ -14,6 +14,7 @@
 
 LARGE_INTEGER Camera::start, Camera::end;
 float Camera::delta = 0.0f;
+bool Camera::hitStop = false;
 
 Camera::Camera() :
 	worldPos({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
@@ -118,34 +119,13 @@ void Camera::Shake() {
 	worldPos.y += static_cast<float>(MyMath::Random(static_cast<int>(-shakeScale.y), static_cast<int>(shakeScale.y)));
 }
 
-void Camera::DrawQuad(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawQuad(Quad quad, Texture& texture, int animationSpd, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
 		quad.worldMatrix *= vpvpMatrix;
 
-		if (!animationStop && animationSpd != 0) {
-			if (frame->getFrame() % animationSpd == 0) {
-				texture.drawPos += texture.width;
-				if (texture.drawPos > texture.spriteSize - texture.width) {
-					texture.drawPos = 0;
-				}
-			}
-		}
+		animationSpd *= delta;
 
-		Novice::DrawQuad(
-			static_cast<int>(quad.getMatrixLeftTop().x), static_cast<int>(quad.getMatrixLeftTop().y),
-			static_cast<int>(quad.getMatrixRightTop().x), static_cast<int>(quad.getMatrixRightTop().y),
-			static_cast<int>(quad.getMatrixLeftUnder().x), static_cast<int>(quad.getMatrixLeftUnder().y),
-			static_cast<int>(quad.getMatrixRightUnder().x), static_cast<int>(quad.getMatrixRightUnder().y),
-			texture.drawPos, 0, texture.width, texture.height, texture.textureHandle, color
-		);
-	}
-}
-
-void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
-	if (isDraw(quad.worldPos,drawLength)) {
-		quad.worldMatrix *= vpvpMatrix;
-
-		if (!animationStop && animationSpd != 0) {
+		if (animationSpd != 0) {
 			if (frame->getFrame() % animationSpd == 0) {
 				texture.drawPos += texture.width;
 				if (texture.drawPos > texture.spriteSize - texture.width) {
@@ -165,12 +145,14 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float deg, const int& animati
 }
 
 
-void Camera::DrawUI(Quad quad, Texture& texture, const int& animationSpd, const bool& animationStop, const unsigned int& color) const {
+void Camera::DrawUI(Quad quad, Texture& texture, int animationSpd, const unsigned int& color) const {
 	quad.worldPos += (worldPos - (size/ 2.0f));
 	quad.Translate();
 	quad.worldMatrix *= vpvpMatrix;
 
-	if (!animationStop && animationSpd != 0) {
+	animationSpd *= delta;
+
+	if (animationSpd != 0) {
 		if (frame->getFrame() % animationSpd == 0) {
 			texture.drawPos += texture.width;
 			if (texture.drawPos > texture.spriteSize - texture.width) {
@@ -223,7 +205,7 @@ void Camera::TimeEnd() {
 }
 
 void Camera::CreateDelta() {
-	delta = static_cast<float>(60.0 / (10000000.0 / ((double)end.QuadPart - (double)start.QuadPart)));
+	delta = static_cast<float>(60.0 / (10000000.0 / ((double)end.QuadPart - (double)start.QuadPart))) * static_cast<float>(!hitStop);
 }
 
 float Camera::getDelta() {

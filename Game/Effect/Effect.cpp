@@ -28,7 +28,7 @@ void Effect::Draw() {
 	for (auto& i : particle) {
 		if (i.flg) {
 			particleBuf.Set(i.pos, { i.size,i.size });
-			camera->DrawQuad(particleBuf, whiteBox, 0, false, 0xffff0000 + i.alpha);
+			camera->DrawQuad(particleBuf, whiteBox, 0, 0xffff0000 + i.alpha);
 		}
 	}
 
