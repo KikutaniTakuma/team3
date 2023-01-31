@@ -66,7 +66,6 @@ void Stage::Reset() {
 	Goal* goal = new Goal(camera, player);
 
 	/*obj.push_back(goal);*/
-	obj.push_back(player);
 
 	for (int i = 0; i < Enemy::kMaxEmyNum -1; i++) {
 		obj.push_back(new Enemy(camera, player));
@@ -74,4 +73,6 @@ void Stage::Reset() {
 	emy.push_back(new Heavy(camera, player));
 
 	obj.push_back(goal);
+
+	obj.push_back(player);
 }
