@@ -4,6 +4,7 @@
 #include "Game/Object/Object.h"
 #include <array>
 #include "SCENE/Scene/Scene.h"
+#include "Game/GoalUI/GoalUI.h"
 
 class Goal : public Object, Scene
 {
@@ -14,7 +15,10 @@ public:
 private:
 	//	ボタン最大数
 	const int kMaxButton;
-	std::array<Button*, 4>button;
+	std::array<Button*, 4> button;
+	std::array<GoalUI*, 4> buttonUI;
+
+	GoalUI goalUI;
 	
 	//	ゴールが開いたならtrue
 	bool goalAdvent;

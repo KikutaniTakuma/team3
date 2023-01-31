@@ -5,10 +5,17 @@
 #include "Game/Player/Player.h"
 
 
-Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
-	for (auto& i:button)
+Goal::Goal(Camera* camera, Player* player) :
+	Object(camera), 
+	kMaxButton(4),
+	goalUI(camera)
+{
+	for (auto& i : button)
 	{
 		i = new Button(camera);
+	}
+	for(auto & i : buttonUI){
+		i = new GoalUI(camera);
 	}
 	goalAdvent = false;
 	count = 0;
@@ -26,6 +33,9 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 Goal::~Goal() {
 	for (auto& i : button)
 	{
+		delete i;
+	}
+	for (auto& i : buttonUI) {
 		delete i;
 	}
 }
@@ -131,7 +141,15 @@ void Goal::Update() {
 //		i->Collision(player->getQuad());
 //	}
 
+	for (int i = 0; i < button.size(); i++) {
+		buttonUI[i]->SetPos(button[i]->getPos());
+		buttonUI[i]->Update();
+	}
+
 	pos.worldMatrix.Translate(pos.worldPos);
+
+	goalUI.SetPos(pos.worldPos);
+	goalUI.Update();
 }
 
 void Goal::Reset() {
@@ -148,13 +166,21 @@ void Goal::Draw() {
 	{
 		camera->DrawQuad(pos, goalTexture, 0, true, 0x00ff00ff);
 	}
-	else {
+	else if(!goalAdvent){
 		camera->DrawQuad(pos, nGoalTexture, 0, true, 0xffffffff);
 	}
-	for (int i = 0; i < kMaxButton; i++)
-	{
-		button[i]->Draw();
+	for (int i = 0; i < button.size();i++) {
+		if (camera->isDraw(button[i]->getPos())) {
+			button[i]->Draw();
+		}
+		else {
+			buttonUI[i]->Draw();
+		}
 //		Novice::ScreenPrintf(0, 100 + (i * 20), "%0.1f %0.1f", button[i]->getPos().x, button[i]->getPos().y);
 //		Novice::ScreenPrintf(0, 200, "%0.1f %0.1f", player->getWorldPosX(), player->getWorldPosY());
+	}
+
+	if (goalAdvent) {
+		goalUI.Draw();
 	}
 }

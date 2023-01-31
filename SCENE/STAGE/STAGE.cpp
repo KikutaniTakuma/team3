@@ -20,8 +20,6 @@ Stage::Stage(Camera* camera) :
 
 	emy.push_back(new Heavy(camera, player));
 
-	obj.push_back(new GoalUI(camera, goal));
-
 	obj.push_back(goal);
 }
 
@@ -74,8 +72,6 @@ void Stage::Reset() {
 		obj.push_back(new Enemy(camera, player));
 	}
 	emy.push_back(new Heavy(camera, player));
-
-	obj.push_back(new GoalUI(camera, goal));
 
 	obj.push_back(goal);
 }
