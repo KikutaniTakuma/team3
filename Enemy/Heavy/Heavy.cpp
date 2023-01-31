@@ -11,7 +11,7 @@ Heavy::Heavy(Camera* camera, Player* player):
 	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint))
 {
 	this->spd = 2.0f;
-	this->lowTime = 120;
+	this->lowTime = 45;
 
 	front.Set("./Resources/Enemy/FighterFront.png", 128, 32, 32);
 	back.Set("./Resources/Enemy/FighterBack.png", 128, 32, 32);
