@@ -6,12 +6,27 @@
 Heavy::Heavy(Camera* camera, Player* player):
 	Enemy(camera, player),
 	rushFlg(false),
-	rushSpd(0.01f),
+	rushSpd(0.012f),
 	rushLen(50.0f),
 	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint))
 {
 	this->spd = 2.0f;
-	this->lowTime = 60;
+	this->lowTime = 120;
+
+	front.Set("./Resources/Enemy/FighterFront.png", 128, 32, 32);
+	back.Set("./Resources/Enemy/FighterBack.png", 128, 32, 32);
+	right.Set("./Resources/Enemy/FighterRight.png", 128, 32, 32);
+	left.Set("./Resources/Enemy/FighterLeft.png", 128, 32, 32);
+
+	// テクスチャーが正常に読み込まれているか
+	assert(front);
+	assert(back);
+	assert(right);
+	assert(left);
+
+	dir = Direction::FRONT;
+
+	shakeScale = { 5.0f, 5.0f };
 }
 
 void Heavy::Update() {
@@ -107,7 +122,7 @@ void Heavy::Update() {
 	else {
 		if (!rushFlg && !stopFlg) {
 			rushFlg = true;
-			rushEase.Set(pos.worldPos, player->getWorldPos() + (player->getWorldPos() - pos.worldPos), rushSpd, Easing::EaseInQuart);
+			rushEase.Set(pos.worldPos, player->getWorldPos() + (player->getWorldPos() - pos.worldPos), rushSpd, Easing::EaseInBack);
 		}
 	}
 
@@ -126,6 +141,31 @@ void Heavy::Update() {
 	}
 	if (moveVec.y < -static_cast<float>(MapChip::kMapSize)) {
 		moveVec.y = -static_cast<float>(MapChip::kMapSize);
+	}
+
+	if (moveVec.x > 0.0f) {
+		dir = Direction::RIGHT;
+		if (moveVec.y > 0.0f && moveVec.y > moveVec.x) {
+			dir = Direction::BACK;
+		}
+		else if (moveVec.y < 0.0f && -moveVec.y > moveVec.x) {
+			dir = Direction::FRONT;
+		}
+	}
+	else if (moveVec.x < 0.0f) {
+		dir = Direction::LEFT;
+		if (moveVec.y > 0.0f && -moveVec.y < moveVec.x) {
+			dir = Direction::BACK;
+		}
+		else if (moveVec.y < 0.0f && moveVec.y < moveVec.x) {
+			dir = Direction::FRONT;
+		}
+	}
+	else if (moveVec.y > 0.0f) {
+		dir = Direction::BACK;
+	}
+	else if (moveVec.y < 0.0f) {
+		dir = Direction::FRONT;
 	}
 	
 	tentativPos += moveVec * camera->getDelta();
@@ -206,18 +246,43 @@ void Heavy::Update() {
 	if (pos.Collision(player->getQuad())) {
 		scene = Situation::GAME_OVER;
 	}
-
-	pos.Translate();
 }
 
 void Heavy::Draw() {
-	camera->DrawQuad(pos, whiteBox, 0, false, MyMath::GetRGB(0xff, 0x0, 0xff, 0xff));
+	Vector2D tmp = pos.worldPos;
+	if (!rushEase) {
+		pos.worldPos.x += static_cast<float>(MyMath::Random(-static_cast<int>(shakeScale.x), static_cast<int>(shakeScale.x)));
+		pos.worldPos.y += static_cast<float>(MyMath::Random(-static_cast<int>(shakeScale.y), static_cast<int>(shakeScale.y)));
+	}
+
+	pos.Translate();
+
+	switch (dir)
+	{
+	case Enemy::Direction::LEFT:
+		camera->DrawQuad(pos, left, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::RIGHT:
+		camera->DrawQuad(pos, right, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::FRONT:
+		camera->DrawQuad(pos, front, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::BACK:
+		camera->DrawQuad(pos, back, 12, !rushEase, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	default:
+		assert(!"Enemy Direction Exception Error");
+		break;
+	}
 
 	if (camera->isDraw(pos.worldPos)) {
 		if (blockBrkFlg) {
 			blockBrk.SoundEffect(0.5f);
 		}
 	}
+
+	pos.worldPos = tmp;
 }
 
 void Heavy::Reset() {

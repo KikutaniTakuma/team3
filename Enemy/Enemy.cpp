@@ -22,10 +22,10 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	rndLen(200.0f),
 	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
 	blockBrkFlg(false),
-	front(Texture("./Resources/Enemy/EnemyFront.png",128,32,32)),
-	back(Texture("./Resources/Enemy/EnemyBack.png", 128, 32, 32)),
-	right(Texture("./Resources/Enemy/EnemyRight.png", 128, 32, 32)),
-	left(Texture("./Resources/Enemy/EnemyLeft.png", 128, 32, 32)),
+	front(Texture("./Resources/Enemy/BraveFront.png",128,32,32)),
+	back(Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)),
+	right(Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)),
+	left(Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)),
 	dir(Direction::FRONT)
 {
 	// テクスチャーが正常に読み込まれているか
