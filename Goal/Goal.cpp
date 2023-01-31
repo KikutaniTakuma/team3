@@ -15,6 +15,7 @@ Goal::Goal(Camera* camera,Player* player) :Object(camera), kMaxButton(4) {
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
 	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
+	nGoalTexture.Set("./Resources/NotGoal.png", 128, 128, 128);
 
 	this->player = player;
 
@@ -147,10 +148,13 @@ void Goal::Draw() {
 	{
 		camera->DrawQuad(pos, goalTexture, 0, true, 0x00ff00ff);
 	}
+	else {
+		camera->DrawQuad(pos, nGoalTexture, 0, true, 0xffffffff);
+	}
 	for (int i = 0; i < kMaxButton; i++)
 	{
 		button[i]->Draw();
-		Novice::ScreenPrintf(0, 100 + (i * 20), "%0.1f %0.1f", button[i]->getPos().x, button[i]->getPos().y);
-		Novice::ScreenPrintf(0, 200, "%0.1f %0.1f", player->getWorldPosX(), player->getWorldPosY());
+//		Novice::ScreenPrintf(0, 100 + (i * 20), "%0.1f %0.1f", button[i]->getPos().x, button[i]->getPos().y);
+//		Novice::ScreenPrintf(0, 200, "%0.1f %0.1f", player->getWorldPosX(), player->getWorldPosY());
 	}
 }

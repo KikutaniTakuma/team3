@@ -30,6 +30,7 @@ private:
 public:
 	//
 	Texture goalTexture;
+	Texture nGoalTexture;
 
 public:
 	//	ボタンの状態確認
