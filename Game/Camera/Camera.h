@@ -5,9 +5,10 @@
 #include "Game/MapChip/MapChip.h"
 #include <chrono>
 
-namespace chrono = std::chrono;
-
 class Camera {
+private:
+	using sclock = std::chrono::system_clock;
+
 public:
 	Camera();
 	~Camera();
@@ -126,7 +127,7 @@ public:
 	/// ‚±‚±‚Ì‰º‚ªdeltaTimeŠÖŒW‚ÌƒNƒ‰ƒX‚Å‚·
 	/// 
 private:
-	static chrono::system_clock::time_point start, end;
+	static sclock::time_point start, end;
 	static float delta;
 
 public:
