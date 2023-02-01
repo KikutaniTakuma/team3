@@ -124,7 +124,7 @@ public:
 
 
 	///
-	/// ‚±‚±‚Ì‰º‚ªdeltaTimeŠÖŒW‚ÌƒNƒ‰ƒX‚Å‚·
+	/// ‚±‚±‚Ì‰º‚ªdeltaTimeŠÖŒW
 	/// 
 private:
 	static sclock::time_point start, end;

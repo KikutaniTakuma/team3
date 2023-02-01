@@ -143,7 +143,7 @@ void World::MainLoop() {
 		Camera::FpsDraw();
 
 		if (KeyInput::Released(DIK_ESCAPE) || 
-			Gamepad::getButton(Gamepad::Button::LEFT_SHOULDER) && Gamepad::getButton(Gamepad::Button::RIGHT_SHOULDER) && Gamepad::Released(Gamepad::Button::START))
+			Gamepad::LongPush(Gamepad::Button::LEFT_SHOULDER) && Gamepad::LongPush(Gamepad::Button::RIGHT_SHOULDER) && Gamepad::Released(Gamepad::Button::START))
 		{ break; }
 	}
 }
