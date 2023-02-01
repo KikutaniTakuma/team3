@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-std::chrono::system_clock::time_point Camera::start, Camera::end;
+chrono::system_clock::time_point Camera::start, Camera::end;
 float Camera::delta = 0.0f;
 bool Camera::hitStop = false;
 bool Camera::fpsDrwFlg = true;
@@ -197,15 +197,12 @@ Vector2D Camera::getDrawSize() const {
 }
 
 void Camera::DeltaStart() {
-	start = std::chrono::system_clock::now();
+	start = chrono::system_clock::now();
 }
 
 void Camera::DeltaEnd() {
-	end = std::chrono::system_clock::now();
-}
-
-void Camera::DeltaCreate() {
-	delta = static_cast<float>(60.0 / (1000000000.0 / static_cast<double>(std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count())));
+	end = chrono::system_clock::now();
+	delta = static_cast<float>(60.0 / (1000000000.0 / static_cast<double>(chrono::duration_cast<chrono::nanoseconds>(end - start).count())));
 }
 
 float Camera::getDelta() {

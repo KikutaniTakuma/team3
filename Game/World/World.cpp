@@ -140,8 +140,6 @@ void World::MainLoop() {
 
 		Camera::DeltaEnd();
 
-		Camera::DeltaCreate();
-
 		Camera::FpsDraw();
 
 		if (KeyInput::Released(DIK_ESCAPE) || 

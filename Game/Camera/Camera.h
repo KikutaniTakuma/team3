@@ -5,6 +5,8 @@
 #include "Game/MapChip/MapChip.h"
 #include <chrono>
 
+namespace chrono = std::chrono;
+
 class Camera {
 public:
 	Camera();
@@ -119,16 +121,18 @@ public:
 	// フレーム
 	class Frame* frame;
 
+
+	///
+	/// ここの下がdeltaTime関係のクラスです
+	/// 
 private:
-	static std::chrono::system_clock::time_point start, end;
+	static chrono::system_clock::time_point start, end;
 	static float delta;
 
 public:
 	static void DeltaStart();
 
 	static void DeltaEnd();
-
-	static void DeltaCreate();
 
 	static float getDelta();
 
