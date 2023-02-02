@@ -88,19 +88,19 @@ void MapChip::Reset() {
 		for (int x = 0; x < mapWidth; x++) {
 			if (data[y * MapChip::mapWidth + x] == 55) {
 				data[y * MapChip::mapWidth + x] = 0;
-				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize - (MapChip::kMapSize / 2)), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2)));
 			}
 			if (data[y * MapChip::mapWidth + x] == 56) {
 				data[y * MapChip::mapWidth + x] = 0;
-				emyPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize))));
+				emyPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) - (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2))));
 			}
 			if (data[y * MapChip::mapWidth + x] == 50) {
 				data[y * MapChip::mapWidth + x] = 1;
-				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize) - (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2)));
 			}
 			if (data[y * MapChip::mapWidth + x] == 51) {
 				data[y * MapChip::mapWidth + x] = 0;
-				buttonPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize))));
+				buttonPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) - (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2))));
 			}
 		}
 	}
