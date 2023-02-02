@@ -15,8 +15,9 @@ public:
 private:
 	//	ƒ{ƒ^ƒ“Å‘å”
 	const int kMaxButton;
-	std::array<Button*, 4> button;
-	std::array<GoalUI*, 4> buttonUI;
+	std::array<Button*, 5> button;
+	std::array<GoalUI*, 5> buttonUI;
+
 
 	GoalUI goalUI;
 	

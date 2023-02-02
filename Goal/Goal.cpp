@@ -7,7 +7,7 @@
 
 Goal::Goal(Camera* camera, Player* player) :
 	Object(camera), 
-	kMaxButton(4),
+	kMaxButton(5),
 	goalUI(camera)
 {
 	for (auto& i : button)
@@ -69,32 +69,8 @@ void Goal::StateUpdate() {
 void Goal::setBottonPos() {
 	for (int i = 0; i < kMaxButton; i++)
 	{		
-		do {
-			//	óêêîÇ≈ê∂ê¨ÇµÇƒìñÇƒÇÕÇﬂÇÈ
-			
-			switch (i)
-			{
-			case 0:	//	ç∂è„
-				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
-				break;
-			case 1:	//	âEè„
-				rnd = { static_cast<float>((MyMath::Random(101, MapChip::getMapWidth()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-					static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
-				break;
-			case 2:	//	ç∂â∫
-				rnd = { static_cast<float>((MyMath::Random(0, 100) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-					static_cast<float>((MyMath::Random(101, MapChip::getMapHeight()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
-				break;
-			case 3:	//	âEâ∫
-				rnd = { static_cast<float>((MyMath::Random(101, MapChip::getMapWidth()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)),
-					static_cast<float>((MyMath::Random(101, MapChip::getMapHeight()) * MapChip::kMapSize) + (MapChip::kMapSize / 2)) };
-				break;
-			}
-
-		} while (MapChip::GetType(rnd) == static_cast<int>(MapChip::Type::BLOCK));
-
-		button[i]->setPos(rnd);
+		
+		button[i]->setPos(MapChip::getButtonPos());
 		button[i]->Update();
 	}
 }
