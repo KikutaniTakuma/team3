@@ -310,7 +310,8 @@ void Player::Collision() {
 				tentativPos->x = mapPos.x + size->x / 2.0f;
 			}
 			// 右上に進めない
-			else if (MapChip::Collision(RightTop) && MapChip::Collision(LeftTop) && MapChip::Collision(RightUnder)) {
+			else if (MapChip::Collision(RightTop) && MapChip::Collision(LeftTop) && MapChip::Collision(RightUnder) || 
+				     !MapChip::Collision(RightTop) && MapChip::Collision(LeftTop) && MapChip::Collision(RightUnder)) {
 				Vector2D mapPos = MapChip::GetPos(RightTop);
 				mapPos.y -= MapChip::kMapSize;
 
@@ -383,7 +384,8 @@ void Player::Collision() {
 				tentativPos->x = mapPos.x + size->x / 2.0f;
 			}
 			// 左上に進めない
-			else if (MapChip::Collision(LeftTop) && MapChip::Collision(RightTop) && MapChip::Collision(LeftUnder)) {
+			else if (MapChip::Collision(LeftTop) && MapChip::Collision(RightTop) && MapChip::Collision(LeftUnder) || 
+					 !MapChip::Collision(LeftTop) && MapChip::Collision(RightTop) && MapChip::Collision(LeftUnder)) {
 				Vector2D mapPos = MapChip::GetPos(LeftTop);
 				mapPos.y -= MapChip::kMapSize;
 
@@ -498,7 +500,8 @@ void Player::Collision() {
 				tentativPos->x = mapPos.x + size->x / 2.0f;
 			}
 			// 右下に進めない
-			else if (MapChip::Collision(LeftUnder) && MapChip::Collision(RightUnder) && MapChip::Collision(RightTop)) {
+			else if (MapChip::Collision(LeftUnder) && MapChip::Collision(RightUnder) && MapChip::Collision(RightTop) || 
+					 MapChip::Collision(LeftUnder) && !MapChip::Collision(RightUnder) && MapChip::Collision(RightTop)) {
 				Vector2D mapPos = MapChip::GetPos(RightUnder);
 				if (static_cast<int>(mapPos.y) % MapChip::kMapSize == 0) {
 					RightUnder.y -= 1.0f;
@@ -611,7 +614,8 @@ void Player::Collision() {
 				tentativPos->x = mapPos.x + size->x / 2.0f;
 			}
 			// 左下に進めない
-			else if (MapChip::Collision(LeftUnder) && MapChip::Collision(RightUnder) && MapChip::Collision(LeftTop)) {
+			else if (MapChip::Collision(LeftUnder) && MapChip::Collision(RightUnder) && MapChip::Collision(LeftTop) || 
+					 !MapChip::Collision(LeftUnder) && MapChip::Collision(RightUnder) && MapChip::Collision(LeftTop)) {
 				Vector2D mapPos = MapChip::GetPos(LeftUnder);
 				if (static_cast<int>(mapPos.y) % MapChip::kMapSize == 0) {
 					LeftUnder.y -= 1.0f;
