@@ -13,12 +13,12 @@ const int Enemy::kMaxEmyNum = 4;
 Enemy::Enemy(Camera* cameraPointa, Player* player)
 	:Object(cameraPointa),
 	player(player),
-	spd(4.0f),
+	spd(2.0f),
 	nmlSpd(spd),
 	lowSpd(0.0f),
 	shakeScale(Vector2D(10.0f, 10.0f)),
 	stopFlg(false),
-	lowTime(12),
+	lowTime(24),
 	rndLen(100.0f),
 	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
 	blockBrkFlg(false),
@@ -82,7 +82,7 @@ void Enemy::Update() {
 		/// 速度は一定
 		/// 斜め走行はなし
 		/// 縦と横で長いほうを移動する(縦<横の場合横方向に動く)
-		/*if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
+		if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
 			if (player->getWorldPosY() < pos.worldPos.y) {
 				moveVec.y -= spd;
 			}
@@ -98,10 +98,10 @@ void Enemy::Update() {
 				moveVec.x += spd;
 			}
 		}
-		tentativPos += moveVec * camera->getDelta();*/
+		tentativPos += moveVec * camera->getDelta();
 
 		// 上の逆バージョン
-		if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
+		/*if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
 			if (MapChip::GetNum(pos.worldPos).y == MapChip::GetNum(player->getWorldPos()).y) {
 				if (player->getWorldPosX() < pos.worldPos.x) {
 					moveVec.x -= spd;
@@ -134,7 +134,7 @@ void Enemy::Update() {
 			}
 		}
 		tentativPos += moveVec * camera->getDelta();
-
+		*/
 	}
 
 	this->Collision();
