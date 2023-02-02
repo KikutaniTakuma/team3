@@ -96,6 +96,11 @@ Player::Player(Camera* camera):
 	flgJumpSecond = false;
 
 	flgGravity = true;
+
+	tex.insert(std::make_pair(Direction::FRONT, Texture("./Resources/Player/SlimeFront.png",256,32,32)));
+	tex.insert(std::make_pair(Direction::BACK, Texture("./Resources/Player/SlimeBack.png", 256, 32, 32)));
+	tex.insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Player/SlimeRight.png", 256, 32, 32)));
+	tex.insert(std::make_pair(Direction::LEFT, Texture("./Resources/Player/SlimeLeft.png", 256, 32, 32)));
 }
 
 // デストラクタ
@@ -121,7 +126,7 @@ void Player::Update() {
 
 // 描画処理関数
 void Player::Draw() {
-	camera->DrawQuad(pos, whiteBox, 6.0f, BLUE);
+	camera->DrawQuad(pos, tex[dir], 12.0f, MyMath::GetRGB(255,255,255,255));
 	/*Novice::ScreenPrintf(0, 0, "X = %f", pos.worldPos.x);
 	Novice::ScreenPrintf(0, 20, "Y = %f", pos.worldPos.y);*/
 }
@@ -192,6 +197,31 @@ void Player::Move() {
 	}
 
 	*tentativPos += *moveVec * camera->getDelta();
+
+	if (moveVec->x > 0.0f) {
+		dir = Direction::RIGHT;
+		if (moveVec->y > 0.0f && moveVec->y > moveVec->x) {
+			dir = Direction::BACK;
+		}
+		else if (moveVec->y < 0.0f && -moveVec->y > moveVec->x) {
+			dir = Direction::FRONT;
+		}
+	}
+	else if (moveVec->x < 0.0f) {
+		dir = Direction::LEFT;
+		if (moveVec->y > 0.0f && -moveVec->y < moveVec->x) {
+			dir = Direction::BACK;
+		}
+		else if (moveVec->y < 0.0f && moveVec->y < moveVec->x) {
+			dir = Direction::FRONT;
+		}
+	}
+	else if (moveVec->y > 0.0f) {
+		dir = Direction::BACK;
+	}
+	else if (moveVec->y < 0.0f) {
+		dir = Direction::FRONT;
+	}
 }
 
 // ジャンプ関数

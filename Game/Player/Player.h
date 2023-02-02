@@ -1,9 +1,7 @@
 #pragma once
 #include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
-
-class Vector2D;
-class Matrix3x3;
+#include <map>
 
 class Player final : public Object, Scene {
 public:
@@ -13,11 +11,11 @@ public:
 		float spd;
 	};
 
-	enum Dirextion {
+	enum Direction {
 		LEFT = 0,
 		RIGHT,
-		UP,
-		DOWN
+		FRONT,
+		BACK
 	};
 
 public:
@@ -45,6 +43,9 @@ private:
 
 	// èdóÕÇ»ÇµÇ©Ç«Ç§Ç©
 	bool flgZeroGravity;
+
+	Direction dir;
+	std::map<Direction, Texture> tex;
 
 public:
 	void Update() override;
