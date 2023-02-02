@@ -13,6 +13,7 @@ private:
 	float rushSpd;
 	float rushLen;
 	Easing rushEase;
+	float maxSpd;
 
 public:
 	void Update() override;

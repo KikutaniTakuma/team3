@@ -8,7 +8,8 @@ Heavy::Heavy(Camera* camera, Player* player):
 	rushFlg(false),
 	rushSpd(0.012f),
 	rushLen(50.0f),
-	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint))
+	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint)),
+	maxSpd(static_cast<float>(MapChip::kMapSize))
 {
 	this->spd = 2.0f;
 	this->lowTime = 45;
@@ -130,17 +131,17 @@ void Heavy::Update() {
 		moveVec = rushEase.Update() - pos.worldPos;
 	}
 
-	if (moveVec.x > static_cast<float>(MapChip::kMapSize)) {
-		moveVec.x = static_cast<float>(MapChip::kMapSize);
+	if (moveVec.x > maxSpd) {
+		moveVec.x = maxSpd;
 	}
-	if (moveVec.x < -static_cast<float>(MapChip::kMapSize)) {
-		moveVec.x = -static_cast<float>(MapChip::kMapSize);
+	if (moveVec.x < -maxSpd) {
+		moveVec.x = -maxSpd;
 	}
-	if (moveVec.y > static_cast<float>(MapChip::kMapSize)) {
-		moveVec.y = static_cast<float>(MapChip::kMapSize);
+	if (moveVec.y > maxSpd) {
+		moveVec.y = maxSpd;
 	}
-	if (moveVec.y < -static_cast<float>(MapChip::kMapSize)) {
-		moveVec.y = -static_cast<float>(MapChip::kMapSize);
+	if (moveVec.y < -maxSpd) {
+		moveVec.y = -maxSpd;
 	}
 
 	if (moveVec.x > 0.0f) {
