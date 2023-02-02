@@ -17,6 +17,7 @@ void Game_Over::SceneChange() {
 }
 
 void Game_Over::Update() {
+	camera->scale = 1.0f;
 	camera->shakeFlg = false;
 
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦

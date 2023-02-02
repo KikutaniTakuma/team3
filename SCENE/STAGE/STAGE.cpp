@@ -33,6 +33,7 @@ Stage::~Stage() {
 }
 
 void Stage::Update() {
+	camera->scale = 1.3f;
 	for (auto& i : obj) {
 		i->Update();
 	}

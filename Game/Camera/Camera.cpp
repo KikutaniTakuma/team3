@@ -53,7 +53,7 @@ void Camera::Update() {
 
 	worldPos = tmp;
 
-	NorDevMatrix.Orthographic(size);
+	NorDevMatrix.Orthographic(size / this->scale);
 	viewPortMatrix.Viewport(screenPos, size);
 
 	vpvpMatrix = viewMatrix * NorDevMatrix * viewPortMatrix;
@@ -173,8 +173,9 @@ void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsig
 
 bool Camera::isDraw(Vector2D pos, const float& drawLength) const {
 	pos -= worldPos;
-	if (pos.x < drawLeftTop.x - drawLength || pos.x > drawRightBottom.x + drawLength ||
-		pos.y > drawLeftTop.y + drawLength || pos.y < drawRightBottom.y - drawLength) {
+	float scale =  1.0f + ((this->scale - 1.0f) / 2.0f);
+	if (pos.x < drawLeftTop.x / scale - drawLength || pos.x > drawRightBottom.x / scale + drawLength ||
+		pos.y > drawLeftTop.y / scale + drawLength || pos.y < drawRightBottom.y / scale - drawLength) {
 		return false;
 	}
 	else {

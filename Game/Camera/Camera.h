@@ -99,10 +99,11 @@ private:
 	Vector2D drawLeftTop;
 
 	Vector2D drawRightBottom;
-
+public:
 	// どのくらいの大きさで表示するか(デフォルトは1.0f)
 	float scale;
 
+private:
 	// カメラの映るサイズ
 	Vector2D size;
 

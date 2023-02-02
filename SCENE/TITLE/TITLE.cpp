@@ -22,6 +22,7 @@ void Title::SceneChange() {
 }
 
 void Title::Update() {
+	camera->scale = 1.0f;
 	camera->shakeFlg = false;
 
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
