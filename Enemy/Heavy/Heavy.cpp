@@ -7,9 +7,9 @@ Heavy::Heavy(Camera* camera, Player* player):
 	Enemy(camera, player),
 	rushFlg(false),
 	rushSpd(0.012f),
-	rushLen(50.0f),
+	rushLen(25.0f),
 	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint)),
-	maxSpd(static_cast<float>(MapChip::kMapSize))
+	maxSpd(16.0f)
 {
 	this->spd = 2.0f;
 	this->lowTime = 45;
