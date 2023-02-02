@@ -58,6 +58,10 @@ void MapChip::Initilize() {
 				data[y * MapChip::mapWidth + x] = 1;
 				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
 			}
+			if (data[y * MapChip::mapWidth + x] == 51) {
+				data[y * MapChip::mapWidth + x] = 0;
+				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+			}
 		}
 	}
 
