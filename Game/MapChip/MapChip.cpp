@@ -73,6 +73,28 @@ void MapChip::Finalize() {
 
 void MapChip::Reset() {
 	MapChip::LoadMap("./Data/mappu2_-_1.csv");
+
+	mapMaxPosX = static_cast<float>((MapChip::mapWidth - 1) * MapChip::kMapSize);
+	mapMaxPosY = static_cast<float>((MapChip::mapHeight - 1) * MapChip::kMapSize);
+	mapMinPosX = static_cast<float>(MapChip::kMapSize);
+	mapMinPosY = static_cast<float>(MapChip::kMapSize);
+
+	for (int y = 0; y < mapHeight; y++) {
+		for (int x = 0; x < mapWidth; x++) {
+			if (data[y * MapChip::mapWidth + x] == 55) {
+				data[y * MapChip::mapWidth + x] = 0;
+				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+			}
+			if (data[y * MapChip::mapWidth + x] == 56) {
+				data[y * MapChip::mapWidth + x] = 0;
+				emyPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize))));
+			}
+			if (data[y * MapChip::mapWidth + x] == 50) {
+				data[y * MapChip::mapWidth + x] = 1;
+				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+			}
+		}
+	}
 }
 
 
