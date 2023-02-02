@@ -71,6 +71,7 @@ private:
 	static Vector2D plyPos;
 	static std::vector<Vector2D> emyPos;
 	static Vector2D goalPos;
+	static std::vector<Vector2D> buttonPos;
 
 	static Texture block;
 	static Texture tile;
@@ -120,4 +121,5 @@ public:
 	static Vector2D getEmyPos();
 
 	static Vector2D getGoalPos();
+	static Vector2D getButtonPos();
 };

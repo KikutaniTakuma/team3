@@ -31,6 +31,7 @@ Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();
 std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(0);
 Vector2D MapChip::goalPos = Vector2D();
+std::vector<Vector2D> MapChip::buttonPos = std::vector<Vector2D>(0);
 
 Texture MapChip::block = Texture();
 Texture MapChip::tile = Texture();
@@ -60,7 +61,7 @@ void MapChip::Initilize() {
 			}
 			if (data[y * MapChip::mapWidth + x] == 51) {
 				data[y * MapChip::mapWidth + x] = 0;
-				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+				buttonPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize))));
 			}
 		}
 	}
@@ -96,6 +97,10 @@ void MapChip::Reset() {
 			if (data[y * MapChip::mapWidth + x] == 50) {
 				data[y * MapChip::mapWidth + x] = 1;
 				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize)));
+			}
+			if (data[y * MapChip::mapWidth + x] == 51) {
+				data[y * MapChip::mapWidth + x] = 0;
+				buttonPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize), CoordinateChange(static_cast<float>(y * MapChip::kMapSize))));
 			}
 		}
 	}
@@ -344,4 +349,13 @@ Vector2D MapChip::getEmyPos() {
 
 Vector2D MapChip::getGoalPos() {
 	return goalPos;
+}
+
+Vector2D MapChip::getButtonPos() {
+	static int count = -1;
+	count++;
+	if (count >= buttonPos.size()) {
+		count = 0;
+	}
+	return buttonPos[count];
 }
