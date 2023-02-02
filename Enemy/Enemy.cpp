@@ -48,8 +48,6 @@ void Enemy::Update() {
 
 	if (stopFlg) {
 		spd = lowSpd;
-	}
-	if (spd == lowSpd) {
 		frm.Start();
 	}
 	if (frm.getFrame() > lowTime) {
