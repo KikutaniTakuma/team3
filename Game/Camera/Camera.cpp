@@ -146,7 +146,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const uns
 
 
 void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsigned int& color) const {
-	quad.worldPos += (worldPos - (size/ 2.0f));
+	quad.worldPos += (worldPos - ((size / scale)/ 2.0f));
 	quad.Translate();
 	quad.worldMatrix *= vpvpMatrix;
 
@@ -194,7 +194,7 @@ Vector2D Camera::getDrawRightBottom() const {
 	return drawRightBottom;
 }
 Vector2D Camera::getDrawSize() const {
-	return size;
+	return size / scale;
 }
 
 void Camera::DeltaStart() {
