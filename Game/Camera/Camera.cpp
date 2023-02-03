@@ -2,32 +2,38 @@
 #include "Game/Frame/Frame.h"
 #include "Game/Texture/Texture.h"
 #include "Game/Quad/Quad.h"
-#include "Game/MapChip/MapChip.h"
 #include "Game/MyMath/MyMath.h"
 #include "Game/KeyInput/KeyInput.h"
 
 #include <Novice.h>
 
-#include <time.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <fstream>
+#include <algorithm>
+#include <string>
 
-Camera::sclock::time_point Camera::start, Camera::end;
+Camera::sclock::time_point Camera::start = Camera::sclock::time_point(), 
+Camera::end = Camera::sclock::time_point(), 
+Camera::totalStart = Camera::sclock::time_point(),
+Camera::totalEnd = Camera::sclock::time_point();
+Camera::sclock::duration Camera::total = Camera::sclock::duration();
+
 float Camera::delta = 0.0f;
 bool Camera::hitStop = false;
 bool Camera::fpsDrwFlg = true;
 
 Camera::Camera() :
-	worldPos({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
+	worldPos({ 1280.0f/ 2.0f, 720.0f / 2.0f }),
 	screenPos(Vector2D()),
-	drawLeftTop({ static_cast<float>(MapChip::kWindowWidth) / -2.0f, static_cast<float>(MapChip::kWindowHeight) / 2.0f }),
-	drawRightBottom({ static_cast<float>(MapChip::kWindowWidth) / 2.0f, static_cast<float>(MapChip::kWindowHeight) / -2.0f }),
-	size({ static_cast<float>(MapChip::kWindowWidth), static_cast<float>(MapChip::kWindowHeight) }),
+	drawLeftTop({ 1280.0f/ -2.0f, 720.0f / 2.0f }),
+	drawRightBottom({ 1280.0f/ 2.0f, 720.0f / -2.0f }),
+	size({ 1280.0f, 720.0f }),
 	scale(1.0f),
 	frame(new Frame),
 	shakeScale({ 10.0f,10.0f }),
 	shakeFlg(false),
-	drawLength(static_cast<float>(MapChip::kMapSize))
+	drawLength(32.0f)
 {
 	viewMatrix.Translate(worldPos);
 	viewMatrix.Inverse();
@@ -53,7 +59,7 @@ void Camera::Update() {
 
 	worldPos = tmp;
 
-	NorDevMatrix.Orthographic(size / this->scale);
+	NorDevMatrix.Orthographic(size);
 	viewPortMatrix.Viewport(screenPos, size);
 
 	vpvpMatrix = viewMatrix * NorDevMatrix * viewPortMatrix;
@@ -121,6 +127,7 @@ void Camera::Shake() {
 
 void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const unsigned int& color) const {
 	if (isDraw(quad.worldPos,drawLength)) {
+		quad.Translate();
 		quad.worldMatrix *= vpvpMatrix;
 
 		animationSpd *= delta * static_cast<float>(!hitStop);
@@ -146,7 +153,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const uns
 
 
 void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsigned int& color) const {
-	quad.worldPos += (worldPos - ((size / scale)/ 2.0f));
+	quad.worldPos += (worldPos - (size/ 2.0f));
 	quad.Translate();
 	quad.worldMatrix *= vpvpMatrix;
 
@@ -173,9 +180,8 @@ void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsig
 
 bool Camera::isDraw(Vector2D pos, const float& drawLength) const {
 	pos -= worldPos;
-	float scale =  1.0f + ((this->scale - 1.0f) / 2.0f);
-	if (pos.x < drawLeftTop.x / scale - drawLength || pos.x > drawRightBottom.x / scale + drawLength ||
-		pos.y > drawLeftTop.y / scale + drawLength || pos.y < drawRightBottom.y / scale - drawLength) {
+	if (pos.x < drawLeftTop.x - drawLength || pos.x > drawRightBottom.x + drawLength ||
+		pos.y > drawLeftTop.y + drawLength || pos.y < drawRightBottom.y - drawLength) {
 		return false;
 	}
 	else {
@@ -194,7 +200,7 @@ Vector2D Camera::getDrawRightBottom() const {
 	return drawRightBottom;
 }
 Vector2D Camera::getDrawSize() const {
-	return size / scale;
+	return size;
 }
 
 void Camera::DeltaStart() {
@@ -203,7 +209,39 @@ void Camera::DeltaStart() {
 
 void Camera::DeltaEnd() {
 	end = sclock::now();
-	delta = static_cast<float>(60.0 / (1000000.0 / static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(end - start).count())));
+	delta = static_cast<float>(BASISFPS / (MICROSEC / static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(end - start).count())));
+}
+
+void Camera::TotalStart() {
+	totalStart = sclock::now();
+
+	std::ifstream csvFile("./Data/TotalPlayTimeData.bin", std::ios::binary);
+
+	if (!csvFile) {
+		return;
+	}
+
+	std::string lineBuff;
+
+	while (getline(csvFile, lineBuff)) {
+		total = sclock::duration(stoull(lineBuff));
+	}
+}
+
+void Camera::ToatlEnd() {
+	totalEnd = sclock::now();
+
+	std::ofstream totalFile("./Data/TotalPlayTimeData.bin", std::ios::binary);
+	std::ofstream mdFile("./Data/TotalPlayTime.md");
+
+	total += totalEnd - totalStart;
+
+	auto hours = std::chrono::duration_cast<std::chrono::hours>(total).count();
+	auto minutes = std::chrono::duration_cast<std::chrono::minutes>(total).count() % 60;
+	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(total).count() % 60LL;
+
+	totalFile << total.count();
+	mdFile << "Total Play Time : " << hours << "h " << minutes << "m " << seconds << "s";
 }
 
 float Camera::getDelta() {
@@ -212,6 +250,6 @@ float Camera::getDelta() {
 
 void Camera::FpsDraw() {
 	if (fpsDrwFlg) {
-		Novice::ScreenPrintf(0, 0, "%.0f", 60.0f / delta);
+		Novice::ScreenPrintf(5, 5, "fps:%.0f", static_cast<float>(BASISFPS) / delta);
 	}
 }

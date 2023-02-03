@@ -108,6 +108,8 @@ void World::Reset() {
 }
 
 void World::MainLoop() {
+	Camera::TotalStart();
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		Camera::DeltaStart();
@@ -144,6 +146,9 @@ void World::MainLoop() {
 
 		if (KeyInput::Released(DIK_ESCAPE) || 
 			Gamepad::LongPush(Gamepad::Button::LEFT_SHOULDER) && Gamepad::LongPush(Gamepad::Button::RIGHT_SHOULDER) && Gamepad::Released(Gamepad::Button::START))
-		{ break; }
+		{ 
+			Camera::ToatlEnd();
+			break;
+		}
 	}
 }

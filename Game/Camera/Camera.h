@@ -2,12 +2,14 @@
 
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/Matrix3x3/Matrix3x3.h"
-#include "Game/MapChip/MapChip.h"
 #include <chrono>
 
 class Camera {
 private:
 	using sclock = std::chrono::system_clock;
+	
+	#define MICROSEC 1000000.0
+	#define BASISFPS 60.0
 
 public:
 	Camera();
@@ -68,7 +70,7 @@ public:
 	/// <para>ture:‰f‚Á‚Ä‚é</para>
 	/// <para>false:‰f‚Á‚Ä‚È‚¢</para>
 	/// </returns>
-	bool isDraw(Vector2D pos, const float& drawLength = MapChip::kMapSize) const;
+	bool isDraw(Vector2D pos, const float& drawLength = 32.0f) const;
 
 	Vector2D getPos() const;
 	Vector2D getDrawLeftTop() const;
@@ -99,6 +101,7 @@ private:
 	Vector2D drawLeftTop;
 
 	Vector2D drawRightBottom;
+
 public:
 	// ‚Ç‚Ì‚­‚ç‚¢‚Ì‘å‚«‚³‚Å•\Ž¦‚·‚é‚©(ƒfƒtƒHƒ‹ƒg‚Í1.0f)
 	float scale;
@@ -128,7 +131,9 @@ public:
 	/// ‚±‚±‚Ì‰º‚ªdeltaTimeŠÖŒW
 	/// 
 private:
-	static sclock::time_point start, end;
+	static sclock::time_point start, end,  totalStart, totalEnd;
+	static sclock::duration total;
+
 	static float delta;
 
 public:
@@ -136,7 +141,12 @@ public:
 
 	static void DeltaEnd();
 
+	static void TotalStart();
+
+	static void ToatlEnd();
+
 	static float getDelta();
+
 
 public:
 	static bool fpsDrwFlg;

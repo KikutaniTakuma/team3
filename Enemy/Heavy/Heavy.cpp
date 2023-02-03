@@ -1,6 +1,7 @@
 #include "Heavy.hpp"
 #include "Game/Player/Player.h"
 #include "Game/MyMath/MyMath.h"
+#include "Game/MapChip/MapChip.h"
 #include <assert.h>
 
 Heavy::Heavy(Camera* camera, Player* player):
