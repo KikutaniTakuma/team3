@@ -8,9 +8,9 @@ Heavy::Heavy(Camera* camera, Player* player):
 	Enemy(camera, player),
 	rushFlg(false),
 	rushSpd(0.012f),
-	rushLen(25.0f),
+	rushLen(500.0f),
 	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint)),
-	maxSpd(16.0f)
+	maxSpd(10.0f)
 {
 	this->spd = 2.0f;
 	this->lowTime = 45;
@@ -48,7 +48,7 @@ void Heavy::Update() {
 	}
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
-	if (!camera->isDraw(pos.worldPos) && camera->isDraw(pos.worldPos, rndLen)) {
+	if (!camera->isDraw(pos.worldPos) && camera->isDraw(pos.worldPos, rushLen)) {
 		int rnd = MyMath::Random(1, 4);
 
 		if (rnd == 1) {
@@ -64,7 +64,7 @@ void Heavy::Update() {
 			moveVec.x += spd;
 		}
 	}
-	else if (!camera->isDraw(pos.worldPos, rndLen)) {
+	else if (!camera->isDraw(pos.worldPos, rushLen)) {
 		/// プレイヤーの位置を見て徐々に近づいて行く
 		/// 速度は一定
 		/// 斜め走行はなし
@@ -121,7 +121,7 @@ void Heavy::Update() {
 			}
 		}
 	}
-	else {
+	if(MyMath::PythagoreanTheorem(pos.worldPos, player->getWorldPos()) < rushLen) {
 		if (!rushFlg && !stopFlg) {
 			rushFlg = true;
 			rushEase.Set(pos.worldPos, player->getWorldPos() + (player->getWorldPos() - pos.worldPos), rushSpd, Easing::EaseInBack);
