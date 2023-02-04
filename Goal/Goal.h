@@ -55,4 +55,6 @@ public:
 
 	void Draw() override;
 
+	int GetButtonNum() const;
+
 };

@@ -162,3 +162,7 @@ void Goal::Draw() {
 		goalUI.Draw();
 	}
 }
+
+int Goal::GetButtonNum() const {
+	return count;
+}
