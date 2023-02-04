@@ -125,6 +125,8 @@ void World::MainLoop() {
 
 		this->Update();
 
+		Novice::DrawBox(0, 0, 1280, 720, 0.0f, 0x000000ff, kFillModeSolid);
+
 		this->Draw();
 
 		//-----
