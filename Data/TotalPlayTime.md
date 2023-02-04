@@ -1,1 +1,0 @@
-Total Play Time : 0h 0m 22s

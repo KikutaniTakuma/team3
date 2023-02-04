@@ -12,12 +12,13 @@
 #include <fstream>
 #include <algorithm>
 #include <string>
+#include <format>
 
 Camera::sclock::time_point Camera::start = Camera::sclock::time_point(), 
 Camera::end = Camera::sclock::time_point(), 
 Camera::totalStart = Camera::sclock::time_point(),
 Camera::totalEnd = Camera::sclock::time_point();
-Camera::sclock::duration Camera::total = Camera::sclock::duration();
+Camera::sclock::duration Camera::total = Camera::sclock::duration::zero();
 
 float Camera::delta = 0.0f;
 bool Camera::hitStop = false;
@@ -240,8 +241,12 @@ void Camera::ToatlEnd() {
 	auto minutes = std::chrono::duration_cast<std::chrono::minutes>(total).count() % 60;
 	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(total).count() % 60LL;
 
+	std::chrono::zoned_time zt{ "Asia/Tokyo", std::chrono::floor<std::chrono::seconds>(totalEnd) };
+	std::chrono::local_seconds lt = zt.get_local_time();
+
 	totalFile << total.count();
-	mdFile << "Total Play Time : " << hours << "h " << minutes << "m " << seconds << "s";
+	mdFile << "Total Play : " << hours << "h " << minutes << "m " << seconds << "s" << std::endl
+		<< "Last Play : " << std::format("{0:%Y/%m/%d %H:%M:%S}", lt);
 }
 
 float Camera::getDelta() {
