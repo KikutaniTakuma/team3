@@ -12,8 +12,6 @@ private:
 private:
 	static std::random_device seed;
 	static std::mt19937_64 engine;
-	static std::uniform_int_distribution<> rndInt;
-	static std::uniform_real_distribution<> rndReal;
 
 public:
 

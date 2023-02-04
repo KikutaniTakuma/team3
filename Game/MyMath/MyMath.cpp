@@ -8,8 +8,6 @@
 
 std::random_device MyMath::seed;
 std::mt19937_64 MyMath::engine(seed());
-std::uniform_int_distribution<> MyMath::rndInt;
-std::uniform_real_distribution<> MyMath::rndReal;
 
 
 bool MyMath::CollisionRectangle(Vector2D LeftTop1, Vector2D size1, Vector2D LeftTop2, Vector2D size2) {
@@ -103,23 +101,9 @@ int MyMath::Random(int min, int max) {
 		Swap(min, max);
 	}
 
-	std::uniform_int_distribution<>::param_type param(min, max);
+	int num = abs(max) + abs(min) + 1;
 
-	rndInt.param(param);
-
-	return rndInt(engine);
-}
-
-double MyMath::Random(double min, double max) {
-	if (min > max) {
-		Swap(min, max);
-	}
-
-	std::uniform_real_distribution<>::param_type param(min, max);
-
-	rndReal.param(param);
-
-	return rndReal(engine);
+	return (engine() % num) + min;
 }
 
 bool MyMath::Capsule(Vector2D pos, Vector2D start, Vector2D end, float size) {

@@ -58,7 +58,7 @@ void Enemy::Update() {
 	}
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
-	if (!camera->isDraw(pos.worldPos) && camera->isDraw(pos.worldPos, rndLen)) {
+	if (!camera->isDraw(pos.worldPos)) {
 		int rnd = MyMath::Random(1, 4);
 
 		if (rnd == 1) {
