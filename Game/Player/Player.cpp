@@ -198,6 +198,19 @@ void Player::Move() {
 
 	*tentativPos += *moveVec * camera->getDelta();
 
+	if (tentativPos->x > MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f) {
+		tentativPos->x = MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f;
+	}
+	if (tentativPos->x < MapChip::getMapMinPosX() + pos.getSize().x / 2.0f) {
+		tentativPos->x = MapChip::getMapMinPosX() + pos.getSize().x / 2.0f;
+	}
+	if (tentativPos->y > MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f) {
+		tentativPos->y = MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f;
+	}
+	if (tentativPos->y < MapChip::getMapMinPosY() + pos.getSize().y / 2.0f) {
+		tentativPos->y = MapChip::getMapMinPosY() + pos.getSize().y / 2.0f;
+	}
+
 	if (moveVec->x > 0.0f) {
 		dir = Direction::RIGHT;
 		if (moveVec->y > 0.0f && moveVec->y > moveVec->x) {
