@@ -8,7 +8,7 @@ Heavy::Heavy(Camera* camera, Player* player):
 	Enemy(camera, player),
 	rushFlg(false),
 	rushSpd(0.012f),
-	rushLen(500.0f),
+	rushLen(800.0f),
 	rushEase(Easing(pos.worldPos, pos.worldPos, rushSpd, Easing::EaseInOutQuint)),
 	maxSpd(10.0f)
 {
