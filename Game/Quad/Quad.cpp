@@ -71,7 +71,7 @@ bool Quad::Collision(const Quad& tmp) {
 	}
 	return false;*/
 
-	return MyMath::PythagoreanTheorem(abs(worldPos.x - tmp.worldPos.x), abs(worldPos.y - tmp.worldPos.y)) < MyMath::PythagoreanTheorem(size.x, size.y);
+	return MyMath::PythagoreanTheorem(abs(worldPos.x - tmp.worldPos.x), abs(worldPos.y - tmp.worldPos.y)) < MyMath::PythagoreanTheorem(size.x/2.0f, size.y / 2.0f);
 }
 
 void Quad::Translate() {

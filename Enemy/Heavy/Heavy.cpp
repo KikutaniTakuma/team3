@@ -69,7 +69,7 @@ void Heavy::Update() {
 		/// 速度は一定
 		/// 斜め走行はなし
 		/// 縦と横で長いほうを移動する(縦<横の場合横方向に動く)
-		/*if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
+		if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
 			if (player->getWorldPosY() < pos.worldPos.y) {
 				moveVec.y -= spd;
 			}
@@ -85,10 +85,10 @@ void Heavy::Update() {
 				moveVec.x += spd;
 			}
 		}
-		tentativPos += moveVec * camera->getDelta();*/
+		tentativPos += moveVec * camera->getDelta();
 
 		// 上の逆バージョン
-		if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
+		/*if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
 			if (MapChip::GetNum(pos.worldPos).y == MapChip::GetNum(player->getWorldPos()).y) {
 				if (player->getWorldPosX() < pos.worldPos.x) {
 					moveVec.x -= spd;
@@ -119,9 +119,9 @@ void Heavy::Update() {
 			else if (player->getWorldPosX() >= pos.worldPos.x) {
 				moveVec.x += spd;
 			}
-		}
+		}*/
 	}
-	if(MyMath::PythagoreanTheorem(pos.worldPos, player->getWorldPos()) < rushLen) {
+	if (MyMath::PythagoreanTheorem(pos.worldPos, player->getWorldPos()) < rushLen) {
 		if (!rushFlg && !stopFlg) {
 			rushFlg = true;
 			rushEase.Set(pos.worldPos, player->getWorldPos() + (player->getWorldPos() - pos.worldPos), rushSpd, Easing::EaseInBack);
@@ -169,78 +169,55 @@ void Heavy::Update() {
 	else if (moveVec.y < 0.0f) {
 		dir = Direction::FRONT;
 	}
-	
+
 	tentativPos += moveVec * camera->getDelta();
-	
+
 
 	this->Collision();
 
-	if (!rushEase) {
-		rushFlg = false;
-		stopFlg = true;
-	}
-
-	Vector2D leftTop = MapChip::GetNum(pos.getSizeLeftTop() + tentativPos);
-	Vector2D leftUnder = MapChip::GetNum({ pos.getSizeLeftUnder().x + tentativPos.x, pos.getSizeLeftUnder().y + tentativPos.y + 1.0f });
-	Vector2D rightTop = MapChip::GetNum({ pos.getSizeRightTop().x + tentativPos.x - 1.0f,pos.getSizeRightTop().y + tentativPos.y });
-	Vector2D rightUnder = MapChip::GetNum({ pos.getSizeRightUnder().x + tentativPos.x - 1.0f, pos.getSizeRightUnder().y + tentativPos.y + 1.0f });
-
-
-	if (leftTop != 0.0f &&
-		leftUnder != 0.0f &&
-		rightTop != 0.0f &&
-		rightUnder != 0.0f &&
-
-		leftTop.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
-		leftUnder.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
-		rightTop.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
-		rightUnder.x != static_cast<float>(MapChip::getMapWidth() - 1) &&
-
-		leftTop.y != static_cast<float>(MapChip::getMapHeight() - 1) &&
-		leftUnder.y != static_cast<float>(MapChip::getMapHeight() - 1) &&
-		rightTop.y != static_cast<float>(MapChip::getMapHeight() - 1) &&
-		rightUnder.y != static_cast<float>(MapChip::getMapHeight() - 1))
-	{
-		pos.worldPos = tentativPos;
+	pos.worldPos = tentativPos;
 
 	// 移動したところがブロックだったら
 	// 衝突
 	// 衝突したらブロックは空白にする
 
-		if (camera->isDraw(pos.worldPos, rndLen + camera->drawLength) && camera->isDraw(pos.worldPos, rndLen)) {
-			if (MapChip::GetType(pos.getSizeLeftTop() + tentativPos) == 1 ||
-				MapChip::GetType({ pos.getSizeLeftUnder().x + tentativPos.x, pos.getSizeLeftUnder().y + tentativPos.y + 1.0f }) == 1 ||
-				MapChip::GetType({ pos.getSizeRightTop().x + tentativPos.x - 1.0f, pos.getSizeRightTop().y + tentativPos.y }) == 1 ||
-				MapChip::GetType({ pos.getSizeRightUnder().x + tentativPos.x -1.0f, pos.getSizeRightUnder().y + tentativPos.y + 1.0f }) == 1) {
+	if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
+		MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 2.0f }) == 1 ||
+		MapChip::GetType({ pos.getPosRightTop().x - 2.0f, pos.getPosRightTop().y }) == 1 ||
+		MapChip::GetType({ pos.getPosRightUnder().x - 2.0f, pos.getPosRightUnder().y + 2.0f }) == 1) {
 
-				Vector2D mapNum = MapChip::GetNum(pos.getSizeLeftTop() + tentativPos);
-				MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		Vector2D mapNum = MapChip::GetNum(pos.getPosLeftTop());
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-				mapNum = MapChip::GetNum({ pos.getSizeLeftUnder().x + tentativPos.x, pos.getSizeLeftUnder().y + tentativPos.y + 1.0f });
-				MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-				mapNum = MapChip::GetNum({ pos.getSizeRightTop().x + tentativPos.x - 1.0f, pos.getSizeRightTop().y + tentativPos.y });
-				MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-				mapNum = MapChip::GetNum({ pos.getSizeRightUnder().x + tentativPos.x - 1.0f, pos.getSizeRightUnder().y + tentativPos.y + 1.0f });
-				MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-				if (camera->isDraw(pos.worldPos)) {
-					camera->shakeFlg = true;
-					blockBrkFlg = true;
-				}
-			}
-			else {
-				camera->shakeFlg = false;
-				blockBrkFlg = false;
-			}
+
+		if (camera->isDraw(pos.worldPos)) {
+			camera->shakeFlg = true;
+			blockBrkFlg = true;
 		}
 	}
 	else {
 		camera->shakeFlg = false;
-		rushFlg = false;
+		blockBrkFlg = false;
 	}
 
+	//ラッシュが終わったら各種状態フラグを設定
+	if (!rushEase) {
+		rushFlg = false;
+		stopFlg = true;
+		blockBrkFlg = false;
+		camera->shakeFlg = false;
+	}
+
+	// もしカメラに映ってないかつシェイクしていたらシェイクを止める
 	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg) {
 		camera->shakeFlg = false;
 	}

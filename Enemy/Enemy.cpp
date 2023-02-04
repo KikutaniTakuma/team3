@@ -171,29 +171,27 @@ void Enemy::Update() {
 	// 衝突
 	// 衝突したらブロックは空白にする
 
-	if (!stopFlg) {
-		if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
-			MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f }) == 1 ||
-			MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1 ||
-			MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f }) == 1) {
+	if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
+		MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 2.0f }) == 1 ||
+		MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1 ||
+		MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 2.0f }) == 1) {
 
-			Vector2D mapNum = MapChip::GetNum(pos.getPosLeftTop());
-			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		Vector2D mapNum = MapChip::GetNum(pos.getPosLeftTop());
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-			mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
-			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-			mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
-			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-			mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
-			MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
+		MapChip::setData(static_cast<int>(MapChip::Type::NONE), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
 
-			stopFlg = true;
-			if (camera->isDraw(pos.worldPos)) {
-				camera->shakeFlg = true;
-				blockBrkFlg = true;
-			}
+		stopFlg = true;
+		if (camera->isDraw(pos.worldPos)) {
+			camera->shakeFlg = true;
+			blockBrkFlg = true;
 		}
 	}
 	else {
@@ -201,11 +199,9 @@ void Enemy::Update() {
 		blockBrkFlg = false;
 	}
 
-	if (camera->shakeFlg) {
-		camera->shakeScale = shakeScale;
-		if (!camera->isDraw(pos.worldPos)) {
-			camera->shakeFlg = false;
-		}
+	// もしカメラに映ってないかつシェイクしていたらシェイクを止める
+	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg) {
+		camera->shakeFlg = false;
 	}
 
 	if (pos.Collision(player->getQuad())) {
