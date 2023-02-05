@@ -122,11 +122,11 @@
     <Filter Include="Enenmy\Heavy">
       <UniqueIdentifier>{dde9690d-ac9b-4f38-8d2c-06527749d701}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Enenmy\Wizard">
-      <UniqueIdentifier>{f90f6fc8-e323-4c46-9edd-d55ff5efa33a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Effect\Absoration">
       <UniqueIdentifier>{0198f782-5d7a-4f41-90c8-21e11a58004b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enenmy\Assassin">
+      <UniqueIdentifier>{f90f6fc8-e323-4c46-9edd-d55ff5efa33a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +236,6 @@
     <ClCompile Include="Enemy\Enemy.cpp">
       <Filter>Enenmy</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy\Wizard\Wizard.cpp">
-      <Filter>Enenmy\Wizard</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy\Heavy\Heavy.cpp">
       <Filter>Enenmy\Heavy</Filter>
     </ClCompile>
@@ -247,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Game\Effect\Absoration\Absoration.cpp">
       <Filter>Game\Effect\Absoration</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Assassin\Assassin.cpp">
+      <Filter>Enenmy\Assassin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,9 +418,6 @@
     <ClInclude Include="Enemy\Enemy.h">
       <Filter>Enenmy</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\Wizard\Wizard.hpp">
-      <Filter>Enenmy\Wizard</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy\Heavy\Heavy.hpp">
       <Filter>Enenmy\Heavy</Filter>
     </ClInclude>
@@ -429,6 +426,9 @@
     </ClInclude>
     <ClInclude Include="Game\Effect\Absoration\Absoration.hpp">
       <Filter>Game\Effect\Absoration</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Assassin\Assassin.hpp">
+      <Filter>Enenmy\Assassin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

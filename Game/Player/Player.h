@@ -68,6 +68,8 @@ public:
 	float getWorldPosY() const;
 	float getSize()const;
 
+	Vector2D getMoveVec() const;
+
 	// setter
 	void setWorldPosX(const float& num);
 	void setWorldPosY(const float& num);

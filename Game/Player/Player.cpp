@@ -765,6 +765,10 @@ float Player::getSize() const
 	return size->x;
 }
 
+Vector2D Player::getMoveVec() const {
+	return *moveVec;
+}
+
 
 // setter
 void Player::setWorldPos(Vector2D pos) {
