@@ -44,17 +44,14 @@ void Assassin::Update() {
 		}
 	}
 
-	else {
-		/// プレイヤーの位置を見て徐々に近づいて行く
-		/// 速度は一定
-		/// 斜め走行はなし
-		/// 縦と横で長いほうを移動する(縦<横の場合横方向に動く)
-		
+	else {		
 		Vector2D predict = player->getWorldPos() + player->getMoveVec();
 
 		moveVec = { spd,spd };
 
 		moveVec.Rotate(MyMath::GetAngle(predict, pos.worldPos));
+
+		moveVec *= spd;
 	}
 
 	tentativPos += moveVec * camera->getDelta();

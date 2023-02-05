@@ -166,3 +166,15 @@ void Goal::Draw() {
 int Goal::GetButtonNum() const {
 	return count;
 }
+
+Vector2D Goal::getButtonPos(size_t index) const {
+	if (index >= button.size()) {
+		index = 0;
+	}
+
+	return button[index]->getPos();
+}
+
+int Goal::getMaxButtonNum() const {
+	return kMaxButton;
+}

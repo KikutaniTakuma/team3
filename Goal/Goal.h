@@ -57,4 +57,7 @@ public:
 
 	int GetButtonNum() const;
 
+	Vector2D getButtonPos(size_t index) const;
+
+	int getMaxButtonNum() const;
 };
