@@ -10,7 +10,7 @@ private:
 
 public:
 	// フレーム
-	unsigned long long getFrame() const;
+	unsigned long long operator()() const;
 
 	// スタートフラグ
 	bool startFlag;

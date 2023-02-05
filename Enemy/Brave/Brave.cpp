@@ -23,7 +23,7 @@ void Brave::Update() {
 		spd = lowSpd;
 		frm.Start();
 	}
-	if (frm.getFrame() > lowTime) {
+	if (frm() > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
 		frm.Stop();

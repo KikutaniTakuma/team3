@@ -66,7 +66,7 @@ void Camera::Update() {
 	vpvpMatrix = viewMatrix * NorDevMatrix * viewPortMatrix;
 
 	frame->Start();
-	if (frame->getFrame() > ULLONG_MAX) {
+	if ((*frame)() > ULLONG_MAX) {
 		frame->Stop();
 		frame->Restart();
 	}
@@ -74,7 +74,7 @@ void Camera::Update() {
 
 void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const float& scale, const bool& shake) {
 	frame->Start();
-	if (frame->getFrame() > ULLONG_MAX) {
+	if ((*frame)() > ULLONG_MAX) {
 		frame->Stop();
 		frame->Restart();
 	}
@@ -98,7 +98,7 @@ void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const f
 
 void Camera::Update(const Vector2D& worldPos, const Vector2D& cameraPos, const Vector2D& drawLeftTop, const Vector2D& drawRightBottom, const bool& shake) {
 	frame->Start();
-	if (frame->getFrame() > ULLONG_MAX) {
+	if ((*frame)() > ULLONG_MAX) {
 		frame->Stop();
 		frame->Restart();
 	}
@@ -134,7 +134,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const uns
 		animationSpd *= delta * static_cast<float>(!hitStop);
 
 		if (animationSpd != 0) {
-			if (frame->getFrame() % static_cast<int>(animationSpd) == 0) {
+			if ((*frame)() % static_cast<int>(animationSpd) == 0) {
 				texture.drawPos += texture.width;
 				if (texture.drawPos > texture.spriteSize - texture.width) {
 					texture.drawPos = 0;
@@ -161,7 +161,7 @@ void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsig
 	animationSpd *= delta * static_cast<float>(!hitStop);
 
 	if (animationSpd != 0) {
-		if (frame->getFrame() % static_cast<int>(animationSpd) == 0) {
+		if ((*frame)() % static_cast<int>(animationSpd) == 0) {
 			texture.drawPos += texture.width;
 			if (texture.drawPos > texture.spriteSize - texture.width) {
 				texture.drawPos = 0;

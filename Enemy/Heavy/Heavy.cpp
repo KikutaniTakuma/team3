@@ -36,13 +36,12 @@ Heavy::Heavy(Camera* camera, Player* player):
 void Heavy::Update() {
 	assert(player);
 	tentativPos = pos.worldPos;
-	moveVec = { 0.0f,0.0f };
 
 	if (stopFlg) {
 		spd = lowSpd;
 		frm.Start();
 	}
-	if (frm.getFrame() > lowTime) {
+	if (frm() > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
 		frm.Stop();
@@ -51,22 +50,27 @@ void Heavy::Update() {
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
 	if (!camera->isDraw(pos.worldPos)) {
-		int rnd = MyMath::Random(1, 4);
+		int rnd = 0;
+		if (frame() % rndTime == 0) {
+			rnd = MyMath::Random(1, 4);
+		}
 
 		if (rnd == 1) {
-			moveVec.y -= spd;
+			moveVec.y = -spd;
 		}
 		else if (rnd == 2) {
-			moveVec.y += spd;
+			moveVec.y = spd;
 		}
 		else if (rnd == 3) {
-			moveVec.x -= spd;
+			moveVec.x = -spd;
 		}
 		else if (rnd == 4) {
-			moveVec.x += spd;
+			moveVec.x = spd;
 		}
 	}
 	else if (!camera->isDraw(pos.worldPos, rushLen)) {
+		moveVec = { 0.0f,0.0f };
+
 		/// プレイヤーの位置を見て徐々に近づいて行く
 		/// 速度は一定
 		/// 斜め走行はなし

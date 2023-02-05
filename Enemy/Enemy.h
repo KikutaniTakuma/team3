@@ -51,6 +51,11 @@ protected:
 	// 方向
 	Direction dir;
 
+	// フレーム管理クラスのインスタンス
+	Frame frame;
+
+	int rndTime;
+
 public:
 	const class Player* player;
 

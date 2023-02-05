@@ -26,7 +26,8 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	back(Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)),
 	right(Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)),
 	left(Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)),
-	dir(Direction::FRONT)
+	dir(Direction::FRONT),
+	rndTime(15)
 {
 	// テクスチャーが正常に読み込まれているか
 	assert(front);
@@ -39,45 +40,52 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	tentativPos = pos.worldPos;
 
 	frm.Restart();
+
+	frame.Restart();
 }
 
 void Enemy::Update() {
 	assert(player);
-	moveVec = { 0.0f };
 	tentativPos = pos.worldPos;
 
 	if (stopFlg) {
 		spd = lowSpd;
 		frm.Start();
 	}
-	if (frm.getFrame() > lowTime) {
+	if (frm() > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
 		frm.Stop();
 		frm.Restart();
 	}
 
+	frame.Start();
+
 	// ランダム範囲内にいないときはプレイヤーに向かう
 	if (!camera->isDraw(pos.worldPos)) {
-		int rnd = MyMath::Random(1, 4);
+		int rnd = 0;
+		if (frame() % rndTime == 0) {
+			rnd = MyMath::Random(1, 4);
+		}
 
 		if (rnd == 1) {
-			moveVec.y -= spd;
+			moveVec.y = -spd;
 		}
 		else if (rnd == 2) {
-			moveVec.y += spd;
+			moveVec.y = spd;
 		}
 		else if (rnd == 3) {
-			moveVec.x -= spd;
+			moveVec.x = -spd;
 		}
 		else if (rnd == 4) {
-			moveVec.x += spd;
+			moveVec.x = spd;
 		}
 
 		tentativPos += moveVec * camera->getDelta();
 	}
 
 	else {
+		moveVec = { 0.0f };
 		/// プレイヤーの位置を見て徐々に近づいて行く
 		/// 速度は一定
 		/// 斜め走行はなし

@@ -12,14 +12,13 @@ Assassin::Assassin(Camera* camera, class Player* player) :
 
 void Assassin::Update() {
 	assert(player);
-	moveVec = { 0.0f };
 	tentativPos = pos.worldPos;
 
 	if (stopFlg) {
 		spd = lowSpd;
 		frm.Start();
 	}
-	if (frm.getFrame() > lowTime) {
+	if (frm() > lowTime) {
 		stopFlg = false;
 		spd = nmlSpd;
 		frm.Stop();
@@ -28,23 +27,28 @@ void Assassin::Update() {
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
 	if (!camera->isDraw(pos.worldPos)) {
-		int rnd = MyMath::Random(1, 4);
+		int rnd = 0;
+		if (frame() % rndTime == 0) {
+			rnd = MyMath::Random(1, 4);
+		}
 
 		if (rnd == 1) {
-			moveVec.y -= spd;
+			moveVec.y = -spd;
 		}
 		else if (rnd == 2) {
-			moveVec.y += spd;
+			moveVec.y = spd;
 		}
 		else if (rnd == 3) {
-			moveVec.x -= spd;
+			moveVec.x = -spd;
 		}
 		else if (rnd == 4) {
-			moveVec.x += spd;
+			moveVec.x = spd;
 		}
 	}
 
-	else {		
+	else {
+		moveVec = { 0.0f };
+
 		Vector2D predict = player->getWorldPos() + player->getMoveVec();
 
 		moveVec = { spd,spd };
