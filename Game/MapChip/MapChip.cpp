@@ -199,11 +199,11 @@ void MapChip::Draw(Texture& texture) {
 
 			switch (data[y * MapChip::mapWidth + x]) {
 			case (int)MapChip::Type::NONE:
-				camera->DrawQuad(pos, tile, 0, MyMath::GetRGB(200, 200, 200, 0xff));
+				camera->DrawQuad(pos, tile, 0, MyMath::GetRGB(100, 100, 100, 0xff));
 
 				break;
 			case (int)MapChip::Type::BLOCK:
-				camera->DrawQuad(pos, block, 0, WHITE);
+				camera->DrawQuad(pos, block, 0, 0x555555ff);
 
 				break;
 			/*case 2:
