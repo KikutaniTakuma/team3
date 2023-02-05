@@ -3,7 +3,7 @@
 #include "Game/MyMath/MyMath.h"
 #include "Game/KeyInput/KeyInput.h"
 #include "Game/Gamepad/Gamepad.h"
-#include "Game/Easing/Easing.h"
+
 #include "Game/MapChip/MapChip.h"
 #include <Novice.h>
 
@@ -15,46 +15,64 @@ Title::Title(Camera* camera) : Object(camera) , kMaxChara(5) {
 
 	testPos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
 
-	for (int i = 0; i < kMaxChara; i++)
-	{
-		dir[i] = LEFT;
-	}
-	size = { 64.0f,64.0f };
+	titleText.Set("./Resources/Title/titleText.png", 710, 710, 160);
+	titleTextPos.Set({ 640.0f,440.0f }, { 950.0f,230.0f });
+
+	pushSpace.Set("./Resources/Title/titlePushSpace.png", 390, 390, 60);
+	pushSpacePos.Set({ 640.0f,220.0f }, { 600.0f,100.0f });
+	pushSpaceColor = 0xffffffff;
+
+	size = { 96.0f,96.0f };
 
 #pragma region charaTextSet
+
+	for (int i = 0; i < kMaxChara; i++)
+	{
+		if (i == 0)
+		{
+			charaTextPos[i].Set({ 500.0f,size.y }, size);
+		}
+		else
+		{
+			charaTextPos[i].Set({ (500.0f + (size.x * 2.0f)) + ((i - 1) * size.x),size.y }, size);
+		}
+		dir[i] = LEFT;
+	}
+
 	charaText[0].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Player/SlimeFront.png", 256, 32, 32)));
 	charaText[0].insert(std::make_pair(Direction::BACK, Texture("./Resources/Player/SlimeBack.png", 256, 32, 32)));
 	charaText[0].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Player/SlimeRight.png", 256, 32, 32)));
 	charaText[0].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Player/SlimeLeft.png", 256, 32, 32)));
-	charaTextPos[0].Set({ 500.0f,size.y }, size);
+	charaColor[0] = MyMath::GetRGB(255, 255, 255, 255);
 
 	charaText[1].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Enemy/BraveFront.png", 128, 32, 32)));
 	charaText[1].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)));
 	charaText[1].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)));
 	charaText[1].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)));
-	charaTextPos[1].Set({ 640.0f,size.y }, size);
+	charaColor[1] = MyMath::GetRGB(255, 255, 255, 255);
 
 	charaText[2].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Enemy/FighterFront.png", 128, 32, 32)));
 	charaText[2].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/FighterBack.png", 128, 32, 32)));
 	charaText[2].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/FighterRight.png", 128, 32, 32)));
 	charaText[2].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/FighterLeft.png", 128, 32, 32)));
-	charaTextPos[2].Set({ 700.0f,size.y }, size);
+	charaColor[2] = MyMath::GetRGB(255, 255, 255, 255);
 
 	charaText[3].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Enemy/BraveFront.png", 128, 32, 32)));
 	charaText[3].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)));
 	charaText[3].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)));
 	charaText[3].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)));
-	charaTextPos[3].Set({ 760.0f,size.y }, size);
+	charaColor[3] = MyMath::GetRGB(0, 0, 255, 255);
 
 	charaText[4].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Enemy/BraveFront.png", 128, 32, 32)));
 	charaText[4].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)));
 	charaText[4].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)));
 	charaText[4].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)));
-	charaTextPos[4].Set({ 820.0f,size.y }, size);
+	charaColor[4] = MyMath::GetRGB(255, 0, 0, 255);
 #pragma endregion charaTextSet
 
 	speed = { 5.0f,5.0f };
 	vel = { 0.0f,0.0f };
+
 }
 
 Title::~Title() {
@@ -137,7 +155,8 @@ void Title::Update() {
 	{
 		color = Fade::FadeInOut(color, 5.0f, true);
 	}
-	
+	//	点滅
+	pushSpaceColor = Fade::Flash(pushSpaceColor, 5.0f);
 
 }
 
@@ -153,7 +172,7 @@ void Title::Reset() {
 		}
 		else
 		{
-			charaTextPos[i].Set({ 640.0f + ((i - 1) * 60.0f),size.y }, size);
+			charaTextPos[i].Set({ (500.0f + (size.x * 2.0f)) + ((i - 1) * size.x),size.y }, size);
 		}
 		dir[i] = LEFT;
 	}
@@ -166,16 +185,23 @@ void Title::Reset() {
 
 void Title::Draw() {
 //	camera->DrawQuad(drawPos, tex, 0, false);
-	camera->DrawUI(pos, BG, 0.0f, 0xffffffff);
+	camera->DrawUI(pos, BG, 0.0f, 0x000000ff);
+	camera->DrawUI(titleTextPos, titleText, 0.0f, 0xffffffff);
+	camera->DrawUI(pushSpacePos, pushSpace, 0.0f, pushSpaceColor);
+
+	Novice::DrawBox(48, 70, 96, 612, 0.0f, 0x504c4cff, kFillModeSolid);
+	Novice::DrawBox(1136, 70, 96, 612, 0.0f, 0x504c4cff, kFillModeSolid);
+	Novice::DrawBox(48, 70, 1184, 84, 0.0f, 0x504c4cff, kFillModeSolid);
+	Novice::DrawBox(48, 598, 1184, 84, 0.0f, 0x504c4cff, kFillModeSolid);
 
 	for (int i = 0; i < kMaxChara; i++)
 	{
-		camera->DrawQuad(charaTextPos[i], charaText[i][dir[i]], 6.0f, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawQuad(charaTextPos[i], charaText[i][dir[i]], 6.0f, charaColor[i]);
 	}
 
+	//	フェードアウト用
 	camera->DrawUI(testPos, whiteBox, 0.0f, color);
-	
-	Novice::ScreenPrintf(0, 30, "%0.1f : %0.1f", charaTextPos[0].worldPos.x, charaTextPos[0].worldPos.y);
+
 }
 
 

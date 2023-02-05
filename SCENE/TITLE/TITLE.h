@@ -1,6 +1,7 @@
 #pragma once
 #include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
+#include "Game/Easing/Easing.h"
 
 #include <map>
 
@@ -25,6 +26,12 @@ private:
 	Texture titleText;
 	Quad titleTextPos;
 
+	//	スペース押せ
+	Texture pushSpace;
+	Quad pushSpacePos;
+	unsigned int pushSpaceColor;
+
+
 	//	キャラクター
 	//	向き
 	enum Direction {
@@ -46,6 +53,7 @@ private:
 	//	待伏型 = 4
 	std::map<Direction, Texture> charaText[5];
 	Quad charaTextPos[5];
+	unsigned int charaColor[5];
 
 	//	移動用
 	Vector2D speed;
