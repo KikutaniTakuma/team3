@@ -14,6 +14,7 @@ private:
 
 	Easing staging;
 	int count;
+	float easeSpd;
 
 	class Goal* goal;
 

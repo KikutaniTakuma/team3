@@ -12,7 +12,8 @@
 Stage::Stage(Camera* camera) :
 	Object(camera),
 	emy(0),
-	count(0)
+	count(0),
+	easeSpd(0.008f)
 {
 	Player* player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -25,7 +26,7 @@ Stage::Stage(Camera* camera) :
 
 	obj.push_back(goal);
 
-	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), 0.008f, Easing::EaseInOutQuart);
+	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), easeSpd, Easing::EaseInOutQuart);
 }
 
 Stage::~Stage() {
@@ -44,10 +45,10 @@ void Stage::Update() {
 		camera->worldPos = staging.Update();
 
 		if (!staging) {
-			staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), 0.008f, Easing::EaseInOutQuart);
+			staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), easeSpd, Easing::EaseInOutQuart);
 			count++;
 			if (count == goal->getMaxButtonNum()) {
-				staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), 0.008f, Easing::EaseInOutQuart);
+				staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), easeSpd, Easing::EaseInOutQuart);
 			}
 		}
 	}
@@ -99,5 +100,5 @@ void Stage::Reset() {
 
 	count = 0;
 
-	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), 0.008f, Easing::EaseInOutQuart);
+	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), easeSpd, Easing::EaseInOutQuart);
 }
