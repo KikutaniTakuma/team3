@@ -7,7 +7,7 @@
 
 Goal::Goal(Camera* camera, Player* player) :
 	Object(camera), 
-	kMaxButton(5),
+	kMaxButton(4),
 	goalUI(camera)
 {
 	for (auto& i : button)
