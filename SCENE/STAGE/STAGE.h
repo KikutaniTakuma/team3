@@ -20,6 +20,10 @@ private:
 
 	class Goal* goal;
 
+	Texture tex;
+	Easing start;
+	Easing alpha;
+
 public:
 	void Update() override;
 	void Draw() override;

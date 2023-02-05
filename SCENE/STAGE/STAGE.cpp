@@ -16,7 +16,8 @@ Stage::Stage(Camera* camera) :
 	count(0),
 	easeSpd(0.008f),
 	flgSkip(false),
-	flgSkipSecond(false)
+	flgSkipSecond(false),
+	tex(Texture("./Resources/startText.png",800,800,150))
 {
 	Player* player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -30,6 +31,10 @@ Stage::Stage(Camera* camera) :
 	obj.push_back(goal);
 
 	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), easeSpd, Easing::EaseInOutQuart);
+	start.Set(Vector2D(), Vector2D(static_cast<float>(tex.width), static_cast<float>(tex.height)), easeSpd, Easing::EaseOutQuint);
+	alpha.Set(Vector2D(255.0f, 0.0f), Vector2D(), easeSpd, Easing::EaseOutQuint);
+
+	pos.Set(MapChip::getPlyPos(), Vector2D());
 }
 
 Stage::~Stage() {
@@ -59,6 +64,9 @@ void Stage::Update() {
 		else if (count >= goal->getMaxButtonNum() - 1) {
 			camera->worldPos = staging.Update();
 		}
+		if(!staging && count == goal->getMaxButtonNum()){
+			pos.setSize(start.Update());
+		}
 	}
 
 	if (!flgSkip) {
@@ -72,7 +80,7 @@ void Stage::Update() {
 		}
 	}
 
-	if(!staging && count == goal->getMaxButtonNum() || flgSkipSecond){
+	if(!start || flgSkipSecond){
 		for (auto& i : obj) {
 			i->Update();
 		}
@@ -90,6 +98,13 @@ void Stage::Draw() {
 	}
 	for (auto& i : emy) {
 		i->Draw();
+	}
+
+	if (!start) {
+		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, static_cast<unsigned int>(alpha.Update().x)));
+	}
+	else {
+		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
 	}
 }
 
@@ -120,4 +135,9 @@ void Stage::Reset() {
 
 	flgSkip = false;
 	flgSkipSecond = false;
+
+	start.Set(Vector2D(), Vector2D(static_cast<float>(tex.width), static_cast<float>(tex.height)), easeSpd, Easing::EaseOutQuint);
+	alpha.Set(Vector2D(255.0f, 0.0f), Vector2D(), easeSpd, Easing::EaseOutQuint);
+
+	pos.Set(MapChip::getPlyPos(), Vector2D());
 }

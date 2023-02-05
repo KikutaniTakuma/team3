@@ -120,3 +120,12 @@ const Vector2D& Quad::getSizeRightTop() const {
 const Vector2D& Quad::getSizeRightUnder() const {
 	return rightUnder;
 }
+
+void Quad::setSize(Vector2D size) {
+	this->size = size;
+
+	this->leftTop = { -1.0f * size.x / 2.0f, size.y / 2.0f };
+	this->leftUnder = { -1.0f * size.x / 2.0f,  -1.0f * size.y / 2.0f };
+	this->rightTop = size / 2.0f;
+	this->rightUnder = { size.x / 2.0f, -1.0f * size.y / 2.0f };
+}

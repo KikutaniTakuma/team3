@@ -83,4 +83,7 @@ public:
 	Vector2D getMatrixLeftUnder() const;
 	Vector2D getMatrixRightTop() const;
 	Vector2D getMatrixRightUnder() const;
+
+
+	void setSize(Vector2D size);
 };
