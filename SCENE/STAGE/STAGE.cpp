@@ -8,12 +8,15 @@
 #include "Enemy/Heavy/Heavy.hpp"
 #include "Enemy/Assassin/Assassin.hpp"
 #include "Enemy/Brave/Brave.hpp"
+#include "Game/KeyInput/KeyInput.h"
 
 Stage::Stage(Camera* camera) :
 	Object(camera),
 	emy(0),
 	count(0),
-	easeSpd(0.008f)
+	easeSpd(0.008f),
+	flgSkip(false),
+	flgSkipSecond(false)
 {
 	Player* player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -41,22 +44,35 @@ Stage::~Stage() {
 void Stage::Update() {
 	camera->scale = 1.3f;
 
-	if (count < goal->getMaxButtonNum()) {
-		camera->worldPos = staging.Update();
+	if (!flgSkipSecond) {
+		if (count < goal->getMaxButtonNum()) {
+			camera->worldPos = staging.Update();
 
-		if (!staging) {
-			staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), easeSpd, Easing::EaseInOutQuart);
-			count++;
-			if (count == goal->getMaxButtonNum()) {
-				staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), easeSpd, Easing::EaseInOutQuart);
+			if (!staging) {
+				staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), easeSpd, Easing::EaseInOutQuart);
+				count++;
+				if (count == goal->getMaxButtonNum()) {
+					staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), easeSpd, Easing::EaseInOutQuart);
+				}
 			}
 		}
-	}
-	else if (count >= goal->getMaxButtonNum() - 1) {
-		camera->worldPos = staging.Update();
+		else if (count >= goal->getMaxButtonNum() - 1) {
+			camera->worldPos = staging.Update();
+		}
 	}
 
-	if(!staging && count == goal->getMaxButtonNum()){
+	if (!flgSkip) {
+		if (KeyInput::Released(DIK_SPACE)) {
+			flgSkip = true;
+		}
+	}
+	else {
+		if (KeyInput::Released(DIK_SPACE)) {
+			flgSkipSecond = true;
+		}
+	}
+
+	if(!staging && count == goal->getMaxButtonNum() || flgSkipSecond){
 		for (auto& i : obj) {
 			i->Update();
 		}
@@ -101,4 +117,7 @@ void Stage::Reset() {
 	count = 0;
 
 	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), easeSpd, Easing::EaseInOutQuart);
+
+	flgSkip = false;
+	flgSkipSecond = false;
 }

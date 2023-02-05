@@ -15,6 +15,8 @@ private:
 	Easing staging;
 	int count;
 	float easeSpd;
+	bool flgSkip;
+	bool flgSkipSecond;
 
 	class Goal* goal;
 
