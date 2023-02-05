@@ -20,6 +20,7 @@ GoalUI::~GoalUI() {
 
 void GoalUI::SetPos(Vector2D pos) {
 	goalPos = pos;
+	this->pos.worldPos = pos;
 }
 
 void GoalUI::Update() {

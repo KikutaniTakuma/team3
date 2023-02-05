@@ -28,6 +28,10 @@ Goal::Goal(Camera* camera, Player* player) :
 
 	pos.Set(MapChip::getGoalPos(), { 64.0f,64.0f });
 	setBottonPos();
+
+	for (int i = 0; i < button.size(); i++) {
+		buttonUI[i]->SetPos(Vector2D(-5000.0f, -5000.0f));
+	}
 }
 
 Goal::~Goal() {
