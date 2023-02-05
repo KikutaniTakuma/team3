@@ -64,9 +64,10 @@ void Stage::Update() {
 		else if (count >= goal->getMaxButtonNum() - 1) {
 			camera->worldPos = staging.Update();
 		}
-		if(!staging && count == goal->getMaxButtonNum()){
-			pos.setSize(start.Update());
-		}
+	}
+
+	if (!staging && count == goal->getMaxButtonNum() || flgSkipSecond) {
+		pos.setSize(start.Update());
 	}
 
 	if (!flgSkip) {
@@ -77,10 +78,11 @@ void Stage::Update() {
 	else {
 		if (KeyInput::Released(DIK_SPACE)) {
 			flgSkipSecond = true;
+			camera->worldPos = MapChip::getPlyPos();
 		}
 	}
 
-	if(!start || flgSkipSecond){
+	if(!start){
 		for (auto& i : obj) {
 			i->Update();
 		}
