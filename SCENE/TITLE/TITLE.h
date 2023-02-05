@@ -13,7 +13,7 @@ private:
 	bool sceneFlag;
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	void SceneChange();
-
+	//	”wŒi—p
 	Texture BG;
 	unsigned int color;
 

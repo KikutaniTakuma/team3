@@ -3,6 +3,7 @@
 #include "Game/MyMath/MyMath.h"
 #include "Game/KeyInput/KeyInput.h"
 #include "Game/Gamepad/Gamepad.h"
+#include "Game/Easing/Easing.h"
 
 Title::Title(Camera* camera) : Object(camera) {
 	pos.Set({640.0f,360.0f}, {1280.0f,720.0f});
