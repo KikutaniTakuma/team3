@@ -34,7 +34,7 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	assert(right);
 	assert(left);
 
-	pos.Set(MapChip::getEmyPos(), { 32.0f, 32.0f });
+	pos.Set(MapChip::getEmyPos(0), { 32.0f, 32.0f });
 
 	tentativPos = pos.worldPos;
 

@@ -7,7 +7,7 @@
 Assassin::Assassin(Camera* camera, class Player* player) :
 	Enemy(camera, player)
 {
-	pos.worldPos = MapChip::getEmyPos();
+	pos.worldPos = MapChip::getEmyPos(3);
 }
 
 void Assassin::Update() {

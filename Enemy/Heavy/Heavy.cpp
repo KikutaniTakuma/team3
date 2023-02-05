@@ -29,6 +29,8 @@ Heavy::Heavy(Camera* camera, Player* player):
 	dir = Direction::FRONT;
 
 	shakeScale = { 5.0f, 5.0f };
+
+	pos.worldPos = MapChip::getEmyPos(1);
 }
 
 void Heavy::Update() {

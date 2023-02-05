@@ -7,7 +7,7 @@
 
 Goal::Goal(Camera* camera, Player* player) :
 	Object(camera), 
-	kMaxButton(5),
+	kMaxButton(4),
 	goalUI(camera)
 {
 	for (auto& i : button)
@@ -74,7 +74,7 @@ void Goal::setBottonPos() {
 	for (int i = 0; i < kMaxButton; i++)
 	{		
 		
-		button[i]->setPos(MapChip::getButtonPos());
+		button[i]->setPos(MapChip::getButtonPos(i));
 		button[i]->Update();
 	}
 }

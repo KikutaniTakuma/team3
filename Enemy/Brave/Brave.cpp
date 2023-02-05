@@ -10,7 +10,7 @@ Brave::Brave(Camera* camera, class Player* player, Goal* goal):
 	goal(goal),
 	goalNum(0)
 {
-	pos.worldPos = MapChip::getEmyPos();
+	pos.worldPos = MapChip::getEmyPos(2);
 	spd = 20.0f;
 }
 

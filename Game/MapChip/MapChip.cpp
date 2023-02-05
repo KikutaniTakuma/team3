@@ -49,19 +49,19 @@ void MapChip::Initilize() {
 		for (int x = 0; x < mapWidth; x++) {
 			if (data[y * MapChip::mapWidth + x] == 55) {
 				data[y * MapChip::mapWidth + x] = 0;
-				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize - (MapChip::kMapSize / 2)), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) - static_cast<float>(MapChip::kMapSize / 2)));
+				plyPos = Vector2D(static_cast<float>(x * MapChip::kMapSize + (MapChip::kMapSize / 2)), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2)));
 			}
 			if (data[y * MapChip::mapWidth + x] == 56) {
 				data[y * MapChip::mapWidth + x] = 0;
-				emyPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) - (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) - static_cast<float>(MapChip::kMapSize / 2))));
+				emyPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2))));
 			}
 			if (data[y * MapChip::mapWidth + x] == 50) {
 				data[y * MapChip::mapWidth + x] = 1;
-				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize) - (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) - static_cast<float>(MapChip::kMapSize / 2)));
+				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2)));
 			}
 			if (data[y * MapChip::mapWidth + x] == 51) {
 				data[y * MapChip::mapWidth + x] = 0;
-				buttonPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) - (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) - static_cast<float>(MapChip::kMapSize / 2))));
+				buttonPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2))));
 			}
 		}
 	}
@@ -338,24 +338,14 @@ Vector2D MapChip::getPlyPos() {
 	return plyPos;
 }
 
-Vector2D MapChip::getEmyPos() {
-	static int count = -1;
-	count++;
-	if (count >= emyPos.size()) {
-		count = 0;
-	}
-	return emyPos[count];
+Vector2D MapChip::getEmyPos(size_t index) {
+	return emyPos[index];
 }
 
 Vector2D MapChip::getGoalPos() {
 	return goalPos;
 }
 
-Vector2D MapChip::getButtonPos() {
-	static int count = -1;
-	count++;
-	if (count >= buttonPos.size()) {
-		count = 0;
-	}
-	return buttonPos[count];
+Vector2D MapChip::getButtonPos(size_t index) {
+	return buttonPos[index];
 }

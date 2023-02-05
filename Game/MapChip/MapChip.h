@@ -118,8 +118,8 @@ public:
 	static void setData(int num, const int& x, const int& y);
 
 	static Vector2D getPlyPos();
-	static Vector2D getEmyPos();
+	static Vector2D getEmyPos(size_t index);
 
 	static Vector2D getGoalPos();
-	static Vector2D getButtonPos();
+	static Vector2D getButtonPos(size_t index);
 };
