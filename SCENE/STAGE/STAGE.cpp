@@ -4,16 +4,18 @@
 #include "Game/GoalUI/GoalUI.h"
 #include "Goal/Goal.h"
 #include "Game/MapChip/MapChip.h"
+#include "Game/MyMath/MyMath.h"
 #include "Enemy/Heavy/Heavy.hpp"
 #include "Enemy/Assassin/Assassin.hpp"
 #include "Enemy/Brave/Brave.hpp"
 
 Stage::Stage(Camera* camera) :
 	Object(camera),
-	emy(0)
+	emy(0),
+	count(0)
 {
 	Player* player = new Player(camera);
-	Goal* goal = new Goal(camera, player);
+	goal = new Goal(camera, player);
 	obj.push_back(player);
 
 	emy.push_back(new Enemy(camera, player));
@@ -22,6 +24,8 @@ Stage::Stage(Camera* camera) :
 	emy.push_back(new Brave(camera, player, goal));
 
 	obj.push_back(goal);
+
+	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), 0.008f, Easing::EaseInOutQuart);
 }
 
 Stage::~Stage() {
@@ -35,11 +39,29 @@ Stage::~Stage() {
 
 void Stage::Update() {
 	camera->scale = 1.3f;
-	for (auto& i : obj) {
-		i->Update();
+
+	if (count < goal->getMaxButtonNum()) {
+		camera->worldPos = staging.Update();
+
+		if (!staging) {
+			staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), 0.008f, Easing::EaseInOutQuart);
+			count++;
+			if (count == goal->getMaxButtonNum()) {
+				staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), 0.008f, Easing::EaseInOutQuart);
+			}
+		}
 	}
-	for (auto& i : emy) {
-		i->Update();
+	else if (count >= goal->getMaxButtonNum() - 1) {
+		camera->worldPos = staging.Update();
+	}
+
+	if(!staging && count == goal->getMaxButtonNum()){
+		for (auto& i : obj) {
+			i->Update();
+		}
+		for (auto& i : emy) {
+			i->Update();
+		}
 	}
 }
 
@@ -56,16 +78,16 @@ void Stage::Draw() {
 
 void Stage::Reset() {
 	for (auto& i : obj) {
-		delete i;
+		MyMath::SafeDelete(i);
 	}
 	obj.resize(0);
 	for (auto& i : emy) {
-		delete i;
+		MyMath::SafeDelete(i);
 	}
 	emy.resize(0);
 
 	Player* player = new Player(camera);
-	Goal* goal = new Goal(camera, player);
+	goal = new Goal(camera, player);
 	obj.push_back(player);
 
 	emy.push_back(new Enemy(camera, player));
@@ -74,4 +96,8 @@ void Stage::Reset() {
 	emy.push_back(new Brave(camera, player, goal));
 
 	obj.push_back(goal);
+
+	count = 0;
+
+	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), 0.008f, Easing::EaseInOutQuart);
 }

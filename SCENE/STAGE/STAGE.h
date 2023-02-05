@@ -1,6 +1,7 @@
 #pragma once
 #include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
+#include "Game/Easing/Easing.h"
 
 class Stage : public Object, Scene
 {
@@ -10,6 +11,11 @@ public:
 
 private:
 	std::vector<class Enemy*> emy;
+
+	Easing staging;
+	int count;
+
+	class Goal* goal;
 
 public:
 	void Update() override;
