@@ -24,6 +24,9 @@ private:
 	Easing start;
 	Easing alpha;
 
+	Quad ButtonPos[4];
+	Texture ButtonTex;
+
 public:
 	void Update() override;
 	void Draw() override;

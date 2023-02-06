@@ -17,7 +17,8 @@ Stage::Stage(Camera* camera) :
 	easeSpd(0.008f),
 	flgSkip(false),
 	flgSkipSecond(false),
-	tex(Texture("./Resources/startText.png",800,800,150))
+	tex(Texture("./Resources/startText.png",800,800,150)),
+	ButtonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32))
 {
 	Player* player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -35,6 +36,13 @@ Stage::Stage(Camera* camera) :
 	alpha.Set(Vector2D(255.0f, 0.0f), Vector2D(), easeSpd, Easing::EaseOutQuint);
 
 	pos.Set(MapChip::getPlyPos(), Vector2D());
+
+	for (int i = 0; i < 4; i++)
+	{
+		ButtonPos[i].Set({ 40.0f + 40.0f * i, 680.0f }, { 32.0f,32.0f });
+	}
+
+	
 }
 
 Stage::~Stage() {
@@ -48,6 +56,9 @@ Stage::~Stage() {
 
 void Stage::Update() {
 	camera->scale = 1.3f;
+	for (int i = 0; i < 4; i++){
+		ButtonPos[i].worldMatrix.Translate(ButtonPos[i].worldPos);
+	}
 
 	if (!flgSkipSecond) {
 		if (count < goal->getMaxButtonNum()) {
@@ -104,6 +115,10 @@ void Stage::Draw() {
 
 	if (!start) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, static_cast<unsigned int>(alpha.Update().x)));
+		for (int i = 0; i < 4; i++){
+			camera->DrawUI(ButtonPos[i], ButtonTex, 0, MyMath::GetRGB(255, 255, 255, 255));
+		}
+
 	}
 	else {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
