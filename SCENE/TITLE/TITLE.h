@@ -43,6 +43,7 @@ private:
 	//	5人分
 	const int kMaxChara;
 	std::array<Direction, 5> dir;
+	std::array<Easing, 5> ease;
 	Vector2D size;
 
 	//	std::map 連想配列クラス

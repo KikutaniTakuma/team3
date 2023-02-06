@@ -6,6 +6,8 @@ Game_Over::Game_Over(Camera* camera) :Object(camera) {
 	sceneFlag = false;
 	pos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
 	BG.Set("./Resources/Title/gameover.png", 1280, 1280, 720);
+
+//	text.Set()
 }
 
 Game_Over::~Game_Over() {
