@@ -17,7 +17,7 @@ void Frame::Start() {
 }
 
 unsigned long long Frame:: operator()() const {
-	return static_cast<unsigned long long>(roundl(frame));
+	return static_cast<unsigned long long>(floorl(frame));
 }
 
 void Frame::Pause(void) {

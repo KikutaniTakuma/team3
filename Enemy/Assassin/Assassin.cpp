@@ -36,16 +36,21 @@ void Assassin::Update() {
 		}
 
 		if (rnd == 1) {
-			moveVec.y = -spd;
+			moveVec.y = -nmlSpd;
 		}
 		else if (rnd == 2) {
-			moveVec.y = spd;
+			moveVec.y = nmlSpd;
 		}
 		else if (rnd == 3) {
-			moveVec.x = -spd;
+			moveVec.x = -nmlSpd;
 		}
 		else if (rnd == 4) {
-			moveVec.x = spd;
+			moveVec.x = nmlSpd;
+		}
+		else {
+			if (rnd != 0) {
+				assert(!"rnd err");
+			}
 		}
 	}
 

@@ -101,7 +101,7 @@ int MyMath::Random(int min, int max) {
 		Swap(min, max);
 	}
 
-	int num = abs(max) + abs(min) + 1;
+	int num = max - min + 1;
 
 	return (engine() % num) + min;
 }
