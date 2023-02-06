@@ -133,71 +133,54 @@ void Player::Draw() {
 
 // 移動関数
 void Player::Move() {
-	moveVec->x = 0.0f;
-	if (flgZeroGravity == true) {
+	//移動処理
+
+	if (KeyInput::LongPush(DIK_W)) {
+		moveVec->y = spd;
+		moveVec->x = 0.0f;
+	}
+	else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) > deadZone) {
+		moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
+		moveVec->x = 0.0f;
+	}
+	if (KeyInput::LongPush(DIK_S)) {
+		moveVec->y = -spd;
+		moveVec->x = 0.0f;
+	}
+	else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) < -1 * deadZone) {
+		moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
+		moveVec->x = 0.0f;
+	}
+	if (KeyInput::LongPush(DIK_A)) {
+		moveVec->x = -spd;
 		moveVec->y = 0.0f;
-
-		if (KeyInput::LongPush(DIK_W)) {
-			moveVec->y += spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) > deadZone) {
-			moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
-		}
-		if (KeyInput::LongPush(DIK_S)) {
-			moveVec->y -= spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) < -1 * deadZone) {
-			moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
-		}
-		if (KeyInput::LongPush(DIK_A)) {
-			moveVec->x -= spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) < -1 * deadZone) {
-			moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
-		}
-		if (KeyInput::LongPush(DIK_D)) {
-			moveVec->x += spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) > deadZone) {
-			moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
-		}
-
-		Vector2D posBuff = *moveVec;
-
-		if (MyMath::PythagoreanTheorem(posBuff.x, posBuff.y) != 0) {
-			posBuff.x = MyMath::Normalize(posBuff.x, posBuff.y);
-			posBuff.y = MyMath::Normalize(posBuff.y, posBuff.x);
-		}
-
-		*moveVec = posBuff * spd;
 	}
-	else {
-		if (KeyInput::LongPush(DIK_A) ||
-			Gamepad::getStick(Gamepad::Stick::LEFT_X) < -1 * deadZone) {
-			moveVec->x -= spd;
-		}
-		if (KeyInput::LongPush(DIK_D) ||
-			Gamepad::getStick(Gamepad::Stick::LEFT_X) > deadZone) {
-			moveVec->x += spd;
-		}
+	else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) < -1 * deadZone) {
+		moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
+		moveVec->y = 0.0f;
+	}
+	if (KeyInput::LongPush(DIK_D)) {
+		moveVec->x = spd;
+		moveVec->y = 0.0f;
+	}
+	else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) > deadZone) {
+		moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
+		moveVec->y = 0.0f;
 	}
 
-	if (flgZeroGravity == false) {
-		this->Jump();
+	Vector2D posBuff = *moveVec;
+
+	if (MyMath::PythagoreanTheorem(posBuff.x, posBuff.y) != 0) {
+		posBuff.x = MyMath::Normalize(posBuff.x, posBuff.y);
+		posBuff.y = MyMath::Normalize(posBuff.y, posBuff.x);
 	}
 
-	if (flgGravity == true && flgZeroGravity == false) {
-		moveVec->y -= gravity;
-		if (moveVec->y <= static_cast<float>(-1 * MapChip::kMapSize)) {
-			moveVec->y = static_cast<float>(-1 * MapChip::kMapSize);
-		}
-		if (moveVec->y > static_cast<float>(MapChip::kMapSize)) {
-			moveVec->y = static_cast<float>(MapChip::kMapSize);
-		}
-	}
+	*moveVec = posBuff * spd;
+
 
 	*tentativPos += *moveVec * camera->getDelta();
 
+	// プレイヤーを外に出さない処理
 	if (tentativPos->x > MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f) {
 		tentativPos->x = MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f;
 	}
@@ -211,6 +194,7 @@ void Player::Move() {
 		tentativPos->y = MapChip::getMapMinPosY() + pos.getSize().y / 2.0f;
 	}
 
+	// 方向
 	if (moveVec->x > 0.0f) {
 		dir = Direction::RIGHT;
 		if (moveVec->y > 0.0f && moveVec->y > moveVec->x) {
