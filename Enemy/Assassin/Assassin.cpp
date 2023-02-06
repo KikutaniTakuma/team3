@@ -25,6 +25,8 @@ void Assassin::Update() {
 		frm.Restart();
 	}
 
+	frame.Start();
+
 	// ランダム範囲内にいないときはプレイヤーに向かう
 	if (!camera->isDraw(pos.worldPos)) {
 		int rnd = 0;
