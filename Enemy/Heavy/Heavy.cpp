@@ -51,10 +51,11 @@ void Heavy::Update() {
 	frame.Start();
 
 	// ランダム範囲内にいないときはプレイヤーに向かう
-	if (!camera->isDraw(pos.worldPos)) {
+	if (!camera->isDraw(pos.worldPos, rushLen)) {
 		int rnd = 0;
 		if (frame() % rndTime == 0) {
 			rnd = MyMath::Random(1, 4);
+			moveVec = { 0.0f,0.0f };
 		}
 
 		if (rnd == 1) {
@@ -70,69 +71,13 @@ void Heavy::Update() {
 			moveVec.x = spd;
 		}
 	}
-	else if (!camera->isDraw(pos.worldPos, rushLen)) {
+	else {
 		moveVec = { 0.0f,0.0f };
-
-		/// プレイヤーの位置を見て徐々に近づいて行く
-		/// 速度は一定
-		/// 斜め走行はなし
-		/// 縦と横で長いほうを移動する(縦<横の場合横方向に動く)
-		if (abs(player->getWorldPosX() - pos.worldPos.x) < abs(player->getWorldPosY() - pos.worldPos.y)) {
-			if (player->getWorldPosY() < pos.worldPos.y) {
-				moveVec.y -= spd;
-			}
-			else {
-				moveVec.y += spd;
-			}
-		}
-		else {
-			if (player->getWorldPosX() < pos.worldPos.x) {
-				moveVec.x -= spd;
-			}
-			else {
-				moveVec.x += spd;
-			}
-		}
-		tentativPos += moveVec * camera->getDelta();
-
-		// 上の逆バージョン
-		/*if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
-			if (MapChip::GetNum(pos.worldPos).y == MapChip::GetNum(player->getWorldPos()).y) {
-				if (player->getWorldPosX() < pos.worldPos.x) {
-					moveVec.x -= spd;
-				}
-				else {
-					moveVec.x += spd;
-				}
-			}
-			else if (player->getWorldPosY() < pos.worldPos.y) {
-				moveVec.y -= spd;
-			}
-			else if (player->getWorldPosY() >= pos.worldPos.y) {
-				moveVec.y += spd;
-			}
-		}
-		else {
-			if (MapChip::GetNum(pos.worldPos).x == MapChip::GetNum(player->getWorldPos()).x) {
-				if (player->getWorldPosY() < pos.worldPos.y) {
-					moveVec.y -= spd;
-				}
-				else if (player->getWorldPosY() >= pos.worldPos.y) {
-					moveVec.y += spd;
-				}
-			}
-			else if (player->getWorldPosX() < pos.worldPos.x) {
-				moveVec.x -= spd;
-			}
-			else if (player->getWorldPosX() >= pos.worldPos.x) {
-				moveVec.x += spd;
-			}
-		}*/
 	}
-	if (MyMath::PythagoreanTheorem(pos.worldPos, player->getWorldPos()) < rushLen) {
+	if (camera->isDraw(pos.worldPos, rushLen)) {
 		if (!rushFlg && !stopFlg) {
 			rushFlg = true;
-			rushEase.Set(pos.worldPos, player->getWorldPos() + (player->getWorldPos() - pos.worldPos), rushSpd, Easing::EaseInBack);
+			rushEase.Set(pos.worldPos, player->getWorldPos() + (player->getWorldPos() - pos.worldPos) + player->getMoveVec(), rushSpd, Easing::EaseInBack);
 		}
 	}
 

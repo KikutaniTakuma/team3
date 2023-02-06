@@ -66,6 +66,7 @@ void Enemy::Update() {
 		int rnd = 0;
 		if (frame() % rndTime == 0) {
 			rnd = MyMath::Random(1, 4);
+			moveVec = { 0.0f,0.0f };
 		}
 
 		if (rnd == 1) {
