@@ -17,7 +17,7 @@ private:
 
 	Texture BG;
 
-	Easing text;
+//	Easing text;
 
 public:
 
