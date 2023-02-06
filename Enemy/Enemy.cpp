@@ -27,7 +27,7 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	right(Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)),
 	left(Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)),
 	dir(Direction::FRONT),
-	rndTime(15)
+	rndTime(120)
 {
 	// テクスチャーが正常に読み込まれているか
 	assert(front);
