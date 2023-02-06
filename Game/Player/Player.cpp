@@ -127,8 +127,11 @@ void Player::Update() {
 // 描画処理関数
 void Player::Draw() {
 	camera->DrawQuad(pos, tex[dir], 12.0f, MyMath::GetRGB(255,255,255,255));
-	/*Novice::ScreenPrintf(0, 0, "X = %f", pos.worldPos.x);
-	Novice::ScreenPrintf(0, 20, "Y = %f", pos.worldPos.y);*/
+
+#ifdef _DEBUG
+	Novice::ScreenPrintf(0, 20, "X = %f", pos.worldPos.x);
+	Novice::ScreenPrintf(0, 40, "Y = %f", pos.worldPos.y);
+#endif 
 }
 
 // 移動関数
@@ -137,29 +140,33 @@ void Player::Move() {
 	if (flgZeroGravity == true) {
 		moveVec->y = 0.0f;
 
-		if (KeyInput::LongPush(DIK_W)) {
-			moveVec->y += spd;
+		if (KeyInput::LongPush(DIK_W) || KeyInput::LongPush(DIK_S) || KeyInput::LongPush(DIK_A) || KeyInput::LongPush(DIK_D)) {
+			if (KeyInput::LongPush(DIK_W)) {
+				moveVec->y = spd;
+			}
+			else if (KeyInput::LongPush(DIK_S)) {
+				moveVec->y = -spd;
+			}
+			else if (KeyInput::LongPush(DIK_A)) {
+				moveVec->x = -spd;
+			}
+			else if (KeyInput::LongPush(DIK_D)) {
+				moveVec->x = spd;
+			}
 		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) > deadZone) {
-			moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
-		}
-		if (KeyInput::LongPush(DIK_S)) {
-			moveVec->y -= spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) < -1 * deadZone) {
-			moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
-		}
-		if (KeyInput::LongPush(DIK_A)) {
-			moveVec->x -= spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) < -1 * deadZone) {
-			moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
-		}
-		if (KeyInput::LongPush(DIK_D)) {
-			moveVec->x += spd;
-		}
-		else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) > deadZone) {
-			moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
+		else {
+			if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) > deadZone) {
+				moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
+			}
+			else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) < -1 * deadZone) {
+				moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
+			}
+			else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) < -1 * deadZone) {
+				moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
+			}
+			else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) > deadZone) {
+				moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
+			}
 		}
 
 		Vector2D posBuff = *moveVec;
@@ -258,7 +265,7 @@ void Player::Collision() {
 
 	Vector2D RightTop = { pos.getSizeRightTop().x + tentativPos->x - 1.0f, pos.getSizeRightTop().y + tentativPos->y };
 
-	Vector2D LeftUnder = { pos.getSizeLeftUnder().x + tentativPos->x , pos.getSizeLeftUnder().y + tentativPos->y + 1.0f };
+	Vector2D LeftUnder = { pos.getSizeLeftUnder().x + tentativPos->x, pos.getSizeLeftUnder().y + tentativPos->y + 1.0f };
 
 	Vector2D RightUnder = { pos.getSizeRightUnder().x + tentativPos->x - 1.0f, pos.getSizeRightUnder().y + tentativPos->y + 1.0f };
 
@@ -279,31 +286,65 @@ void Player::Collision() {
 					mapPos.y -= MapChip::kMapSize;
 
 					tentativPos->y = mapPos.y + size->y / 2.0f;
-
-					moveVec->y = 0.0f;
 				}
 				else if (RightTop.x - mapPos.x == RightTop.y - mapPos.y) {
 					mapPos.y -= MapChip::kMapSize;
 					tentativPos->y = mapPos.y + size->y / 2.0f;
-
-					moveVec->y = 0.0f;
 				}
 			}
 			// 左上にのみブロックがある
 			else if (!MapChip::Collision(RightTop) && MapChip::Collision(LeftTop) && !MapChip::Collision(RightUnder)) {
 				Vector2D mapPos = MapChip::GetPos(LeftTop);
-				mapPos.y -= MapChip::kMapSize;
 
-				tentativPos->y = mapPos.y + size->y / 2.0f;
+				if ((mapPos.x + MapChip::kMapSize) - LeftTop.x < LeftTop.y - mapPos.y) {
+					mapPos.x += MapChip::kMapSize;
 
-				moveVec->y = 0.0f;
+					tentativPos->x = mapPos.x + size->x / 2.0f;
+				}
+				else if ((mapPos.x + MapChip::kMapSize) - LeftTop.x > LeftTop.y - mapPos.y) {
+					mapPos.y -= MapChip::kMapSize;
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+				}
+				else if ((mapPos.x + MapChip::kMapSize) - LeftTop.x == LeftTop.y - mapPos.y) {
+					mapPos.y -= MapChip::kMapSize;
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+				}
 			}
 			// 右下にのみブロックがある
 			else if (!MapChip::Collision(RightTop) && !MapChip::Collision(LeftTop) && MapChip::Collision(RightUnder)) {
 				Vector2D mapPos = MapChip::GetPos(RightUnder);
-				mapPos.x -= MapChip::kMapSize;
 
-				tentativPos->x = mapPos.x + size->x / 2.0f;
+				if (static_cast<int>(mapPos.y) % MapChip::kMapSize == 0) {
+					RightUnder.y -= 1.0f;
+				}
+				mapPos = MapChip::GetPos(RightUnder);
+
+				if (RightUnder.x - mapPos.x < (mapPos.y + MapChip::kMapSize) - RightUnder.y) {
+					mapPos.x -= MapChip::kMapSize;
+					tentativPos->x = mapPos.x + size->x / 2.0f;
+				}
+				else if (RightUnder.x - mapPos.x > (mapPos.y + MapChip::kMapSize) - RightUnder.y) {
+					mapPos.y += MapChip::kMapSize;
+
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+
+					flgJump = false;
+					flgJumpSecond = false;
+					flgGravity = false;
+
+					moveVec->y = 0.0f;
+				}
+				else if (RightUnder.x - mapPos.x == (mapPos.y + MapChip::kMapSize) - RightUnder.y) {
+					mapPos.y += MapChip::kMapSize;
+
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+
+					flgJump = false;
+					flgJumpSecond = false;
+					flgGravity = false;
+
+					moveVec->y = 0.0f;
+				}
 			}
 
 			// 上にブロックがある
@@ -312,8 +353,6 @@ void Player::Collision() {
 				mapPos.y -= MapChip::kMapSize;
 
 				tentativPos->y = mapPos.y + size->y / 2.0f;
-
-				moveVec->y = 0.0f;
 			}
 			// 右側にブロックがある
 			else if (MapChip::Collision(RightTop) && !MapChip::Collision(LeftTop) && MapChip::Collision(RightUnder)) {
@@ -334,8 +373,6 @@ void Player::Collision() {
 				mapPos.x -= MapChip::kMapSize;
 
 				tentativPos->x = mapPos.x + size->x / 2.0f;
-
-				moveVec->y = 0.0f;
 			}
 		}
 
@@ -353,31 +390,68 @@ void Player::Collision() {
 				else if ((mapPos.x + MapChip::kMapSize) - LeftTop.x > LeftTop.y - mapPos.y) {
 					mapPos.y -= MapChip::kMapSize;
 					tentativPos->y = mapPos.y + size->y / 2.0f;
-
-					moveVec->y = 0.0f;
 				}
 				else if ((mapPos.x + MapChip::kMapSize) - LeftTop.x == LeftTop.y - mapPos.y) {
 					mapPos.y -= MapChip::kMapSize;
 					tentativPos->y = mapPos.y + size->y / 2.0f;
-
-					moveVec->y = 0.0f;
 				}
 			}
 			// 右上にのみブロックがある
 			else if (!MapChip::Collision(LeftTop) && MapChip::Collision(RightTop) && !MapChip::Collision(LeftUnder)) {
-				Vector2D mapPos = MapChip::GetPos(LeftTop);
-				mapPos.y -= MapChip::kMapSize;
+				Vector2D mapPos = MapChip::GetPos(RightTop);
 
-				tentativPos->y = mapPos.y + size->y / 2.0f;
+				if (RightTop.x - mapPos.x < RightTop.y - mapPos.y) {
+					mapPos.x -= MapChip::kMapSize;
 
-				moveVec->y = 0.0f;
+					tentativPos->x = mapPos.x + size->x / 2.0f;
+				}
+				else if (RightTop.x - mapPos.x > RightTop.y - mapPos.y) {
+					mapPos.y -= MapChip::kMapSize;
+
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+				}
+				else if (RightTop.x - mapPos.x == RightTop.y - mapPos.y) {
+					mapPos.y -= MapChip::kMapSize;
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+				}
 			}
 			// 左下にのみブロックがある
 			else if (!MapChip::Collision(LeftTop) && !MapChip::Collision(RightTop) && MapChip::Collision(LeftUnder)) {
-				Vector2D mapPos = MapChip::GetPos(LeftTop);
-				mapPos.x += MapChip::kMapSize;
+				Vector2D mapPos = MapChip::GetPos(LeftUnder);
 
-				tentativPos->x = mapPos.x + size->x / 2.0f;
+				if (static_cast<int>(mapPos.y) % MapChip::kMapSize == 0) {
+					LeftUnder.y -= 1.0f;
+				}
+				mapPos = MapChip::GetPos(LeftUnder);
+
+				if ((mapPos.x + MapChip::kMapSize) - LeftUnder.x < (mapPos.y + MapChip::kMapSize) - LeftUnder.y) {
+					mapPos.x += MapChip::kMapSize;
+
+					tentativPos->x = mapPos.x + size->x / 2.0f;
+				}
+				else if ((mapPos.x + MapChip::kMapSize) - LeftUnder.x > (mapPos.y + MapChip::kMapSize) - LeftUnder.y) {
+					mapPos.y += MapChip::kMapSize;
+
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+
+					flgJump = false;
+					flgJumpSecond = false;
+					flgGravity = false;
+
+					moveVec->y = 0.0f;
+				}
+				else if ((mapPos.x + MapChip::kMapSize) - LeftUnder.x == (mapPos.y + MapChip::kMapSize) - LeftUnder.y) {
+					mapPos.y += MapChip::kMapSize;
+
+					tentativPos->y = mapPos.y + size->y / 2.0f;
+
+
+					flgJump = false;
+					flgJumpSecond = false;
+					flgGravity = false;
+
+					moveVec->y = 0.0f;
+				}
 			}
 
 			// 上にブロックがある
@@ -386,8 +460,6 @@ void Player::Collision() {
 				mapPos.y -= MapChip::kMapSize;
 
 				tentativPos->y = mapPos.y + size->y / 2.0f;
-
-				moveVec->y = 0.0f;
 			}
 			// 左側にブロックがある
 			else if (MapChip::Collision(LeftTop) && !MapChip::Collision(RightTop) && MapChip::Collision(LeftUnder)) {
@@ -408,18 +480,21 @@ void Player::Collision() {
 				mapPos.x += MapChip::kMapSize;
 
 				tentativPos->x = mapPos.x + size->x / 2.0f;
-
-				moveVec->y = 0.0f;
 			}
 		}
 
-		else if (MapChip::Collision(LeftTop) || MapChip::Collision(RightTop)) {
+		else if (MapChip::Collision(LeftTop)) {
 			Vector2D mapPos = MapChip::GetPos(LeftTop);
 			mapPos.y -= MapChip::kMapSize;
 
 			tentativPos->y = mapPos.y + size->y / 2.0f;
 
-			moveVec->y = 0.0f;
+		}
+		else if (MapChip::Collision(RightTop)) {
+			Vector2D mapPos = MapChip::GetPos(RightTop);
+			mapPos.y -= MapChip::kMapSize;
+
+			tentativPos->y = mapPos.y + size->y / 2.0f;
 		}
 	}
 

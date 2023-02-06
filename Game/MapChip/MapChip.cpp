@@ -125,8 +125,6 @@ int MapChip::GetType(Vector2D worldPos) {
 	int y = (int)worldPos.y / MapChip::kMapSize;
 	int x = (int)worldPos.x / MapChip::kMapSize;
 
-	CoordinateChange(worldPos);
-
 	if (x >= MapChip::mapWidth || y >= MapChip::mapHeight || x < 0 || y < 0) {
 		return (int)MapChip::Type::NONE;
 	}
