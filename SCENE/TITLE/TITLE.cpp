@@ -55,19 +55,19 @@ Title::Title(Camera* camera) : Object(camera) , kMaxChara(5) {
 	charaText[2].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/FighterBack.png", 128, 32, 32)));
 	charaText[2].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/FighterRight.png", 128, 32, 32)));
 	charaText[2].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/FighterLeft.png", 128, 32, 32)));
-	charaColor[2] = MyMath::GetRGB(255, 255, 255, 255);
+	charaColor[2] = MyMath::GetRGB(255, 255, 0, 255);
 
 	charaText[3].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Enemy/BraveFront.png", 128, 32, 32)));
 	charaText[3].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)));
 	charaText[3].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)));
 	charaText[3].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)));
-	charaColor[3] = MyMath::GetRGB(0, 0, 255, 255);
+	charaColor[3] = MyMath::GetRGB(100, 100, 255, 255);
 
 	charaText[4].insert(std::make_pair(Direction::FRONT, Texture("./Resources/Enemy/BraveFront.png", 128, 32, 32)));
 	charaText[4].insert(std::make_pair(Direction::BACK, Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)));
 	charaText[4].insert(std::make_pair(Direction::RIGHT, Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)));
 	charaText[4].insert(std::make_pair(Direction::LEFT, Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)));
-	charaColor[4] = MyMath::GetRGB(255, 0, 0, 255);
+	charaColor[4] = MyMath::GetRGB(255, 100, 100, 255);
 #pragma endregion charaTextSet
 
 	speed = { 5.0f,5.0f };
@@ -144,6 +144,7 @@ void Title::Update() {
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
 	{
+		camera->shakeFlg = true;
 		sceneFlag = true;
 	}
 	else if (MyMath::GetAlpha(color) >= 255U)
