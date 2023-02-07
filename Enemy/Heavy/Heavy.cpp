@@ -239,7 +239,7 @@ void Heavy::Draw() {
 	}
 
 	if (camera->isDraw(pos.worldPos)) {
-		if (blockBrkFlg) {
+		if (blockBrkFlg && allEnemySound) {
 			blockBrk.SoundEffect(0.5f);
 		}
 	}

@@ -16,6 +16,7 @@ protected:
 
 public:
 	static const int kMaxEmyNum;
+	static bool allEnemySound;
 
 public:
 	Enemy() = delete;

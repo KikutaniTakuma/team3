@@ -9,6 +9,7 @@
 #include <assert.h>
 
 const int Enemy::kMaxEmyNum = 4;
+bool Enemy::allEnemySound = true;
 
 Enemy::Enemy(Camera* cameraPointa, Player* player)
 	:Object(cameraPointa),
@@ -274,7 +275,7 @@ void Enemy::Draw() {
 	}
 
 	if (camera->isDraw(pos.worldPos)) {
-		if (blockBrkFlg) {
+		if (blockBrkFlg && allEnemySound) {
 			blockBrk.SoundEffect(0.5f);
 		}
 	}

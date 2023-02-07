@@ -61,52 +61,67 @@ void Stage::Update() {
 		ButtonPos[i].worldMatrix.Translate(ButtonPos[i].worldPos);
 	}
 
-	if (!flgSkipSecond) {
-		if (count < goal->getMaxButtonNum()) {
-			camera->worldPos = staging.Update();
+	if (!goalFlg) {
+		if (!flgSkipSecond) {
+			if (count < goal->getMaxButtonNum()) {
+				camera->worldPos = staging.Update();
 
-			if (!staging) {
-				staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), easeSpd, Easing::EaseInOutQuart);
-				count++;
-				if (count == goal->getMaxButtonNum()) {
-					staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), easeSpd, Easing::EaseInOutQuart);
+				if (!staging) {
+					staging.Set(goal->getButtonPos(count), goal->getButtonPos(count + 1), easeSpd, Easing::EaseInOutQuart);
+					count++;
+					if (count == goal->getMaxButtonNum()) {
+						staging.Set(goal->getButtonPos(count - 1), MapChip::getPlyPos(), easeSpd, Easing::EaseInOutQuart);
+					}
 				}
 			}
+			else if (count >= goal->getMaxButtonNum() - 1) {
+				camera->worldPos = staging.Update();
+			}
 		}
-		else if (count >= goal->getMaxButtonNum() - 1) {
-			camera->worldPos = staging.Update();
-		}
-	}
 
-	if (!staging && count == goal->getMaxButtonNum() || flgSkipSecond) {
-		pos.setSize(start.Update());
-	}
-
-	if (!flgSkip) {
-		if (KeyInput::Released(DIK_SPACE)) {
-			flgSkip = true;
+		if (!staging && count == goal->getMaxButtonNum() || flgSkipSecond) {
+			pos.setSize(start.Update());
 		}
-	}
-	else {
-		if (KeyInput::Released(DIK_SPACE)) {
-			flgSkipSecond = true;
-			camera->worldPos = MapChip::getPlyPos();
+
+		if (!flgSkip) {
+			if (KeyInput::Released(DIK_SPACE)) {
+				flgSkip = true;
+			}
+		}
+		else {
+			if (KeyInput::Released(DIK_SPACE)) {
+				flgSkipSecond = true;
+				camera->worldPos = MapChip::getPlyPos();
+			}
 		}
 	}
 
 	if (goal->getAdvent() && !goalFlg && easeGoal)  {
 		start.Set(player->getWorldPos(), goal->getPos(), easeSpd, Easing::EaseInCirc);
-		easeGoal.Set(Vector2D(), Vector2D(goal->getQuad().getSize()), easeSpd, Easing::EaseInOutElastic);
 		goalFlg = true;
+		camera->shakeFlg = false;
+		Enemy::allEnemySound = false;
 	}
-	else if (goal->getAdvent() && start) {
+	else if (start && easeGoal && goalFlg) {
 		camera->worldPos = start.Update();
+
+		if (!start) {
+			easeGoal.Set(Vector2D(), Vector2D(goal->getQuad().getSize()), easeSpd, Easing::EaseInOutElastic);
+			goal->setSize(Vector2D());
+		}
 	}
 	else if (!start && goalFlg) {
 		goal->setSize(easeGoal.Update());
-		/*camera->shakeFlg = true;*/
+		
 		if (!easeGoal) {
+			start.Set(camera->worldPos, player->getWorldPos(), easeSpd, Easing::EaseInOutCirc);
+		}
+	}
+	else if (!easeGoal) {
+		camera->worldPos = start.Update();
+		if (!start) {
 			goalFlg = false;
+			Enemy::allEnemySound = true;
 			/*camera->shakeFlg = false;*/
 		}
 	}
@@ -142,7 +157,7 @@ void Stage::Draw() {
 		}
 
 	}
-	else {
+	else if(!goalFlg){
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
 	}
 }
