@@ -93,6 +93,10 @@ bool Goal::getGameClear() {
 	return gameClear;
 }
 
+bool Goal::getAdvent() const {
+	return goalAdvent;
+}
+
 void Goal::Update() {
 	//	ÉSÅ[ÉãÇ™äJÇ¢ÇΩÇÁ
 	if (goalAdvent)
@@ -183,4 +187,8 @@ Vector2D Goal::getButtonPos(size_t index) const {
 
 int Goal::getMaxButtonNum() const {
 	return kMaxButton;
+}
+
+void Goal::setSize(Vector2D size) {
+	pos.setSize(size);
 }

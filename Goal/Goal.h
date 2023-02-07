@@ -48,6 +48,9 @@ public:
 	void setGoalPos(Vector2D pos);
 	//
 	bool getGameClear();
+
+	bool getAdvent() const;
+
 	//
 	void Update() override;
 
@@ -60,4 +63,6 @@ public:
 	Vector2D getButtonPos(size_t index) const;
 
 	int getMaxButtonNum() const;
+
+	void setSize(Vector2D size);
 };

@@ -19,6 +19,7 @@ private:
 	bool flgSkipSecond;
 
 	class Goal* goal;
+	class Player* player;
 
 	Texture tex;
 	Easing start;
@@ -28,7 +29,10 @@ private:
 	Texture ButtonTex;
 
 	float deadLine;
+	bool goalFlg;
+	Easing easeGoal;
 
+	
 public:
 	void Update() override;
 	void Draw() override;

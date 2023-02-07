@@ -19,9 +19,10 @@ Stage::Stage(Camera* camera) :
 	flgSkipSecond(false),
 	tex(Texture("./Resources/startText.png",800,800,150)),
 	ButtonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32)),
-	deadLine(50.0f)
+	deadLine(50.0f),
+	goalFlg(false)
 {
-	Player* player = new Player(camera);
+	player = new Player(camera);
 	goal = new Goal(camera, player);
 	obj.push_back(player);
 
@@ -93,7 +94,24 @@ void Stage::Update() {
 		}
 	}
 
-	if(!start){
+	if (goal->getAdvent() && !goalFlg && easeGoal)  {
+		start.Set(player->getWorldPos(), goal->getPos(), easeSpd, Easing::EaseInCirc);
+		easeGoal.Set(Vector2D(), Vector2D(goal->getQuad().getSize()), easeSpd, Easing::EaseInOutElastic);
+		goalFlg = true;
+	}
+	else if (goal->getAdvent() && start) {
+		camera->worldPos = start.Update();
+	}
+	else if (!start && goalFlg) {
+		goal->setSize(easeGoal.Update());
+		/*camera->shakeFlg = true;*/
+		if (!easeGoal) {
+			goalFlg = false;
+			/*camera->shakeFlg = false;*/
+		}
+	}
+
+	if(!start && !goalFlg){
 		for (auto& i : obj) {
 			i->Update();
 		}
@@ -139,7 +157,7 @@ void Stage::Reset() {
 	}
 	emy.resize(0);
 
-	Player* player = new Player(camera);
+	player = new Player(camera);
 	goal = new Goal(camera, player);
 	obj.push_back(player);
 
@@ -161,4 +179,6 @@ void Stage::Reset() {
 	alpha.Set(Vector2D(255.0f, 0.0f), Vector2D(), easeSpd, Easing::EaseOutQuint);
 
 	pos.Set(MapChip::getPlyPos(), Vector2D());
+
+	goalFlg = false;
 }
