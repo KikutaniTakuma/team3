@@ -41,7 +41,6 @@ Stage::Stage(Camera* camera) :
 	{
 		ButtonPos[i].Set({ 40.0f + 40.0f * i, 680.0f }, { 32.0f,32.0f });
 	}
-
 	
 }
 
