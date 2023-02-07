@@ -193,7 +193,6 @@ void MapChip::Draw(Texture& texture) {
 	
 			pos.worldPos = { static_cast<float>((x * kMapSize) + kMapSize / 2), static_cast<float>((y * kMapSize) + kMapSize / 2) };
 			CoordinateChange(pos.worldPos);
-			pos.worldMatrix.Translate(pos.worldPos);
 
 			switch (data[y * MapChip::mapWidth + x]) {
 			case (int)MapChip::Type::NONE:
@@ -204,18 +203,24 @@ void MapChip::Draw(Texture& texture) {
 				camera->DrawQuad(pos, block, 0, 0x555555ff);
 
 				break;
-			/*case 2:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+			case (int)MapChip::Type::BREAK:
+				camera->DrawQuad(pos, texture, 0, MyMath::GetRGB(200, 200, 0, 0xff));
 
-			case 3:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+				break;
 
-			case 4:
-				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));*/
+			case (int)MapChip::Type::SACRED:
+				camera->DrawQuad(pos, texture, 0, MyMath::GetRGB(200, 200, 200, 0xff));
+
+				break;
+
+			/*case 4:
+				camera->DrawQuad(pos, texture, 0, false, MyMath::GetRGB(200, 200, 200, 0xff));
+				break;
+				*/
 
 
 			default:
-				camera->DrawQuad(pos, tile, 0, MyMath::GetRGB(200, 200, 200, 0xff));
+				camera->DrawQuad(pos, tile, 0, MyMath::GetRGB(100, 100, 100, 0xff));
 
 				break;
 			}
@@ -346,4 +351,41 @@ Vector2D MapChip::getGoalPos() {
 
 Vector2D MapChip::getButtonPos(size_t index) {
 	return buttonPos[index];
+}
+
+void MapChip::LocalReload(Vector2D pos) {
+	std::vector<int> tmp(0);
+
+	IOcsv::Input("./Data/mappu2_-_1.csv", tmp);
+	
+	// êŠ‚É‚æ‚Á‚Äwidth‚Æheight‚ğ‚«‚ß‚é
+	int startX;
+	int endX;
+
+	if (MapChip::GetNum(pos).x < static_cast<float>(mapWidth / 2)) {
+		startX = 0;
+		endX = mapWidth / 2;
+	}
+	else {
+		startX = mapWidth / 2;
+		endX = mapWidth;
+	}
+
+	int startY;
+	int endY;
+
+	if (MapChip::GetNum(pos).y < static_cast<float>(mapHeight / 2)) {
+		startY = 0;
+		endY = mapHeight / 2;
+	}
+	else {
+		startY = mapHeight / 2;
+		endY = mapHeight;
+	}
+
+	for (int y = startY; y < endY; y++) {
+		for (int x = startX; x < endX; x++) {
+			data[y * MapChip::mapWidth + x] = tmp[y * MapChip::mapWidth + x];
+		}
+	}
 }

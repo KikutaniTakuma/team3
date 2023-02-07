@@ -163,7 +163,7 @@ int IOcsv::Input(const char* fileName, std::vector<int>& data)
 			while (getline(line, buff, ','))
 			{
 				// buff‚ÉŠi”[‚³‚ê‚Ä‚¢‚é•¶Žš‚ª‚·‚×‚Ä”Žš‚È‚ç”’l(intŒ^)‚É•Ï‚¦‚Ä‘ã“ü
-				if (std::all_of(buff.cbegin(), buff.cend(), isdigit) && id != data.end())
+				if (std::all_of(buff.cbegin(), buff.cend(), isdigit))
 				{
 					if (num >= size) {
 						data.push_back(stoi(buff));

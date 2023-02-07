@@ -15,9 +15,10 @@ Button::Button(Camera* camera) : Object(camera) {
 
 void Button::Collision(Quad playerPos) {
 	//	è’ìÀîªíË
-	if (pos.Collision(playerPos))
+	if (pos.Collision(playerPos) && !isPushButton)
 	{
 		isPushButton = true;
+		MapChip::LocalReload(pos.worldPos);
 	}
 }
 

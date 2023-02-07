@@ -14,6 +14,8 @@ public:
 	enum class Type {
 		NONE, // 0
 		BLOCK, // 1
+		BREAK, // 2
+		SACRED, // ピカピカ
 
 		kMaxNum
 	};
@@ -122,4 +124,6 @@ public:
 
 	static Vector2D getGoalPos();
 	static Vector2D getButtonPos(size_t index);
+
+	static void LocalReload(Vector2D pos);
 };
