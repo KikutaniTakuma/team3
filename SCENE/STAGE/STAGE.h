@@ -27,6 +27,8 @@ private:
 	Quad ButtonPos[4];
 	Texture ButtonTex;
 
+	float deadLine;
+
 public:
 	void Update() override;
 	void Draw() override;

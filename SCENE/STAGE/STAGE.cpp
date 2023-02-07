@@ -18,7 +18,8 @@ Stage::Stage(Camera* camera) :
 	flgSkip(false),
 	flgSkipSecond(false),
 	tex(Texture("./Resources/startText.png",800,800,150)),
-	ButtonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32))
+	ButtonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32)),
+	deadLine(50.0f)
 {
 	Player* player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -98,6 +99,10 @@ void Stage::Update() {
 		}
 		for (auto& i : emy) {
 			i->Update();
+		}
+
+		if (MapChip::GetBlockBreakPer() < deadLine) {
+			scene = Situation::GAME_OVER;
 		}
 	}
 }
