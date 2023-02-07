@@ -28,7 +28,12 @@ private:
 	int index;
 	Frame easeFrame;
 
+	/// <summary>
+	/// trueならリスタート
+	/// falseならタイトル
+	/// </summary>
 	bool select;
+
 	Texture title;
 	Quad titlePos;
 	Texture restart;
