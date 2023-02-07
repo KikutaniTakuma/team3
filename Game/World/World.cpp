@@ -97,6 +97,8 @@ void World::MainLoop() {
 		// Å”w–Ê‚É•F‚ð•`‰æ
 		Novice::DrawBox(0, 0, 1280, 720, 0.0f, 0x000000ff, kFillModeSolid);
 
+		camera->Update();
+
 		// •`‰æˆ—
 		game->Draw();
 

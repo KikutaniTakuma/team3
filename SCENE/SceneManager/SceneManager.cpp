@@ -11,10 +11,10 @@
 SceneManager::SceneManager(Camera* camera) :
 	camera(camera)
 {
-	gameScene.insert(std::make_pair(Scene::Situation::STAGE, new Stage(camera)));
-	gameScene.insert(std::make_pair(Scene::Situation::TITLE, new Title(camera)));
-	gameScene.insert(std::make_pair(Scene::Situation::GAME_CLEAR, new Game_Clear(camera)));
-	gameScene.insert(std::make_pair(Scene::Situation::GAME_OVER, new Game_Over(camera)));
+	gameScene.insert(std::make_pair(Scene::Situation::STAGE, std::make_unique<Stage>(camera)));
+	gameScene.insert(std::make_pair(Scene::Situation::TITLE, std::make_unique <Title>(camera)));
+	gameScene.insert(std::make_pair(Scene::Situation::GAME_CLEAR, std::make_unique<Game_Clear>(camera)));
+	gameScene.insert(std::make_pair(Scene::Situation::GAME_OVER, std::make_unique<Game_Over>(camera)));
 }
 
 SceneManager::~SceneManager() {
@@ -23,22 +23,26 @@ SceneManager::~SceneManager() {
 
 bool SceneManager::ChangeProc() {
 	if (scene.getPreSituation() == Scene::Situation::STAGE && scene.getSituation() != Scene::Situation::STAGE) {
-		gameScene[Scene::Situation::STAGE].reset(new Stage(camera));
+		gameScene[Scene::Situation::STAGE].reset();
+		gameScene[Scene::Situation::STAGE] = std::make_unique<Stage>(camera);
 		camera->shakeFlg = false;
 		return true;
 	}
 	else if (scene.getPreSituation() == Scene::Situation::GAME_CLEAR && scene.getSituation() != Scene::Situation::GAME_CLEAR) {
-		gameScene[Scene::Situation::GAME_CLEAR].reset(new Game_Clear(camera));
+		gameScene[Scene::Situation::GAME_CLEAR].reset();
+		gameScene[Scene::Situation::GAME_CLEAR] = std::make_unique<Game_Clear>(camera);
 		camera->shakeFlg = false;
 		return true;
 	}
 	else if (scene.getPreSituation() == Scene::Situation::GAME_OVER && scene.getSituation() != Scene::Situation::GAME_OVER) {
-		gameScene[Scene::Situation::GAME_OVER].reset(new Game_Over(camera));
+		gameScene[Scene::Situation::GAME_OVER].reset();
+		gameScene[Scene::Situation::GAME_OVER] = std::make_unique<Game_Over>(camera);
 		camera->shakeFlg = false;
 		return true;
 	}
 	else if (scene.getPreSituation() == Scene::Situation::TITLE && scene.getSituation() != Scene::Situation::TITLE) {
-		gameScene[Scene::Situation::TITLE].reset(new Title(camera));
+		gameScene[Scene::Situation::TITLE].reset();
+		gameScene[Scene::Situation::TITLE] = std::make_unique<Title>(camera);
 		camera->shakeFlg = false;
 		return true;
 	}
