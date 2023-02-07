@@ -15,7 +15,7 @@ public:
 		NONE, // 0
 		BLOCK, // 1
 		BREAK, // 2
-		SACRED, // ピカピカ
+		SACRED, // 3
 
 		kMaxNum
 	};
@@ -62,10 +62,12 @@ public:
 		return mapMinPosY;
 	}
 
-
+private:
 	static std::vector<int> data;
 
-private:
+	static int blockCount;
+	static int brkCount;
+
 	static const class Camera* camera;
 
 	static Quad pos;
@@ -126,4 +128,6 @@ public:
 	static Vector2D getButtonPos(size_t index);
 
 	static void LocalReload(Vector2D pos);
+
+	static float GetBlockBreakPer();
 };

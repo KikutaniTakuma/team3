@@ -14,6 +14,8 @@
 #include <algorithm>
 
 std::vector<int> MapChip::data = std::vector<int>(0);
+int  MapChip::blockCount = 0;
+int MapChip::brkCount = 0;
 const int MapChip::kMapSize = 32;
 const int MapChip::kWindowWidth = 1280;
 const int MapChip::kWindowHeight = 720;
@@ -284,6 +286,8 @@ int MapChip::LoadMap(std::string fileName) {
 		bool widthFlg = true;
 		mapWidth = 0;
 		mapHeight = 0;
+		blockCount = 0;
+		brkCount = 0;
 
 		// ˆêsæ“¾
 		while (getline(fileBuff, lineBuff))
@@ -297,6 +301,10 @@ int MapChip::LoadMap(std::string fileName) {
 				// buff‚ÉŠi”[‚³‚ê‚Ä‚¢‚é•¶š‚ª‚·‚×‚Ä”š‚È‚ç”’l(intŒ^)‚É•Ï‚¦‚Ä‘ã“ü
 				if (std::all_of(buff.cbegin(), buff.cend(), isdigit))
 				{
+					if (stoi(buff) == static_cast<int>(Type::BLOCK)) {
+						blockCount++;
+					}
+
 					if (num >= size) {
 						data.push_back(stoi(buff));
 						if (widthFlg) {
@@ -334,7 +342,14 @@ int MapChip::getData(const int& x, const int& y) {
 void MapChip::setData(int num, const int& x, const int& y) {
 	if (num >= (int)Type::kMaxNum) { num = 0; }
 
-	data[y * MapChip::mapWidth + x] = num;
+	else if (data[y * MapChip::mapWidth + x] == static_cast<int>(Type::BLOCK)) {
+		brkCount++;
+		data[y * MapChip::mapWidth + x] = num;
+	}
+
+	else {
+		data[y * MapChip::mapWidth + x] = num;
+	}
 }
 
 Vector2D MapChip::getPlyPos() {
@@ -385,7 +400,15 @@ void MapChip::LocalReload(Vector2D pos) {
 
 	for (int y = startY; y < endY; y++) {
 		for (int x = startX; x < endX; x++) {
+			if (tmp[y * MapChip::mapWidth + x] == static_cast<int>(Type::BLOCK) && data[y * MapChip::mapWidth + x] == static_cast<int>(Type::BREAK)) {
+				brkCount++;
+			}
+
 			data[y * MapChip::mapWidth + x] = tmp[y * MapChip::mapWidth + x];
 		}
 	}
+}
+
+float MapChip::GetBlockBreakPer() {
+	return brkCount / blockCount;
 }
