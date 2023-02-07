@@ -401,7 +401,7 @@ void MapChip::LocalReload(Vector2D pos) {
 	for (int y = startY; y < endY; y++) {
 		for (int x = startX; x < endX; x++) {
 			if (tmp[y * MapChip::mapWidth + x] == static_cast<int>(Type::BLOCK) && data[y * MapChip::mapWidth + x] == static_cast<int>(Type::BREAK)) {
-				brkCount++;
+				brkCount--;
 			}
 
 			data[y * MapChip::mapWidth + x] = tmp[y * MapChip::mapWidth + x];
@@ -410,5 +410,5 @@ void MapChip::LocalReload(Vector2D pos) {
 }
 
 float MapChip::GetBlockBreakPer() {
-	return brkCount / blockCount;
+	return 100.0f - ((static_cast<float>(brkCount) / static_cast<float>(blockCount)) * 100.0f);
 }

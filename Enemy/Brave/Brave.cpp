@@ -153,24 +153,34 @@ void Brave::Update() {
 		MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1 ||
 		MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 2.0f }) == 1) {
 
-		Vector2D mapNum = MapChip::GetNum(pos.getPosLeftTop());
-		if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-			MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		Vector2D mapNum;
+
+		if (MapChip::GetType(pos.getPosLeftTop()) == 1) {
+			mapNum = MapChip::GetNum(pos.getPosLeftTop());
+			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
+				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			}
 		}
 
-		mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
-		if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-			MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		if (MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 2.0f }) == 1) {
+			mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
+			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
+				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			}
 		}
 
-		mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
-		if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-			MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		if (MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1) {
+			mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
+			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
+				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			}
 		}
 
-		mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
-		if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-			MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+		if (MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 2.0f }) == 1) {
+			mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
+			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
+				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
+			}
 		}
 
 		stopFlg = true;
