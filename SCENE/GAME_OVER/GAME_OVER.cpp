@@ -32,13 +32,12 @@ Game_Over::Game_Over(Camera* camera) :Object(camera), kMaxText(8) {
 
 #pragma endregion gameoverText
 
-	select = false;
-	title = whiteBox;
-	titlePos.Set({ gameoverPos[2].worldPos.x - (size.x / 2.0f),128.0f }, { 450.0f,128.0f });
-	restart = whiteBox;	
-	restartPos.Set({ gameoverPos[6].worldPos.x - (size.x / 2.0f),128.0f }, { 450.0f,128.0f });
+	select = true;
+	title.Set("./Resources/Title/title.png", 180, 180, 50);
+	titlePos.Set({ gameoverPos[6].worldPos.x - (size.x / 2.0f),128.0f }, { 450.0f,128.0f });
+	restart.Set("./Resources/Title/retry.png", 180, 180, 50);
+	restartPos.Set({ gameoverPos[2].worldPos.x - (size.x / 2.0f),128.0f }, { 450.0f,128.0f });
 
-//	text[i].Set()
 }
 
 Game_Over::~Game_Over() {
@@ -46,7 +45,15 @@ Game_Over::~Game_Over() {
 }
 
 void Game_Over::SceneChange() {
-	scene = Situation::TITLE;
+	if (select)
+	{
+		scene = Situation::STAGE;
+	}
+	else
+	{
+		scene = Situation::TITLE;
+	}
+	
 }
 
 void Game_Over::EaseSet() {
@@ -105,7 +112,7 @@ void Game_Over::Reset() {
 		gameoverPos[i].Set({ 197.0f + (i * size.x),1000.0f }, size);
 		endPos[i] = { gameoverPos[i].worldPos.x,500.0f };
 	}
-	select = false;
+	select = true;
 
 	easeFrame.Restart();
 	easeFrame.startFlag = true;
@@ -123,13 +130,13 @@ void Game_Over::Draw() {
 
 	if (select)
 	{
-		camera->DrawQuad(titlePos, title, 0.0f, 0xff0000ff);
-		camera->DrawQuad(restartPos, restart, 0.0f, 0xffffffff);
+		camera->DrawQuad(titlePos, title, 0.0f, 0xffffffff);
+		camera->DrawQuad(restartPos, restart, 0.0f, 0xff0000ff);
 	}
 	else
 	{
-		camera->DrawQuad(titlePos, title, 0.0f, 0xffffffff);
-		camera->DrawQuad(restartPos, restart, 0.0f, 0xff0000ff);
+		camera->DrawQuad(titlePos, title, 0.0f, 0xff0000ff);
+		camera->DrawQuad(restartPos, restart, 0.0f, 0xffffffff);
 	}
 	
 }
