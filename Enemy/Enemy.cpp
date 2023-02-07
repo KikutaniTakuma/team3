@@ -22,12 +22,15 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	rndLen(100.0f),
 	blockBrk(Sound("./Resources/BlockBreak.wav", false)),
 	blockBrkFlg(false),
-	front(Texture("./Resources/Enemy/BraveFront.png",128,32,32)),
+	front(Texture("./Resources/Enemy/BraveFront.png", 128, 32, 32)),
 	back(Texture("./Resources/Enemy/BraveBack.png", 128, 32, 32)),
 	right(Texture("./Resources/Enemy/BraveRight.png", 128, 32, 32)),
 	left(Texture("./Resources/Enemy/BraveLeft.png", 128, 32, 32)),
 	dir(Direction::FRONT),
-	rndTime(120)
+	rndTime(120),
+	lowArea(0.5f),
+	nmlArea(1.0f),
+	area(nmlArea)
 {
 	// テクスチャーが正常に読み込まれているか
 	assert(front);
@@ -47,6 +50,13 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 void Enemy::Update() {
 	assert(player);
 	tentativPos = pos.worldPos;
+
+	if (MapChip::GetType(tentativPos) == static_cast<int>(MapChip::Type::SACRED)) {
+		area = lowArea;
+	}
+	else {
+		area = nmlArea;
+	}
 
 	if (stopFlg) {
 		spd = lowSpd;
@@ -112,7 +122,7 @@ void Enemy::Update() {
 				moveVec.x += spd;
 			}
 		}
-		tentativPos += moveVec * camera->getDelta();
+		tentativPos += moveVec * camera->getDelta() * area;
 
 		// 上の逆バージョン
 		/*if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {

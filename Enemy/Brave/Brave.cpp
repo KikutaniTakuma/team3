@@ -19,6 +19,13 @@ void Brave::Update() {
 	moveVec = { 0.0f };
 	tentativPos = pos.worldPos;
 
+	if (MapChip::GetType(tentativPos) == static_cast<int>(MapChip::Type::SACRED)) {
+		area = lowArea;
+	}
+	else {
+		area = nmlArea;
+	}
+
 	if (stopFlg) {
 		spd = lowSpd;
 		frm.Start();
@@ -105,7 +112,7 @@ void Brave::Update() {
 		*/
 	}
 
-	tentativPos += moveVec * camera->getDelta();
+	tentativPos += moveVec * camera->getDelta() * area;
 
 	this->Collision();
 

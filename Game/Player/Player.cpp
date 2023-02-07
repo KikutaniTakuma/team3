@@ -18,7 +18,8 @@
 
 // 規定コンストラクタ
 Player::Player(Camera* camera):
-	Object(camera)
+	Object(camera),
+	highSpd(7.0f)
 {
 	size = new Vector2D;
 	tentativPos = new Vector2D;
@@ -34,7 +35,7 @@ Player::Player(Camera* camera):
 
 		pos.Set(MapChip::getPlyPos(), *size);
 
-		spd = data[2];
+		nmlSpd = data[2];
 
 		jumpValue = data[5];
 		jumpSeconsdValue = data[6];
@@ -51,7 +52,7 @@ Player::Player(Camera* camera):
 		140.0f
 		};
 
-		spd = 10.0f;
+		nmlSpd = 10.0f;
 
 		*size = {
 		32.0f,
@@ -71,7 +72,7 @@ Player::Player(Camera* camera):
 		// データバッファー
 		data = {
 			pos.worldPos.x, pos.worldPos.y,
-			spd,
+			nmlSpd,
 			size->x, size->y,
 			jumpValue, jumpSeconsdValue, gravity,
 			static_cast<float>(deadZone),
@@ -136,6 +137,13 @@ void Player::Draw() {
 
 // 移動関数
 void Player::Move() {
+	if (MapChip::GetType(pos.worldPos) == static_cast<int>(MapChip::Type::SACRED)) {
+		spd = highSpd;
+	}
+	else {
+		spd = nmlSpd;
+	}
+
 	moveVec->x = 0.0f;
 	if (flgZeroGravity == true) {
 		moveVec->y = 0.0f;
@@ -811,7 +819,7 @@ void Player::Reset() {
 
 		pos.Set({ data[0],data[1] }, *size);
 
-		spd = data[2];
+		nmlSpd = data[2];
 
 		jumpValue = data[5];
 		jumpSeconsdValue = data[6];

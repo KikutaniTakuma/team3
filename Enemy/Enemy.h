@@ -56,6 +56,10 @@ protected:
 
 	int rndTime;
 
+	float lowArea;
+	float nmlArea;
+	float area;
+
 public:
 	const class Player* player;
 

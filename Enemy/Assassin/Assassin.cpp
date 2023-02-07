@@ -14,6 +14,13 @@ void Assassin::Update() {
 	assert(player);
 	tentativPos = pos.worldPos;
 
+	if (MapChip::GetType(tentativPos) == static_cast<int>(MapChip::Type::SACRED)) {
+		area = lowArea;
+	}
+	else {
+		area = nmlArea;
+	}
+
 	if (stopFlg) {
 		spd = lowSpd;
 		frm.Start();
@@ -66,7 +73,7 @@ void Assassin::Update() {
 		moveVec *= spd;
 	}
 
-	tentativPos += moveVec * camera->getDelta();
+	tentativPos += moveVec * camera->getDelta() * area;
 
 	this->Collision();
 

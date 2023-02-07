@@ -28,7 +28,7 @@ private:
 	Vector2D* size;
 	Vector2D* moveVec;
 
-	float spd;
+	float nmlSpd;
 
 	bool flgJump;
 	bool flgJumpSecond;
@@ -46,6 +46,9 @@ private:
 
 	Direction dir;
 	std::map<Direction, Texture> tex;
+
+	float highSpd;
+	float spd;
 
 public:
 	void Update() override;
