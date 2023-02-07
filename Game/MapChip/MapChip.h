@@ -74,7 +74,7 @@ private:
 
 	static Vector2D plyPos;
 	static std::vector<Vector2D> emyPos;
-	static Vector2D goalPos;
+	static std::vector<Vector2D> goalPos;
 	static std::vector<Vector2D> buttonPos;
 
 	static Texture block;
@@ -124,10 +124,12 @@ public:
 	static Vector2D getPlyPos();
 	static Vector2D getEmyPos(size_t index);
 
-	static Vector2D getGoalPos();
+	static Vector2D getGoalPos(size_t index);
 	static Vector2D getButtonPos(size_t index);
 
 	static void LocalReload(Vector2D pos);
+
+	static int GetArea(Vector2D pos);
 
 	static float GetBlockBreakPer();
 };

@@ -26,7 +26,7 @@ Goal::Goal(Camera* camera, Player* player) :
 
 	this->player = player;
 
-	pos.Set(MapChip::getGoalPos(), { 64.0f,64.0f });
+	pos.Set(MapChip::getGoalPos(MapChip::GetArea(pos.worldPos)), { 64.0f,64.0f });
 	setBottonPos();
 
 	for (int i = 0; i < button.size(); i++) {
@@ -63,10 +63,12 @@ void Goal::StateUpdate() {
 			count++;
 		}
 	}
+
 	//	4つのボタンが押されていたならゴールを開く
-	if (count == kMaxButton)
+	if (count == kMaxButton && !goalAdvent)
 	{
 		goalAdvent = true;
+		pos.worldPos = MapChip::getGoalPos(MapChip::GetArea(player->getWorldPos()));
 	}
 }
 
@@ -137,7 +139,7 @@ void Goal::Reset() {
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
-	pos.Set(MapChip::getGoalPos(), { 64.0f,64.0f });
+	pos.Set(MapChip::getGoalPos(MapChip::GetArea(pos.worldPos)), { 64.0f,64.0f });
 	setBottonPos();
 }
 
@@ -147,7 +149,7 @@ void Goal::Draw() {
 		camera->DrawQuad(pos, goalTexture, 0.0f, 0x00ff00ff);
 	}
 	else if(!goalAdvent){
-		camera->DrawQuad(pos, nGoalTexture, 0.0f, 0xffffffff);
+		/*camera->DrawQuad(pos, nGoalTexture, 0.0f, 0xffffffff);*/
 	}
 	for (int i = 0; i < button.size();i++) {
 		if (camera->isDraw(button[i]->getPos())) {

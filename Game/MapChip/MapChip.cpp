@@ -32,7 +32,7 @@ const Camera* MapChip::camera = nullptr;
 Quad MapChip::pos;
 Vector2D MapChip::plyPos = Vector2D();
 std::vector<Vector2D> MapChip::emyPos = std::vector<Vector2D>(0);
-Vector2D MapChip::goalPos = Vector2D();
+std::vector<Vector2D> MapChip::goalPos = std::vector<Vector2D>(0);
 std::vector<Vector2D> MapChip::buttonPos = std::vector<Vector2D>(0);
 
 Texture MapChip::block = Texture();
@@ -59,7 +59,7 @@ void MapChip::Initilize() {
 			}
 			if (data[y * MapChip::mapWidth + x] == 50) {
 				data[y * MapChip::mapWidth + x] = 1;
-				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2)));
+				goalPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2))));
 			}
 			if (data[y * MapChip::mapWidth + x] == 51) {
 				data[y * MapChip::mapWidth + x] = 0;
@@ -98,7 +98,7 @@ void MapChip::Reset() {
 			}
 			if (data[y * MapChip::mapWidth + x] == 50) {
 				data[y * MapChip::mapWidth + x] = 1;
-				goalPos = Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2)));
+				goalPos.push_back(Vector2D(static_cast<float>(x * MapChip::kMapSize) + (MapChip::kMapSize / 2), CoordinateChange(static_cast<float>(y * MapChip::kMapSize) + static_cast<float>(MapChip::kMapSize / 2))));
 			}
 			if (data[y * MapChip::mapWidth + x] == 51) {
 				data[y * MapChip::mapWidth + x] = 0;
@@ -328,6 +328,8 @@ int MapChip::LoadMap(std::string fileName) {
 			mapHeight++;
 		}
 
+		blockCount -= ((mapHeight + mapWidth) * 2 - 4);
+
 		coodinateChangeConstant = mapHeight * kMapSize;
 
 		return 0;
@@ -360,8 +362,8 @@ Vector2D MapChip::getEmyPos(size_t index) {
 	return emyPos[index];
 }
 
-Vector2D MapChip::getGoalPos() {
-	return goalPos;
+Vector2D MapChip::getGoalPos(size_t index) {
+	return goalPos[index];
 }
 
 Vector2D MapChip::getButtonPos(size_t index) {
@@ -404,9 +406,42 @@ void MapChip::LocalReload(Vector2D pos) {
 				brkCount--;
 			}
 
+			if (tmp[y * MapChip::mapWidth + x] == 55) {
+				tmp[y * MapChip::mapWidth + x] = 0;
+			}
+			if (tmp[y * MapChip::mapWidth + x] == 56) {
+				tmp[y * MapChip::mapWidth + x] = 0;
+			}
+			if (tmp[y * MapChip::mapWidth + x] == 50) {
+				tmp[y * MapChip::mapWidth + x] = 1;
+			}
+			if (tmp[y * MapChip::mapWidth + x] == 51) {
+				tmp[y * MapChip::mapWidth + x] = 0;
+			}
+
 			data[y * MapChip::mapWidth + x] = tmp[y * MapChip::mapWidth + x];
 		}
 	}
+}
+
+int MapChip::GetArea(Vector2D pos) {
+	if (MapChip::GetNum(pos).x < static_cast<float>(mapHeight / 2)) {
+		if (MapChip::GetNum(pos).y < static_cast<float>(mapHeight / 2)) {
+			return 3;
+		}
+		else {
+			return 1;
+		}
+	}
+	else {
+		if (MapChip::GetNum(pos).y < static_cast<float>(mapHeight / 2)) {
+			return 2;
+		}
+		else {
+			return 0;
+		}
+	}
+
 }
 
 float MapChip::GetBlockBreakPer() {
