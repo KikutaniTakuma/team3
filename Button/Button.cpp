@@ -61,6 +61,6 @@ void Button::Draw() {
 		camera->DrawQuad(pos, offButtonTexture, 0.0f, 0xffffffff);
 	}
 	if (seFlg) {
-		buttonSE.SoundEffect(seVolum);
+		buttonSE.StartMusic(seVolum);
 	}
 }
