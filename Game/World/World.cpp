@@ -15,12 +15,7 @@
 #include <assert.h>
 #include <time.h>
 
-#include "Goal/Goal.h"
-
-#include "SCENE/TITLE/TITLE.h"
-#include "SCENE/STAGE/STAGE.h"
-#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
-#include "SCENE/GAME_OVER/GAME_OVER.h"
+#include "SCENE/SceneManager/SceneManager.hpp"
 
 ///==========================================================================================================================================
 ///==========================================================================================================================================
@@ -30,18 +25,14 @@ const char* kWindowTitle = "ブロックラッシャー";
 
 // 更新処理
 void World::Update() {
-	
-	object[scene.getScene()]->Update();
+	game->Update();
 }
 
 // 描画処理
 void World::Draw() {
 	camera->Update();
 
-	object[scene.getScene()]->Draw();
-	
-	
-
+	game->Draw();
 }
 
 
@@ -65,20 +56,13 @@ World::World()
 
 	MapChip::SetCamera(camera);
 
-	object.insert(std::make_pair(Scene::Situation::STAGE, new Stage(camera)));
-	object.insert(std::make_pair(Scene::Situation::TITLE, new Title(camera)));
-	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, new Game_Clear(camera)));
-	object.insert(std::make_pair(Scene::Situation::GAME_OVER, new Game_Over(camera)));
+	game = std::make_unique<SceneManager>(camera);
 
 	winMode = kWindowed;
 }
 
 World::~World() {
 	delete camera;
-
-	for (auto& i : object) {
-		delete i.second;
-	}
 
 	MapChip::Finalize();
 
@@ -101,9 +85,7 @@ void World::Reset() {
 	if (KeyInput::LongPush(DIK_LSHIFT) || KeyInput::LongPush(DIK_RSHIFT)) {
 		if (KeyInput::Released(DIK_R)) {
 			MapChip::Reset();
-			for (auto& i : object) {
-				i.second->Reset();
-			}
+
 		}
 	}
 }
@@ -117,8 +99,6 @@ void World::MainLoop() {
 
 		// フレームの開始
 		Novice::BeginFrame();
-
-		scene.Update();
 
 		this->Input();
 
@@ -137,21 +117,13 @@ void World::MainLoop() {
 
 		this->Reset();
 
+		// 更新処理
 		this->Update();
 
+		// 最背面に黒色を描画
 		Novice::DrawBox(0, 0, 1280, 720, 0.0f, 0x000000ff, kFillModeSolid);
 
 		this->Draw();
-
-		//-----
-		if (scene.IsChange())
-		{
-			MapChip::Reset();
-			object[Scene::Situation::TITLE]->Reset();
-			object[Scene::Situation::STAGE]->Reset();
-			object[Scene::Situation::GAME_CLEAR]->Reset();
-			object[Scene::Situation::GAME_OVER]->Reset();
-		}
 
 		// フレームの終了
 		Novice::EndFrame();

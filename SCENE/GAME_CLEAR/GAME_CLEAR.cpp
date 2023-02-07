@@ -6,6 +6,8 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	sceneFlag = false;
 	pos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
 	BG.Set("./Resources/Title/gameclear.png", 1280, 1280, 720);
+
+	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
 
 Game_Clear::~Game_Clear() {
@@ -13,7 +15,7 @@ Game_Clear::~Game_Clear() {
 }
 
 void Game_Clear::SceneChange() {
-	scene = Situation::TITLE;
+	situation = Situation::TITLE;
 }
 
 void Game_Clear::Update() {

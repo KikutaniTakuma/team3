@@ -2,9 +2,11 @@
 
 #include <vector>
 #include <map>
+#include <memory>
 
 #include <Novice.h>
-#include "SCENE/Scene/Scene.h"
+
+#include "SCENE/SceneManager/SceneManager.hpp"
 
 class World {
 public:
@@ -23,15 +25,7 @@ public:
 private:
 	class Camera* camera;
 
-	std::map<Scene::Situation, class Object*> object;
+	std::unique_ptr<SceneManager> game;
 
 	WindowMode winMode;
-
-private:
-	Scene scene;
-
-	//Title title;
-	//Stage stage;
-	//Game_Clear game_clear;
-	//Game_Over game_over;
 };

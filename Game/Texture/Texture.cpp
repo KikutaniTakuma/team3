@@ -27,6 +27,12 @@ Texture::Texture() {
 	drawPos = 0;
 }
 
+Texture::~Texture() {
+	/*if (*this) {
+		Novice::UnloadTexture(textureHandle);
+	}*/
+}
+
 void Texture::Set(const char* fileName_, int spriteSize_, int width_, int height_) {
 	fileName = fileName_;
 

@@ -38,6 +38,7 @@ Game_Over::Game_Over(Camera* camera) :Object(camera), kMaxText(8) {
 	restart.Set("./Resources/Title/retry.png", 180, 180, 50);
 	restartPos.Set({ gameoverPos[2].worldPos.x - (size.x / 2.0f),128.0f }, { 450.0f,128.0f });
 
+	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
 
 Game_Over::~Game_Over() {
@@ -47,11 +48,11 @@ Game_Over::~Game_Over() {
 void Game_Over::SceneChange() {
 	if (select)
 	{
-		scene = Situation::STAGE;
+		situation = Situation::STAGE;
 	}
 	else
 	{
-		scene = Situation::TITLE;
+		situation = Situation::TITLE;
 	}
 	
 }
@@ -125,18 +126,18 @@ void Game_Over::Draw() {
 
 	for (int i = 0; i < kMaxText; i++)
 	{
-		camera->DrawQuad(gameoverPos[i], gameoverText[i], 0.0f, 0x0000ffff);
+		camera->DrawUI(gameoverPos[i], gameoverText[i], 0.0f, 0x0000ffff);
 	}
 
 	if (select)
 	{
-		camera->DrawQuad(titlePos, title, 0.0f, 0xffffffff);
-		camera->DrawQuad(restartPos, restart, 0.0f, 0xff0000ff);
+		camera->DrawUI(titlePos, title, 0.0f, 0xffffffff);
+		camera->DrawUI(restartPos, restart, 0.0f, 0xff0000ff);
 	}
 	else
 	{
-		camera->DrawQuad(titlePos, title, 0.0f, 0xff0000ff);
-		camera->DrawQuad(restartPos, restart, 0.0f, 0xffffffff);
+		camera->DrawUI(titlePos, title, 0.0f, 0xff0000ff);
+		camera->DrawUI(restartPos, restart, 0.0f, 0xffffffff);
 	}
 	
 }

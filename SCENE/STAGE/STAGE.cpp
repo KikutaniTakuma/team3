@@ -135,7 +135,7 @@ void Stage::Update() {
 		}
 
 		if (MapChip::GetBlockBreakPer() < deadLine) {
-			scene = Situation::GAME_OVER;
+			situation = Situation::GAME_OVER;
 		}
 	}
 }

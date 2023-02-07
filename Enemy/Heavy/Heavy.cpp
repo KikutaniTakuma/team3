@@ -206,7 +206,7 @@ void Heavy::Update() {
 	}
 
 	if (pos.Collision(player->getQuad())) {
-		scene = Situation::GAME_OVER;
+		situation = Situation::GAME_OVER;
 	}
 }
 

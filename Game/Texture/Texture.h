@@ -8,6 +8,8 @@ public:
 	Texture(const char *fileName_, int spriteSize_, int width_, int height_);
 	Texture();
 
+	~Texture();
+
 	void Set(const char* fileName_, int spriteSize_, int width_, int height_);
 
 public:

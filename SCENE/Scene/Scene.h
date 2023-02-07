@@ -16,8 +16,8 @@ public:
 	Scene();
 
 protected:
-	static Situation scene;
-	static Situation preScene;
+	static Situation situation;
+	static Situation preSituation;
 public:
 	static bool IsChange();
 protected:
@@ -25,5 +25,6 @@ protected:
 
 public:
 	void Update();
-	Situation getScene();
+	Situation getSituation() const;
+	Situation getPreSituation() const;
 };

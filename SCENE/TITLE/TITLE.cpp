@@ -73,6 +73,8 @@ Title::Title(Camera* camera) : Object(camera) , kMaxChara(5) {
 	speed = { 5.0f,5.0f };
 	vel = { 0.0f,0.0f };
 
+
+	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
 
 Title::~Title() {
@@ -80,7 +82,7 @@ Title::~Title() {
 }
 
 void Title::SceneChange() {
-	scene = Situation::STAGE;
+	situation = Situation::STAGE;
 }
 
 void Title::Move() {

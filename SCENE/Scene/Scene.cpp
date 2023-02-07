@@ -1,20 +1,24 @@
 #include "SCENE/Scene/Scene.h"
 
-Scene::Situation Scene::scene = Scene::Situation::TITLE;
-Scene::Situation Scene::preScene = scene;
+Scene::Situation Scene::situation = Scene::Situation::TITLE;
+Scene::Situation Scene::preSituation = situation;
 
 Scene::Scene():
 	obj(0)
 {}
 
-Scene::Situation Scene::getScene() {
-	return scene;
+Scene::Situation Scene::getSituation() const{
+	return situation;
+}
+
+Scene::Situation Scene::getPreSituation()const {
+	return preSituation;
 }
 
 void Scene::Update() {
-	preScene = scene;
+	preSituation = situation;
 }
 
 bool Scene::IsChange() {
-	return scene != preScene;
+	return situation != preSituation;
 }

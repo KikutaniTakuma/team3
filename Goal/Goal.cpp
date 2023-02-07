@@ -107,7 +107,7 @@ void Goal::Update() {
 		{
 			//	クリアフラグを立てる
 		//	gameClear = true;
-			scene = Situation::GAME_CLEAR;
+			situation = Situation::GAME_CLEAR;
 		}
 
 	}

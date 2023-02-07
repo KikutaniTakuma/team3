@@ -132,6 +132,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SCENE\GAME_CLEAR\GAME_CLEAR.cpp" />
     <ClCompile Include="SCENE\GAME_OVER\GAME_OVER.cpp" />
+    <ClCompile Include="SCENE\SceneManager\SceneManager.cpp" />
     <ClCompile Include="SCENE\Scene\Scene.cpp" />
     <ClCompile Include="SCENE\STAGE\STAGE.cpp" />
     <ClCompile Include="SCENE\TITLE\TITLE.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Game\World\World.h" />
     <ClInclude Include="SCENE\GAME_CLEAR\GAME_CLEAR.h" />
     <ClInclude Include="SCENE\GAME_OVER\GAME_OVER.h" />
+    <ClInclude Include="SCENE\SceneManager\SceneManager.hpp" />
     <ClInclude Include="SCENE\Scene\Scene.h" />
     <ClInclude Include="SCENE\STAGE\STAGE.h" />
     <ClInclude Include="SCENE\TITLE\TITLE.h" />
