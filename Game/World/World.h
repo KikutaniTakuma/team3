@@ -1,9 +1,5 @@
 #pragma once
 
-#include <vector>
-#include <map>
-#include <memory>
-
 #include <Novice.h>
 
 #include "SCENE/SceneManager/SceneManager.hpp"
@@ -16,8 +12,6 @@ public:
 private:
 	void Input();
 	void Reset();
-	void Update();
-	void Draw();
 
 public:
 	void MainLoop();

@@ -1,5 +1,4 @@
 ﻿#include "GAME/WORLD/World.h"
-#include <memory>
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {

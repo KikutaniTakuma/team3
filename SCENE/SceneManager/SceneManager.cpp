@@ -21,7 +21,7 @@ SceneManager::~SceneManager() {
 
 }
 
-bool SceneManager::Manager() {
+bool SceneManager::ChangeProc() {
 	if (scene.getPreSituation() == Scene::Situation::STAGE && scene.getSituation() != Scene::Situation::STAGE) {
 		gameScene[Scene::Situation::STAGE].reset(new Stage(camera));
 		camera->shakeFlg = false;
@@ -50,11 +50,10 @@ bool SceneManager::Manager() {
 void SceneManager::Update() {
 	scene.Update();
 	gameScene[scene.getSituation()]->Update();
-	if (Manager()) {
-		gameScene[scene.getSituation()]->Update();
-	}
 }
 
 void SceneManager::Draw() {
-	gameScene[scene.getSituation()]->Draw();
+	if (!ChangeProc()) {
+		gameScene[scene.getSituation()]->Draw();
+	}
 }

@@ -18,7 +18,7 @@ private:
 	Scene scene;
 
 private:
-	bool Manager();
+	bool ChangeProc();
 
 public:
 	void Update();

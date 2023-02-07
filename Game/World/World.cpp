@@ -1,46 +1,20 @@
 #include "World.h"
 #include "Game/KeyInput/KeyInput.h"
 #include "Game/Mouse/Mouse.h"
-#include "Game/Vector2D/Vector2D.h"
-#include "Game/Matrix3x3/Matrix3x3.h"
-#include "Game/Object/Object.h"
-#include "Game/Player/Player.h"
 #include "Game/Gamepad/Gamepad.h"
 #include "Game/MapChip/MapChip.h"
-#include "Game/Texture/Texture.h"
-#include "Game/Camera/Camera.h"
-#include "Enemy/Enemy.h"
-#include "Game/GoalUI/GoalUI.h"
-#include <Novice.h>
+
 #include <assert.h>
-#include <time.h>
-
-#include "SCENE/SceneManager/SceneManager.hpp"
 
 ///==========================================================================================================================================
-///==========================================================================================================================================
+///=====タイトル=============================================================================================================================
 ///==========================================================================================================================================
 
 const char* kWindowTitle = "ブロックラッシャー";
 
-// 更新処理
-void World::Update() {
-	game->Update();
-}
-
-// 描画処理
-void World::Draw() {
-	camera->Update();
-
-	game->Draw();
-}
-
-
-
 ///==========================================================================================================================================
 ///==========================================================================================================================================
 ///==========================================================================================================================================
-
 
 
 World::World()
@@ -118,12 +92,13 @@ void World::MainLoop() {
 		this->Reset();
 
 		// 更新処理
-		this->Update();
+		game->Update();
 
 		// 最背面に黒色を描画
 		Novice::DrawBox(0, 0, 1280, 720, 0.0f, 0x000000ff, kFillModeSolid);
 
-		this->Draw();
+		// 描画処理
+		game->Draw();
 
 		// フレームの終了
 		Novice::EndFrame();
