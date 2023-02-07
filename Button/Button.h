@@ -2,6 +2,7 @@
 #include "Game/MyMath/MyMath.h"
 #include "Game/Vector2D/Vector2D.h"
 #include "Game/Object/Object.h"
+#include "Game/Sound/Sound.h"
 
 class Button : public Object
 {
@@ -11,6 +12,11 @@ public:
 private:
 	//	‰Ÿ‚³‚ê‚½‚çtrue
 	bool isPushButton;
+
+	Sound buttonSE;
+	float seVolum;
+	bool seFlg;
+
 	//	
 	Texture onButtonTexture;
 	Texture offButtonTexture;

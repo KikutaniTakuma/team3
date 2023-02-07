@@ -135,7 +135,7 @@ void Heavy::Update() {
 		dir = Direction::FRONT;
 	}
 
-	tentativPos += moveVec * camera->getDelta() * area;
+	tentativPos += moveVec * camera->getDelta() * area * static_cast<float>(Camera::getHitStop());
 
 
 	this->Collision();
@@ -146,68 +146,21 @@ void Heavy::Update() {
 	// 衝突
 	// 衝突したらブロックは空白にする
 
-	if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
-		MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 2.0f }) == 1 ||
-		MapChip::GetType({ pos.getPosRightTop().x - 2.0f, pos.getPosRightTop().y }) == 1 ||
-		MapChip::GetType({ pos.getPosRightUnder().x - 2.0f, pos.getPosRightUnder().y + 2.0f }) == 1) {
-
-		Vector2D mapNum;
-
-		if (MapChip::GetType(pos.getPosLeftTop()) == 1) {
-			mapNum = MapChip::GetNum(pos.getPosLeftTop());
-			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
-			}
-		}
-
-		if (MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 2.0f }) == 1) {
-			mapNum = MapChip::GetNum({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 1.0f });
-			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
-			}
-		}
-
-		if (MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1) {
-			mapNum = MapChip::GetNum({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y });
-			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
-			}
-		}
-
-		if (MapChip::GetType({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 2.0f }) == 1) {
-			mapNum = MapChip::GetNum({ pos.getPosRightUnder().x - 1.0f, pos.getPosRightUnder().y + 1.0f });
-			if (mapNum.x != 0.0f && mapNum.y != 0.0f && mapNum.x != static_cast<float>(MapChip::getMapWidth() - 1) && mapNum.y != static_cast<float>(MapChip::getMapHeight() - 1)) {
-				MapChip::setData(static_cast<int>(MapChip::Type::BREAK), static_cast<int>(mapNum.x), static_cast<int>(mapNum.y));
-			}
-		}
-
-
-		if (camera->isDraw(pos.worldPos)) {
-			camera->shakeFlg = true;
-			blockBrkFlg = true;
-		}
-	}
-	else {
-		camera->shakeFlg = false;
-		blockBrkFlg = false;
-	}
+	this->BlockBreak();
 
 	//ラッシュが終わったら各種状態フラグを設定
 	if (!rushEase) {
 		rushFlg = false;
 		stopFlg = true;
 		blockBrkFlg = false;
-		camera->shakeFlg = false;
 	}
 
 	// もしカメラに映ってないかつシェイクしていたらシェイクを止める
-	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg) {
+	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg && Camera::getHitStop()) {
 		camera->shakeFlg = false;
 	}
 
-	if (pos.Collision(player->getQuad())) {
-		situation = Situation::GAME_OVER;
-	}
+	this->Dead();
 }
 
 void Heavy::Draw() {
@@ -242,6 +195,10 @@ void Heavy::Draw() {
 		if (blockBrkFlg && allEnemySound) {
 			blockBrk.SoundEffect(0.5f);
 		}
+	}
+
+	if (seFlg) {
+		deadSE.StartMusic(seVolum);
 	}
 
 	pos.worldPos = tmp;

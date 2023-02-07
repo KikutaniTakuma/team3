@@ -208,7 +208,7 @@ void Player::Move() {
 		}
 	}
 
-	*tentativPos += *moveVec * camera->getDelta();
+	*tentativPos += *moveVec * camera->getDelta() * static_cast<float>(Camera::getHitStop());
 
 	if (tentativPos->x > MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f) {
 		tentativPos->x = MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f;

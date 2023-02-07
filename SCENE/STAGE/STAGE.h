@@ -2,6 +2,7 @@
 #include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
 #include "Game/Easing/Easing.h"
+#include "Game/Sound/Sound.h"
 
 class Stage : public Object, Scene
 {
@@ -32,6 +33,10 @@ private:
 	bool goalFlg;
 	Easing easeGoal;
 
+	Sound goalSE;
+	float seVolum;
+	float seStart;
+	bool seFlg;
 	
 public:
 	void Update() override;

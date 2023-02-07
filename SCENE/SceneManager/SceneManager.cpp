@@ -7,6 +7,7 @@
 #include "SCENE/GAME_OVER/GAME_OVER.h"
 #include "Goal/Goal.h"
 #include "Game/Player/Player.h"
+#include "Game/MapChip/MapChip.h"
 
 SceneManager::SceneManager(Camera* camera) :
 	camera(camera)
@@ -59,5 +60,8 @@ void SceneManager::Update() {
 void SceneManager::Draw() {
 	if (!ChangeProc()) {
 		gameScene[scene.getSituation()]->Draw();
+	}
+	else {
+		MapChip::Reset();
 	}
 }

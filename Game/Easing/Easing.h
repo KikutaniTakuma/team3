@@ -26,6 +26,10 @@ public:
 
 	Vector2D Update();
 
+	inline float getT() const {
+		return easeT;
+	}
+
 public:
 	float spd;
 

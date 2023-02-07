@@ -4,6 +4,7 @@
 #include "Game/Frame/Frame.h"
 #include "Game/Sound/Sound.h"
 #include "SCENE/Scene/Scene.h"
+#include "Game/Sound/Sound.h"
 
 class Enemy : public Object, public Scene {
 protected:
@@ -61,12 +62,23 @@ protected:
 	float nmlArea;
 	float area;
 
+	Sound deadSE;
+	float seVolum;
+	bool seFlg;
+
+	Frame hitStopFrm;
+	int hitStopTime;
+	
+
 public:
 	const class Player* player;
 
 protected:
 	void Collision();
 
+	void BlockBreak();
+
+	void Dead();
 
 public:
 	virtual void Update() override;

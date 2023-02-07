@@ -21,7 +21,7 @@ Camera::totalEnd = Camera::sclock::time_point();
 Camera::sclock::duration Camera::total = Camera::sclock::duration::zero();
 
 float Camera::delta = 0.0f;
-bool Camera::hitStop = false;
+bool Camera::hitStop = true;
 bool Camera::fpsDrwFlg = true;
 
 Camera::Camera() :
@@ -131,7 +131,7 @@ void Camera::DrawQuad(Quad quad, Texture& texture, float animationSpd, const uns
 		quad.Translate();
 		quad.worldMatrix *= vpvpMatrix;
 
-		animationSpd *= delta * static_cast<float>(!hitStop);
+		animationSpd *= delta * static_cast<float>(hitStop);
 
 		if (animationSpd != 0) {
 			if ((*frame)() % static_cast<int>(animationSpd) == 0) {
@@ -158,7 +158,7 @@ void Camera::DrawUI(Quad quad, Texture& texture, float animationSpd, const unsig
 	quad.Translate();
 	quad.worldMatrix *= vpvpMatrix;
 
-	animationSpd *= delta * static_cast<float>(!hitStop);
+	animationSpd *= delta * static_cast<float>(hitStop);
 
 	if (animationSpd != 0) {
 		if ((*frame)() % static_cast<int>(animationSpd) == 0) {

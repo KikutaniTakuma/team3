@@ -5,7 +5,12 @@
 #include "Game/MapChip/MapChip.h"
 #include "Game/Texture/Texture.h"
 
-Button::Button(Camera* camera) : Object(camera) {
+Button::Button(Camera* camera) : 
+	Object(camera),
+	buttonSE(Sound("./Resources/PushButtonSE.wav", false)),
+	seVolum(0.5f),
+	seFlg(false)
+{
 	isPushButton = false;
 //	buttonTexture = whiteBox;
 	onButtonTexture.Set("./Resources/ButtonOn.png", 192, 32, 38);
@@ -18,7 +23,11 @@ void Button::Collision(Quad playerPos) {
 	if (pos.Collision(playerPos) && !isPushButton)
 	{
 		isPushButton = true;
+		seFlg = true;
 		MapChip::LocalReload(pos.worldPos);
+	}
+	else {
+		seFlg = false;
 	}
 }
 
@@ -50,5 +59,8 @@ void Button::Draw() {
 	else
 	{
 		camera->DrawQuad(pos, offButtonTexture, 0.0f, 0xffffffff);
+	}
+	if (seFlg) {
+		buttonSE.SoundEffect(seVolum);
 	}
 }

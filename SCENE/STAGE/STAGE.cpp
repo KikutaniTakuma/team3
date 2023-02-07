@@ -20,7 +20,11 @@ Stage::Stage(Camera* camera) :
 	tex(Texture("./Resources/startText.png",800,800,150)),
 	ButtonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32)),
 	deadLine(50.0f),
-	goalFlg(false)
+	goalFlg(false),
+	goalSE(Sound("./Resources/GoalVisible.wav", false)),
+	seVolum(0.5f),
+	seStart(0.5f),
+	seFlg(false)
 {
 	player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -112,6 +116,13 @@ void Stage::Update() {
 	}
 	else if (!start && goalFlg) {
 		goal->setSize(easeGoal.Update());
+
+		if(easeGoal.getT() > seStart){
+			seFlg = true;
+		}
+		else {
+			seFlg = false;
+		}
 		
 		if (!easeGoal) {
 			start.Set(camera->worldPos, player->getWorldPos(), easeSpd, Easing::EaseInOutCirc);
@@ -152,13 +163,17 @@ void Stage::Draw() {
 
 	if (!start) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, static_cast<unsigned int>(alpha.Update().x)));
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 4; i++) {
 			camera->DrawUI(ButtonPos[i], ButtonTex, 0, MyMath::GetRGB(255, 255, 255, 255));
 		}
 
 	}
-	else if(!goalFlg){
+	else if (!goalFlg) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
+	}
+
+	if (seFlg) {
+		goalSE.StartMusic(seVolum);
 	}
 }
 

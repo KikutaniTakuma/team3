@@ -31,7 +31,11 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	rndTime(120),
 	lowArea(0.5f),
 	nmlArea(1.0f),
-	area(nmlArea)
+	area(nmlArea),
+	deadSE(Sound("./Resources/DeadSE.wav",false)),
+	seVolum(0.5f),
+	seFlg(false),
+	hitStopTime(60)
 {
 	// テクスチャーが正常に読み込まれているか
 	assert(front);
@@ -46,6 +50,10 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	frm.Restart();
 
 	frame.Restart();
+
+	hitStopFrm.Restart();
+
+	allEnemySound = true;
 }
 
 void Enemy::Update() {
@@ -123,7 +131,7 @@ void Enemy::Update() {
 				moveVec.x += spd;
 			}
 		}
-		tentativPos += moveVec * camera->getDelta() * area;
+		tentativPos += moveVec * camera->getDelta() * area * static_cast<float>(Camera::getHitStop());
 
 		// 上の逆バージョン
 		/*if (abs(player->getWorldPosX() - pos.worldPos.x) > abs(player->getWorldPosY() - pos.worldPos.y)) {
@@ -196,6 +204,67 @@ void Enemy::Update() {
 	// 衝突
 	// 衝突したらブロックは空白にする
 
+	this->BlockBreak();
+
+	// もしカメラに映ってないかつシェイクしていたらシェイクを止める
+	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg && Camera::getHitStop()) {
+		camera->shakeFlg = false;
+	}
+
+	this->Dead();
+
+	pos.Translate();
+}
+
+void Enemy::Draw() {
+	switch (dir)
+	{
+	case Enemy::Direction::LEFT:
+		camera->DrawQuad(pos, left, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::RIGHT:
+		camera->DrawQuad(pos, right, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::FRONT:
+		camera->DrawQuad(pos, front, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	case Enemy::Direction::BACK:
+		camera->DrawQuad(pos, back, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
+		break;
+	default:
+		assert(!"Enemy Direction Exception Error");
+		break;
+	}
+
+	if (camera->isDraw(pos.worldPos)) {
+		if (blockBrkFlg && allEnemySound) {
+			blockBrk.SoundEffect(0.5f);
+		}
+	}
+	if (seFlg) {
+		deadSE.StartMusic(seVolum);
+	}
+}
+
+void Enemy::Reset() {
+}
+
+void Enemy::Collision() {
+	if (tentativPos.x > MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f) {
+		tentativPos.x = MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f;
+	}
+	if (tentativPos.x < MapChip::getMapMinPosX() + pos.getSize().x / 2.0f) {
+		tentativPos.x = MapChip::getMapMinPosX() + pos.getSize().x / 2.0f;
+	}
+	if (tentativPos.y > MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f) {
+		tentativPos.y = MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f;
+	}
+	if (tentativPos.y < MapChip::getMapMinPosY() + pos.getSize().y / 2.0f) {
+		tentativPos.y = MapChip::getMapMinPosY() + pos.getSize().y / 2.0f;
+	}
+}
+
+void Enemy::BlockBreak() {
 	if (MapChip::GetType(pos.getPosLeftTop()) == 1 ||
 		MapChip::GetType({ pos.getPosLeftUnder().x, pos.getPosLeftUnder().y + 2.0f }) == 1 ||
 		MapChip::GetType({ pos.getPosRightTop().x - 1.0f, pos.getPosRightTop().y }) == 1 ||
@@ -237,64 +306,29 @@ void Enemy::Update() {
 			blockBrkFlg = true;
 		}
 	}
-	else {
+	else if(Camera::getHitStop()) {
 		camera->shakeFlg = false;
 		blockBrkFlg = false;
 	}
-
-	// もしカメラに映ってないかつシェイクしていたらシェイクを止める
-	if (!camera->isDraw(pos.worldPos) && camera->shakeFlg) {
-		camera->shakeFlg = false;
-	}
-
-	if (pos.Collision(player->getQuad())) {
-		situation = Situation::GAME_OVER;
-	}
-
-	pos.Translate();
 }
 
-void Enemy::Draw() {
-	switch (dir)
-	{
-	case Enemy::Direction::LEFT:
-		camera->DrawQuad(pos, left, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
-		break;
-	case Enemy::Direction::RIGHT:
-		camera->DrawQuad(pos, right, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
-		break;
-	case Enemy::Direction::FRONT:
-		camera->DrawQuad(pos, front, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
-		break;
-	case Enemy::Direction::BACK:
-		camera->DrawQuad(pos, back, 12.0f, MyMath::GetRGB(255, 255, 255, 255));
-		break;
-	default:
-		assert(!"Enemy Direction Exception Error");
-		break;
-	}
+void Enemy::Dead() {
+	if (pos.Collision(player->getQuad())) {
+		hitStopFrm.Start();
+		Camera::setHitStop(true);
+		seFlg = true;
+		camera->shakeFlg = true;
 
-	if (camera->isDraw(pos.worldPos)) {
-		if (blockBrkFlg && allEnemySound) {
-			blockBrk.SoundEffect(0.5f);
+		blockBrkFlg = false;
+
+		if (hitStopFrm() > hitStopTime) {
+			situation = Situation::GAME_OVER;
+			seFlg = false;
+			camera->shakeFlg = false;
+			Camera::setHitStop(false);
 		}
 	}
-}
-
-void Enemy::Reset() {
-}
-
-void Enemy::Collision() {
-	if (tentativPos.x > MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f) {
-		tentativPos.x = MapChip::getMapMaxPosX() - pos.getSize().x / 2.0f;
-	}
-	if (tentativPos.x < MapChip::getMapMinPosX() + pos.getSize().x / 2.0f) {
-		tentativPos.x = MapChip::getMapMinPosX() + pos.getSize().x / 2.0f;
-	}
-	if (tentativPos.y > MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f) {
-		tentativPos.y = MapChip::getMapMaxPosY() - pos.getSize().y / 2.0f;
-	}
-	if (tentativPos.y < MapChip::getMapMinPosY() + pos.getSize().y / 2.0f) {
-		tentativPos.y = MapChip::getMapMinPosY() + pos.getSize().y / 2.0f;
+	else {
+		seFlg = false;
 	}
 }

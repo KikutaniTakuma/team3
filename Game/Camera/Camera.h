@@ -92,8 +92,18 @@ public:
 
 	float drawLength;
 
+private:
 	// ヒットストップ
 	static bool hitStop;
+
+public:
+	static inline int getHitStop() {
+		return static_cast<int>(hitStop);
+	}
+
+	static inline void setHitStop(bool num) {
+		hitStop = !num;
+	}
 
 private:
 	Vector2D screenPos;
