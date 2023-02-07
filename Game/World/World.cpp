@@ -70,6 +70,7 @@ World::World()
 	object.insert(std::make_pair(Scene::Situation::GAME_CLEAR, new Game_Clear(camera)));
 	object.insert(std::make_pair(Scene::Situation::GAME_OVER, new Game_Over(camera)));
 
+	winMode = kWindowed;
 }
 
 World::~World() {
@@ -120,6 +121,19 @@ void World::MainLoop() {
 		scene.Update();
 
 		this->Input();
+
+		// window�̍ő剻
+		if (KeyInput::Released(DIK_F11) ||
+			KeyInput::LongPush(DIK_LALT) && KeyInput::Released(DIK_RETURN)) {
+			if (winMode == kWindowed) {
+				winMode = kFullscreen;
+			}
+			else if (winMode == kFullscreen) {
+				winMode = kWindowed;
+			}
+
+			Novice::SetWindowMode(winMode);
+		}
 
 		this->Reset();
 

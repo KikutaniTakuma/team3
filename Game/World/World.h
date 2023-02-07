@@ -3,10 +3,7 @@
 #include <vector>
 #include <map>
 
-#include "SCENE/TITLE/TITLE.h"
-#include "SCENE/STAGE/STAGE.h"
-#include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
-#include "SCENE/GAME_OVER/GAME_OVER.h"
+#include <Novice.h>
 #include "SCENE/Scene/Scene.h"
 
 class World {
@@ -28,6 +25,7 @@ private:
 
 	std::map<Scene::Situation, class Object*> object;
 
+	WindowMode winMode;
 
 private:
 	Scene scene;
