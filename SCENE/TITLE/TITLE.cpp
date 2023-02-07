@@ -7,7 +7,14 @@
 #include "Game/MapChip/MapChip.h"
 #include <Novice.h>
 
-Title::Title(Camera* camera) : Object(camera) , kMaxChara(5) {
+Title::Title(Camera* camera) : 
+	Object(camera) , 
+	kMaxChara(5),
+	pushSpaceSE(Sound("./Resources/PushSpaceSE.wav",false)),
+	spaceSEVolum(0.5f),
+	sceneChageSE(Sound("./Resources/SceneChageSE.wav", false)),
+	sceneChageVolum(0.5f)
+{
 	pos.Set({640.0f,360.0f}, {1280.0f,720.0f});
 	sceneFlag = false;
 	BG.Set("./Resources/Title/background.png", 1280, 1280, 720);
@@ -144,7 +151,7 @@ void Title::Update() {
 	Move();
 
 	//	シーン切り替え
-	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
+	if (KeyInput::Pushed(DIK_SPACE)|| Gamepad::Pushed(Gamepad::Button::A))
 	{
 		camera->shakeFlg = true;
 		sceneFlag = true;
@@ -205,6 +212,12 @@ void Title::Draw() {
 	//	フェードアウト用
 	camera->DrawUI(testPos, whiteBox, 0.0f, color);
 
+	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A)) {
+		pushSpaceSE.StartMusic(spaceSEVolum);
+	}
+	/*if (camera->shakeFlg) {
+		sceneChageSE.StartMusic(sceneChageVolum);
+	}*/
 }
 
 

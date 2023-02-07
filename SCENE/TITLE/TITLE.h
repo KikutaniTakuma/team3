@@ -2,6 +2,7 @@
 #include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
 #include "Game/Easing/Easing.h"
+#include "Game/Sound/Sound.h"
 
 #include <map>
 
@@ -60,6 +61,13 @@ private:
 	Vector2D speed;
 	Vector2D vel;
 	void Move();
+
+	// oto
+	Sound pushSpaceSE;
+	float spaceSEVolum;
+
+	Sound sceneChageSE;
+	float sceneChageVolum;
 
 public:
 
