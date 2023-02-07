@@ -47,7 +47,6 @@ Stage::Stage(Camera* camera) :
 	{
 		ButtonPos[i].Set({ 40.0f + 40.0f * i, 680.0f }, { 32.0f,32.0f });
 	}
-	
 }
 
 Stage::~Stage() {
@@ -60,7 +59,8 @@ Stage::~Stage() {
 }
 
 void Stage::Update() {
-	camera->scale = 1.3f;
+	camera->scale = 1.0f;
+
 	for (int i = 0; i < 4; i++){
 		ButtonPos[i].worldMatrix.Translate(ButtonPos[i].worldPos);
 	}

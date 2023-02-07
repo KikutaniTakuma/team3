@@ -146,7 +146,7 @@ void Title::Move() {
 }
 
 void Title::Update() {
-	
+	camera->scale = 1.0f;
 
 	Move();
 

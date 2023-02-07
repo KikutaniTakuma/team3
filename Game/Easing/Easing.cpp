@@ -38,7 +38,7 @@ Vector2D Easing::Update() {
 	if (!(easeT > 1.0f)) {
 		currentPos = (1.0f - T) * startPos + T * endPos;
 	}
-	easeT += spd * Camera::getDelta() * Camera::getHitStop();
+	easeT += spd * Camera::getDelta();
 
 	return currentPos;
 }

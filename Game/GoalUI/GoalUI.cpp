@@ -27,17 +27,17 @@ void GoalUI::Update() {
 	pos.worldPos = goalPos - camera->worldPos + (camera->getDrawSize() / 2.0f);
 
 	//‰æ–Ê‚ÌŠO‚Éo‚È‚¢‚æ‚¤‚É‚·‚éˆ—
-	if (pos.worldPos.x < pos.getSize().x / 1.5f) {
-		pos.worldPos.x = pos.getSize().x / 1.5f;
+	if (pos.worldPos.x < (pos.getSize().x / 1.5f)) {
+		pos.worldPos.x = (pos.getSize().x / 1.5f);
 	}
-	if (pos.worldPos.x > camera->getDrawSize().x - pos.getSize().x / 1.5f) {
-		pos.worldPos.x = camera->getDrawSize().x - pos.getSize().x / 1.5f;
+	if (pos.worldPos.x > (camera->getDrawSize().x - pos.getSize().x / 1.5f)) {
+		pos.worldPos.x = (camera->getDrawSize().x - pos.getSize().x / 1.5f);
 	}
 	if (pos.worldPos.y < pos.getSize().y / 1.5f) {
 		pos.worldPos.y = pos.getSize().y / 1.5f;
 	}
-	if (pos.worldPos.y > camera->getDrawSize().y - pos.getSize().y / 1.5f) {
-		pos.worldPos.y = camera->getDrawSize().y - pos.getSize().y / 1.5f;
+	if (pos.worldPos.y > (camera->getDrawSize().y - pos.getSize().y / 1.5f)) {
+		pos.worldPos.y = (camera->getDrawSize().y - pos.getSize().y / 1.5f);
 	}
 
 	/*pos.worldPos += camera->worldPos;*/

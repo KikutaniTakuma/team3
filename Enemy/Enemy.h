@@ -5,6 +5,7 @@
 #include "Game/Sound/Sound.h"
 #include "SCENE/Scene/Scene.h"
 #include "Game/Sound/Sound.h"
+#include "Game/Easing/Easing.h"
 
 class Enemy : public Object, public Scene {
 protected:
@@ -68,6 +69,13 @@ protected:
 
 	Frame hitStopFrm;
 	int hitStopTime;
+
+	Easing cameraUp;
+	float easeSpd;
+
+	float up;
+
+	float shakeTime;
 	
 
 public:

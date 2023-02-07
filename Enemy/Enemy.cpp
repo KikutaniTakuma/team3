@@ -17,7 +17,7 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	spd(2.0f),
 	nmlSpd(spd),
 	lowSpd(0.0f),
-	shakeScale(Vector2D(10.0f, 10.0f)),
+	shakeScale(Vector2D(15.0f, 15.0f)),
 	stopFlg(false),
 	lowTime(24),
 	rndLen(100.0f),
@@ -35,7 +35,10 @@ Enemy::Enemy(Camera* cameraPointa, Player* player)
 	deadSE(Sound("./Resources/DeadSE.wav",false)),
 	seVolum(0.5f),
 	seFlg(false),
-	hitStopTime(60)
+	hitStopTime(60),
+	easeSpd(0.016667f),
+	up(2.0f),
+	shakeTime(0.6f)
 {
 	// テクスチャーが正常に読み込まれているか
 	assert(front);
@@ -301,7 +304,7 @@ void Enemy::BlockBreak() {
 		}
 
 		stopFlg = true;
-		if (camera->isDraw(pos.worldPos)) {
+		if (camera->isDraw(pos.worldPos) && Camera::getHitStop()) {
 			camera->shakeFlg = true;
 			blockBrkFlg = true;
 		}
@@ -319,16 +322,28 @@ void Enemy::Dead() {
 		seFlg = true;
 		camera->shakeFlg = true;
 
-		blockBrkFlg = false;
+		allEnemySound = false;
+
+		camera->scale = cameraUp.Update().x;
+
+		camera->shakeScale = shakeScale;
+
+		if (cameraUp.getT() > shakeTime) {
+			camera->shakeFlg = false;
+		}
 
 		if (hitStopFrm() > hitStopTime) {
 			situation = Situation::GAME_OVER;
+			camera->shakeScale = Vector2D(10.0f, 10.0f);
 			seFlg = false;
 			camera->shakeFlg = false;
 			Camera::setHitStop(false);
+			allEnemySound = true;
+			camera->scale = 1.0f;
 		}
 	}
 	else {
+		cameraUp.Set(Vector2D(1.0f, 0.0f), Vector2D(up, 0.0f), easeSpd, Easing::EaseInBack);
 		seFlg = false;
 	}
 }

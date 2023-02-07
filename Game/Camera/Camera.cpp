@@ -60,7 +60,7 @@ void Camera::Update() {
 
 	worldPos = tmp;
 
-	NorDevMatrix.Orthographic(size);
+	NorDevMatrix.Orthographic(size / scale);
 	viewPortMatrix.Viewport(screenPos, size);
 
 	vpvpMatrix = viewMatrix * NorDevMatrix * viewPortMatrix;
