@@ -50,8 +50,8 @@ Stage::Stage(Camera* camera) :
 
 	skipMessFlg = true;
 
-	bgm.Set("", true);
-	highbgm.Set("", true);
+	bgm.Set("./Resources/Sound/nmlBgm.wav", true);
+	highbgm.Set("./Resources/Sound/highBgm.wav", true);
 }
 
 Stage::~Stage() {
@@ -154,6 +154,11 @@ void Stage::Update() {
 			i->Update();
 		}
 	}
+
+	if (goal->getGameClear()) {
+		bgm.StopMusic();
+		highbgm.StopMusic();
+	}
 }
 
 void Stage::Draw() {
@@ -187,11 +192,11 @@ void Stage::Draw() {
 
 	if (goal->getAdvent()) {
 		bgm.StopMusic();
-		highbgm.StartMusic(0.5f);
+		highbgm.StartMusic(0.1f);
 	}
 
 	else if(flgSkipSecond){
-		bgm.StartMusic(0.5f);
+		bgm.StartMusic(0.1f);
 	}
 }
 

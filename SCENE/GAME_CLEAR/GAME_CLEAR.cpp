@@ -63,7 +63,7 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	sceneSe.Set("./Resources/Sound/PushSpaceSE.wav", false);
 	selection.Set("./Resources/Sound/selection.wav", false);
 	se.Set("./Resources/Sound/gameClearSE.wav", false);
-	bgm.Set("./Resources/Sound/", true);
+	bgm.Set("./Resources/Sound/gameClearBGM.wav", true);
 }
 
 Game_Clear::~Game_Clear() {
@@ -71,6 +71,7 @@ Game_Clear::~Game_Clear() {
 }
 
 void Game_Clear::SceneChange() {
+	bgm.StopMusic();
 	if (select)
 	{
 		situation = Situation::STAGE;

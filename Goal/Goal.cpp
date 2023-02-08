@@ -110,7 +110,7 @@ void Goal::Update() {
 		if (pos.Collision(player->getQuad()))
 		{
 			//	クリアフラグを立てる
-		//	gameClear = true;
+			gameClear = true;
 			situation = Situation::GAME_CLEAR;
 		}
 

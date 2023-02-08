@@ -82,7 +82,7 @@ Title::Title(Camera* camera) :
 
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 
-	bgm.Set("./Resources/Sound/", true);
+	bgm.Set("./Resources/Sound/nmlBgm.wav", true);
 }
 
 Title::~Title() {
@@ -159,6 +159,7 @@ void Title::Update() {
 	}
 	else if (MyMath::GetAlpha(color) >= 255U)
 	{
+		bgm.StopMusic();
 		SceneChange();
 	}
 	//	フェードアウト
@@ -218,7 +219,7 @@ void Title::Draw() {
 	}
 
 	if (!camera->shakeFlg) {
-		bgm.StartMusic(0.5f);
+		bgm.StartMusic(0.1f);
 	}
 	else {
 		bgm.StopMusic();

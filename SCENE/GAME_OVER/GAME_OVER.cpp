@@ -44,7 +44,7 @@ Game_Over::Game_Over(Camera* camera) :Object(camera), kMaxText(8) {
 
 	SE.Set("./Resources/Sound/PushSpaceSE.wav", false);
 	selection.Set("./Resources/Sound/selection.wav", false);
-	bgm.Set("./Resources/Sound/", false);
+	bgm.Set("./Resources/Sound/GameOver.wav", false);
 }
 
 Game_Over::~Game_Over() {
@@ -52,6 +52,7 @@ Game_Over::~Game_Over() {
 }
 
 void Game_Over::SceneChange() {
+	bgm.StopMusic();
 	if (select)
 	{
 		situation = Situation::STAGE;
