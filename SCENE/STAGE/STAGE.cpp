@@ -18,7 +18,10 @@ Stage::Stage(Camera* camera) :
 	flgSkip(false),
 	flgSkipSecond(false),
 	tex(Texture("./Resources/startText.png",800,800,150)),
-	ButtonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32)),
+	buttonTex(Texture("./Resources/ButtonOff.png", 32, 32, 32)),
+	gaugeTex(Texture("./Resources/Gauge.png",128,128,32)),
+	gaugeBerTex(Texture("./Resources/GaugeBer.png", 128, 128, 32)),
+	stageLifeTex(Texture("./Resources/StageLife.png",32,32,32)),
 	deadLine(50.0f),
 	goalFlg(false),
 	goalSE(Sound("./Resources/GoalVisible.wav", false)),
@@ -43,9 +46,13 @@ Stage::Stage(Camera* camera) :
 
 	pos.Set(MapChip::getPlyPos(), Vector2D());
 
+	gaugePos.Set({ 600.0f,670.0f }, { 256.0f,64.0f });
+	gaugeBerPos.Set({ 600.0f,670.0f }, { 256.0f,64.0f });
+
+	stageLifePos.Set({ 480.0f,670.0f }, { 64.0f,64.0f });
 	for (int i = 0; i < 4; i++)
 	{
-		ButtonPos[i].Set({ 40.0f + 40.0f * i, 680.0f }, { 32.0f,32.0f });
+		buttonPos[i].Set({ 40.0f + 40.0f * i, 680.0f }, { 32.0f,32.0f });
 	}
 }
 
@@ -62,8 +69,11 @@ void Stage::Update() {
 	camera->scale = 1.0f;
 
 	for (int i = 0; i < 4; i++){
-		ButtonPos[i].worldMatrix.Translate(ButtonPos[i].worldPos);
+		buttonPos[i].worldMatrix.Translate(buttonPos[i].worldPos);
 	}
+	gaugePos.worldMatrix.Translate(gaugePos.worldPos);
+	gaugeBerPos.worldMatrix.Translate(gaugeBerPos.worldPos);
+	stageLifePos.worldMatrix.Translate(stageLifePos.worldPos);
 
 	if (!goalFlg) {
 		if (!flgSkipSecond) {
@@ -164,9 +174,11 @@ void Stage::Draw() {
 	if (!start) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, static_cast<unsigned int>(alpha.Update().x)));
 		for (int i = 0; i < 4; i++) {
-			camera->DrawUI(ButtonPos[i], ButtonTex, 0, MyMath::GetRGB(255, 255, 255, 255));
+			camera->DrawUI(buttonPos[i], buttonTex, 0, MyMath::GetRGB(255, 255, 255, 255));
 		}
-
+		camera->DrawUI(gaugePos, gaugeTex, 0, MyMath::GetRGB(255, 255, 255, 255));
+		camera->DrawUI(gaugeBerPos, gaugeBerTex, 0, MyMath::GetRGB(0, 200, 0, 155));
+		camera->DrawUI(stageLifePos, stageLifeTex, 0, MyMath::GetRGB(0, 200, 0, 255));
 	}
 	else if (!goalFlg) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
