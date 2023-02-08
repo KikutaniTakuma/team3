@@ -7,7 +7,7 @@
 
 Button::Button(Camera* camera) : 
 	Object(camera),
-	buttonSE(Sound("./Resources/PushButtonSE.wav", false)),
+	buttonSE(Sound("./Resources/Sound/PushButtonSE.wav", false)),
 	seVolum(0.5f),
 	seFlg(false)
 {

@@ -24,7 +24,7 @@ Stage::Stage(Camera* camera) :
 	stageLifeTex(Texture("./Resources/StageLife.png",32,32,32)),
 	deadLine(50.0f),
 	goalFlg(false),
-	goalSE(Sound("./Resources/GoalVisible.wav", false)),
+	goalSE(Sound("./Resources/Sound/GoalVisible.wav", false)),
 	seVolum(0.5f),
 	seStart(0.5f),
 	seFlg(false)

@@ -10,9 +10,9 @@
 Title::Title(Camera* camera) : 
 	Object(camera) , 
 	kMaxChara(5),
-	pushSpaceSE(Sound("./Resources/PushSpaceSE.wav",false)),
+	pushSpaceSE(Sound("./Resources/Sound/PushSpaceSE.wav",false)),
 	spaceSEVolum(0.5f),
-	sceneChageSE(Sound("./Resources/SceneChageSE.wav", false)),
+	sceneChageSE(Sound("./Resources/Sound/SceneChageSE.wav", false)),
 	sceneChageVolum(0.5f)
 {
 	pos.Set({640.0f,360.0f}, {1280.0f,720.0f});
