@@ -8,6 +8,7 @@
 #include "Goal/Goal.h"
 #include "Game/Player/Player.h"
 #include "Game/MapChip/MapChip.h"
+#include "BrokenHud/BrokenHud.hpp"
 
 SceneManager::SceneManager(Camera* camera) :
 	camera(camera)
@@ -33,18 +34,21 @@ bool SceneManager::ChangeProc() {
 		gameScene[Scene::Situation::GAME_CLEAR].reset();
 		gameScene[Scene::Situation::GAME_CLEAR] = std::make_unique<Game_Clear>(camera);
 		camera->shakeFlg = false;
+		BrokenHud::broknePer = 100.0f;
 		return true;
 	}
 	else if (scene.getPreSituation() == Scene::Situation::GAME_OVER && scene.getSituation() != Scene::Situation::GAME_OVER) {
 		gameScene[Scene::Situation::GAME_OVER].reset();
 		gameScene[Scene::Situation::GAME_OVER] = std::make_unique<Game_Over>(camera);
 		camera->shakeFlg = false;
+		BrokenHud::broknePer = 100.0f;
 		return true;
 	}
 	else if (scene.getPreSituation() == Scene::Situation::TITLE && scene.getSituation() != Scene::Situation::TITLE) {
 		gameScene[Scene::Situation::TITLE].reset();
 		gameScene[Scene::Situation::TITLE] = std::make_unique<Title>(camera);
 		camera->shakeFlg = false;
+		BrokenHud::broknePer = 100.0f;
 		return true;
 	}
 	else {

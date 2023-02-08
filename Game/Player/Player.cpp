@@ -127,7 +127,7 @@ void Player::Update() {
 
 // •`‰æˆ—ŠÖ”
 void Player::Draw() {
-	camera->DrawQuad(pos, tex[dir], 12.0f, MyMath::GetRGB(255,255,255,255));
+	camera->DrawQuad(pos, tex[dir], 6.0f, MyMath::GetRGB(255,255,255,255));
 
 #ifdef _DEBUG
 	/*Novice::ScreenPrintf(0, 20, "X = %f", pos.worldPos.x);
