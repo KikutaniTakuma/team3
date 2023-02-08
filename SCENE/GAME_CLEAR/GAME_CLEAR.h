@@ -15,12 +15,11 @@ private:
 	//	シーン切り替え
 	void SceneChange();
 
-	Texture BG;
-
 	bool select;
 
 	//	損壊率関係
 	Texture number[10];
+	Texture text;
 	int score;
 	int oneNum;
 	int twoNum;
@@ -49,7 +48,9 @@ private:
 
 	//	コメント
 	Texture comment[3];
-	Quad commentPos[3];
+	int commentNum;
+	Quad commentPos;
+	Easing comEase;
 
 	int getDigits(int value, int num);
 

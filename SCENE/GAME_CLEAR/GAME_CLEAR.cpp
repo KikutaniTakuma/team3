@@ -1,6 +1,7 @@
 #include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
 #include "Game/KeyInput/KeyInput.h"
 #include "Game/Gamepad/Gamepad.h"
+#include "BrokenHud/BrokenHud.hpp"
 
 Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	sceneFlag = false;
@@ -16,21 +17,25 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	number[7].Set("./Resources/number/7.png", 32, 32, 32);
 	number[8].Set("./Resources/number/8.png", 32, 32, 32);
 	number[9].Set("./Resources/number/9.png", 32, 32, 32);
+	text.Set("./Resources/DamageRate.png", 112, 112, 48);
 	percent.Set("./Resources/number/Percent.png", 32, 32, 32);
 
 	title.Set("./Resources/Title/title.png", 180, 180, 50);
 	retry.Set("./Resources/Title/retry.png", 180, 180, 50);
 
+	comment[0].Set("./Resources/Result/comme1.png", 1000, 1000, 128);
+	comment[1].Set("./Resources/Result/comme2.png", 1000, 1000, 128);
+	comment[2].Set("./Resources/Result/comme3.png", 1000, 1000, 128);
+
 #pragma endregion TextureSet
-	score = 50;
+	score = static_cast<int>(BrokenHud::broknePer);
 	oneNum = 0;
 	twoNum = 0;
 	perColor = 0xffffffff;
+	commentNum = 0;
 
 	pos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
-	BG.Set("./Resources/Title/gameclear.png", 1280, 1280, 720);
-
-	SetScore();
+	
 	linePos[0].Set({ pos.worldPos.x + 1280.0f,90.0f }, { 1280.0f,180.0f });
 	linePos[1].Set({ pos.worldPos.x - 1280.0f,630.0f }, { 1280.0f,180.0f });
 	
@@ -50,7 +55,8 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	titlePos.Set({ 901.0f,100.0f }, { 450.0f,128.0f });
 	retryPos.Set({ 389.0f,100.0f }, { 450.0f,128.0f });
 
-//	commentPos[0].Set()
+	commentPos.Set({ 640.0f - 1280.0f,620.0f }, { 1000.0f,128.0f });
+	comEase.Set(commentPos.worldPos, { 640.0f,commentPos.worldPos.y }, 0.01f, Easing::EaseOutCirc);
 
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
@@ -83,17 +89,20 @@ void Game_Clear::SetScore() {
 	oneNum = getDigits(score, 0);
 	twoNum = getDigits(score, 1);
 	
-	if (score >= 90)
+	if (score >= 40)
 	{
-		perColor = 0xff0000ff;
+		commentNum = 0;
+		perColor = 0x90ee90ff;
 	}
-	else if (score >= 80)
+	else if (score >= 10)
 	{
+		commentNum = 1;
 		perColor = 0xffa500ff;
 	}
 	else
 	{
-		perColor = 0x90ee90ff;
+		commentNum = 2;
+		perColor = 0xff0000ff;
 	}
 
 }
@@ -103,6 +112,7 @@ void Game_Clear::Update() {
 
 	camera->shakeFlg = false;
 
+	
 	//	シーン切り替え
 	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
 	{
@@ -136,6 +146,9 @@ void Game_Clear::Update() {
 		{
 			linePos[i].worldPos = easeLine[i].Update();
 		}
+		//	スコアの更新
+		score = static_cast<int>(BrokenHud::broknePer);
+		SetScore();
 	}
 	else
 	{
@@ -147,6 +160,10 @@ void Game_Clear::Update() {
 				gagePos[i].worldPos = gageEase[i].Update();
 			}
 		}
+		else
+		{
+			commentPos.worldPos = comEase.Update();
+		}
 	}
 
 }
@@ -154,8 +171,8 @@ void Game_Clear::Update() {
 void Game_Clear::Reset() {
 	sceneFlag = false;
 	select = false;
+	score = static_cast<int>(BrokenHud::broknePer);
 
-	SetScore();
 	linePos[0].Set({ pos.worldPos.x + 1280.0f,90.0f }, { 1280.0f,180.0f });
 	linePos[1].Set({ pos.worldPos.x - 1280.0f,630.0f }, { 1280.0f,180.0f });
 
@@ -175,6 +192,9 @@ void Game_Clear::Reset() {
 	titlePos.Set({ 901.0f,100.0f }, { 450.0f,128.0f });
 	retryPos.Set({ 389.0f,100.0f }, { 450.0f,128.0f });
 
+	commentPos.Set({ 640.0f - 1280.0f,620.0f }, { 1000.0f,128.0f });
+	comEase.Set(commentPos.worldPos, { 640.0f,commentPos.worldPos.y }, 0.01f, Easing::EaseOutCirc);
+
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
 
@@ -185,7 +205,7 @@ void Game_Clear::Draw() {
 		camera->DrawUI(linePos[i], whiteBox, 0.0f, 0x555555ff);
 	}
 
-	camera->DrawUI(charaPos, whiteBox, 0.0f, 0xff0000ff);
+	camera->DrawUI(charaPos, text, 0.0f, 0xffffffff);
 	camera->DrawUI(gagePos[0], number[oneNum], 0.0f, perColor);
 	camera->DrawUI(gagePos[1], number[twoNum], 0.0f, perColor);
 	camera->DrawUI(percentPos, percent, 0.0f, perColor);
@@ -202,5 +222,7 @@ void Game_Clear::Draw() {
 		camera->DrawUI(titlePos, title, 0.0f, 0xff0000ff);
 		camera->DrawUI(retryPos, retry, 0.0f, 0xffffffff);
 	}
+
+	camera->DrawUI(commentPos, comment[commentNum], 0.0f, perColor);
 
 }
