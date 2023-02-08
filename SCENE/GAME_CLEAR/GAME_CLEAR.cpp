@@ -89,12 +89,12 @@ void Game_Clear::SetScore() {
 	oneNum = getDigits(score, 0);
 	twoNum = getDigits(score, 1);
 	
-	if (score >= 40)
+	if (score >= 45)
 	{
 		commentNum = 0;
 		perColor = 0x90ee90ff;
 	}
-	else if (score >= 10)
+	else if (score >= 20)
 	{
 		commentNum = 1;
 		perColor = 0xffa500ff;
