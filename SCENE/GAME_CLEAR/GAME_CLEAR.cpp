@@ -36,7 +36,6 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 
 	pos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
 	
-	SetScore();
 	linePos[0].Set({ pos.worldPos.x + 1280.0f,90.0f }, { 1280.0f,180.0f });
 	linePos[1].Set({ pos.worldPos.x - 1280.0f,630.0f }, { 1280.0f,180.0f });
 	
@@ -90,12 +89,12 @@ void Game_Clear::SetScore() {
 	oneNum = getDigits(score, 0);
 	twoNum = getDigits(score, 1);
 	
-	if (score >= 30)
+	if (score >= 40)
 	{
 		commentNum = 0;
 		perColor = 0x90ee90ff;
 	}
-	else if (score >= 20)
+	else if (score >= 10)
 	{
 		commentNum = 1;
 		perColor = 0xffa500ff;
@@ -113,6 +112,7 @@ void Game_Clear::Update() {
 
 	camera->shakeFlg = false;
 
+	
 	//	シーン切り替え
 	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
 	{
@@ -146,6 +146,9 @@ void Game_Clear::Update() {
 		{
 			linePos[i].worldPos = easeLine[i].Update();
 		}
+		//	スコアの更新
+		score = static_cast<int>(BrokenHud::broknePer);
+		SetScore();
 	}
 	else
 	{
@@ -168,8 +171,8 @@ void Game_Clear::Update() {
 void Game_Clear::Reset() {
 	sceneFlag = false;
 	select = false;
+	score = static_cast<int>(BrokenHud::broknePer);
 
-	SetScore();
 	linePos[0].Set({ pos.worldPos.x + 1280.0f,90.0f }, { 1280.0f,180.0f });
 	linePos[1].Set({ pos.worldPos.x - 1280.0f,630.0f }, { 1280.0f,180.0f });
 
