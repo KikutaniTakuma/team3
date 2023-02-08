@@ -18,7 +18,6 @@ private:
 	//	シーン切り替え
 	void SceneChange();
 	//	背景用
-	Texture BG;
 	unsigned int color;
 	//	フェードアウト用
 	Quad testPos;

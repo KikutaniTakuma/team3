@@ -17,7 +17,6 @@ Title::Title(Camera* camera) :
 {
 	pos.Set({640.0f,360.0f}, {1280.0f,720.0f});
 	sceneFlag = false;
-	BG.Set("./Resources/Title/background.png", 1280, 1280, 720);
 	color = 0x00000000;
 
 	testPos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
@@ -195,7 +194,7 @@ void Title::Reset() {
 
 void Title::Draw() {
 //	camera->DrawQuad(drawPos, tex, 0, false);
-	camera->DrawUI(pos, BG, 0.0f, 0x000000ff);
+	camera->DrawUI(pos, whiteBox, 0.0f, 0x000000ff);
 	camera->DrawUI(titleTextPos, titleText, 0.0f, 0xffffffff);
 	camera->DrawUI(pushSpacePos, pushSpace, 0.0f, pushSpaceColor);
 
