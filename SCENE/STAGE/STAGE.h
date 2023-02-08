@@ -28,6 +28,10 @@ private:
 	Easing start;
 	Easing alpha;
 
+	Texture skipTex;
+	Quad skipPos;
+	bool skipMessFlg;
+
 	bool goalFlg;
 	Easing easeGoal;
 

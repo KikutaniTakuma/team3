@@ -25,7 +25,9 @@ Stage::Stage(Camera* camera) :
 	seVolum(0.5f),
 	seStart(0.5f),
 	seFlg(false),
-	hud(0)
+	hud(0),
+	skipTex("./Resources/SkipText.png", 440,440,64),
+	skipPos(Vector2D(1050.0f, 678.0f), Vector2D(440.0f,64.0f))
 {
 	player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -47,6 +49,8 @@ Stage::Stage(Camera* camera) :
 	hud.push_back(new BrokenHud(camera));
 
 	BrokenHud::broknePer = 100.0f;
+
+	skipMessFlg = true;
 }
 
 Stage::~Stage() {
@@ -95,6 +99,7 @@ void Stage::Update() {
 			if (KeyInput::Released(DIK_SPACE)) {
 				flgSkipSecond = true;
 				camera->worldPos = MapChip::getPlyPos();
+				skipMessFlg = false;
 			}
 		}
 	}
@@ -164,6 +169,10 @@ void Stage::Draw() {
 	}
 	else if (!goalFlg) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
+	}
+
+	if (skipMessFlg) {
+		camera->DrawUI(skipPos, skipTex, 0, MyMath::GetRGB(255, 255, 255, 255));
 	}
 
 	for (auto& i : hud) {

@@ -12,7 +12,7 @@ GoalUI::GoalUI(Camera* camera)
 	pos.Set({ 0.0f,0.0f }, {64.0f,64.0f});
 	tex.Set("./Resources/GoalUIType1.png", 64, 64, 64);
 
-	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
+	goalTexture.Set("./Resources/Goal.png", 64, 64, 64);
 	drawLen = 0.4f;
 }
 

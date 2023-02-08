@@ -40,7 +40,6 @@ private:
 private:
 	//
 	Texture goalTexture;
-	Texture nGoalTexture;
 	Texture buttonUITex;
 
 

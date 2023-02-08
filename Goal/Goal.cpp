@@ -21,8 +21,7 @@ Goal::Goal(Camera* camera, Player* player) :
 	count = 0;
 	rnd = { 0.0f,0.0f };
 	gameClear = false;
-	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
-	nGoalTexture.Set("./Resources/NotGoal.png", 128, 128, 128);
+	goalTexture.Set("./Resources/Goal.png", 64, 64, 64);
 	buttonUITex.Set("./Resources/Stage/buttonUI.png", 32, 32, 32);
 
 	this->player = player;
@@ -115,14 +114,7 @@ void Goal::Update() {
 			situation = Situation::GAME_CLEAR;
 		}
 
-		if (color == 0) {
-			inout = false;
-		}
-		if (color == WHITE) {
-			inout = true;
-		}
-
-		color = goalAlpha.FadeInOut(color, 10.0f, true);
+		color = goalAlpha.Flash(color, 5.0f);
 
 	}
 	//	‚»‚êˆÈŠO
