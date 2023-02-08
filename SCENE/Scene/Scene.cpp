@@ -1,6 +1,6 @@
 #include "SCENE/Scene/Scene.h"
 
-Scene::Situation Scene::situation = Scene::Situation::TITLE;
+Scene::Situation Scene::situation = Scene::Situation::GAME_CLEAR;
 Scene::Situation Scene::preSituation = situation;
 
 Scene::Scene():

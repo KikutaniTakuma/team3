@@ -16,8 +16,6 @@ private:
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	void SceneChange();
 
-	Texture BG;
-
 	const int kMaxText;
 	Vector2D size;
 	Texture gameoverText[8];

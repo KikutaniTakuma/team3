@@ -5,7 +5,6 @@
 Game_Over::Game_Over(Camera* camera) :Object(camera), kMaxText(8) {
 	sceneFlag = false;
 	pos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
-	BG.Set("./Resources/Title/gameover.png", 1280, 1280, 720);
 
 	size = { 128.0f,128.0f };
 
@@ -129,7 +128,7 @@ void Game_Over::Reset() {
 }
 
 void Game_Over::Draw() {
-	camera->DrawUI(pos, BG, 0.0f, 0x000000ff);
+	camera->DrawUI(pos, whiteBox, 0.0f, 0x000000ff);
 
 	for (int i = 0; i < kMaxText; i++)
 	{
