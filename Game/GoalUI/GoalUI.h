@@ -22,5 +22,6 @@ public:
 
 	void Update()override;
 	void Draw()override;
+	void Draw(Texture& tex);
 	void Reset()override;
 };

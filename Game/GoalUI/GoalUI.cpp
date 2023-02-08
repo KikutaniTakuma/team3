@@ -58,3 +58,9 @@ void GoalUI::Draw() {
 void GoalUI::Reset() {
 
 }
+
+void GoalUI::Draw(Texture& tex) {
+	if (!camera->isDraw(goalPos)) {
+		camera->DrawUI(pos, tex, 0.0f, color);
+	}
+}
