@@ -15,11 +15,11 @@ private:
 	//	ƒV[ƒ“Ø‚è‘Ö‚¦
 	void SceneChange();
 
-
 	bool select;
 
 	//	‘¹‰ó—¦ŠÖŒW
 	Texture number[10];
+	Texture text;
 	int score;
 	int oneNum;
 	int twoNum;

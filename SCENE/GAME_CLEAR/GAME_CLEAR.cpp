@@ -1,6 +1,7 @@
 #include "SCENE/GAME_CLEAR/GAME_CLEAR.h"
 #include "Game/KeyInput/KeyInput.h"
 #include "Game/Gamepad/Gamepad.h"
+#include "BrokenHud/BrokenHud.hpp"
 
 Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	sceneFlag = false;
@@ -16,6 +17,7 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	number[7].Set("./Resources/number/7.png", 32, 32, 32);
 	number[8].Set("./Resources/number/8.png", 32, 32, 32);
 	number[9].Set("./Resources/number/9.png", 32, 32, 32);
+	text.Set("./Resources/DamageRate.png", 112, 112, 48);
 	percent.Set("./Resources/number/Percent.png", 32, 32, 32);
 
 	title.Set("./Resources/Title/title.png", 180, 180, 50);
@@ -26,7 +28,7 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	comment[2].Set("./Resources/Result/comme3.png", 1000, 1000, 128);
 
 #pragma endregion TextureSet
-	score = 50;
+	score = static_cast<int>(BrokenHud::broknePer);
 	oneNum = 0;
 	twoNum = 0;
 	perColor = 0xffffffff;
@@ -88,12 +90,12 @@ void Game_Clear::SetScore() {
 	oneNum = getDigits(score, 0);
 	twoNum = getDigits(score, 1);
 	
-	if (score >= 90)
+	if (score >= 30)
 	{
 		commentNum = 0;
-		perColor = 0xff0000ff;
+		perColor = 0x90ee90ff;
 	}
-	else if (score >= 50)
+	else if (score >= 20)
 	{
 		commentNum = 1;
 		perColor = 0xffa500ff;
@@ -101,7 +103,7 @@ void Game_Clear::SetScore() {
 	else
 	{
 		commentNum = 2;
-		perColor = 0x90ee90ff;
+		perColor = 0xff0000ff;
 	}
 
 }
@@ -200,7 +202,7 @@ void Game_Clear::Draw() {
 		camera->DrawUI(linePos[i], whiteBox, 0.0f, 0x555555ff);
 	}
 
-	camera->DrawUI(charaPos, whiteBox, 0.0f, 0xff0000ff);
+	camera->DrawUI(charaPos, text, 0.0f, 0xffffffff);
 	camera->DrawUI(gagePos[0], number[oneNum], 0.0f, perColor);
 	camera->DrawUI(gagePos[1], number[twoNum], 0.0f, perColor);
 	camera->DrawUI(percentPos, percent, 0.0f, perColor);
