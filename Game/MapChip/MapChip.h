@@ -79,6 +79,7 @@ private:
 
 	static Texture block;
 	static Texture tile;
+	static Texture breakTile;
 
 public:
 	static void Initilize();

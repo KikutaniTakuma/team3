@@ -26,9 +26,23 @@ private:
 	Easing start;
 	Easing alpha;
 
-	Quad ButtonPos[4];
-	Texture ButtonTex;
+	////ゲーム中のUIの変数群
+	//クリスタルのUIの変数
+	Quad buttonPos[4];
+	Texture buttonTex;
 
+	//損壊率ゲージのUIの変数
+	Quad gaugePos;
+	Texture gaugeTex;
+
+	//損壊率ゲージ内の変数
+	Quad gaugeBerPos;
+	Texture gaugeBerTex;
+
+	////ゲージ横の丸いやつの変数
+	Quad stageLifePos;
+	Texture stageLifeTex;
+	////////////////////////
 	float deadLine;
 	bool goalFlg;
 	Easing easeGoal;

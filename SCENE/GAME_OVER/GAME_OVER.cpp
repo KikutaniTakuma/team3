@@ -38,6 +38,9 @@ Game_Over::Game_Over(Camera* camera) :Object(camera), kMaxText(8) {
 	restart.Set("./Resources/Title/retry.png", 180, 180, 50);
 	restartPos.Set({ gameoverPos[2].worldPos.x - (size.x / 2.0f),128.0f }, { 450.0f,128.0f });
 
+	player.Set("./Resources/Player/SlimeFront.png", 256, 32, 32);
+	playerPos.Set({ 380.0f,250.0f }, { 64.0f,64.0f });
+
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
 
@@ -87,12 +90,16 @@ void Game_Over::Update() {
 		SceneChange();
 	}
 
-	if (KeyInput::Pushed(DIK_A)||KeyInput::Pushed(DIK_LEFT))
+	if (KeyInput::Pushed(DIK_A)||KeyInput::Pushed(DIK_LEFT)
+		|| Gamepad::Pushed(Gamepad::Button::LEFT) || Gamepad::getStick(Gamepad::Stick::LEFT_X) < -5000)
 	{
+		playerPos.worldPos.x = 380.0f;
 		select = true;
 	}
-	else if (KeyInput::Pushed(DIK_D)||KeyInput::Pushed(DIK_RIGHT))
+	else if (KeyInput::Pushed(DIK_D)||KeyInput::Pushed(DIK_RIGHT)
+		|| Gamepad::Pushed(Gamepad::Button::RIGHT) || Gamepad::getStick(Gamepad::Stick::LEFT_X) > 5000)
 	{
+		playerPos.worldPos.x = 900.0f;
 		select = false;
 	}
 	else if (KeyInput::Pushed(DIK_R))
@@ -129,13 +136,17 @@ void Game_Over::Draw() {
 		camera->DrawUI(gameoverPos[i], gameoverText[i], 0.0f, 0x0000ffff);
 	}
 
+	camera->DrawUI(playerPos, player, 6.0f, 0xffffffff);
+
 	if (select)
 	{
 		camera->DrawUI(titlePos, title, 0.0f, 0xffffffff);
+		camera->DrawUI(restartPos, whiteBox, 0.0f, 0xECD06Abb);
 		camera->DrawUI(restartPos, restart, 0.0f, 0xff0000ff);
 	}
 	else
 	{
+		camera->DrawUI(titlePos, whiteBox, 0.0f, 0xECD06Abb);
 		camera->DrawUI(titlePos, title, 0.0f, 0xff0000ff);
 		camera->DrawUI(restartPos, restart, 0.0f, 0xffffffff);
 	}

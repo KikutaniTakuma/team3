@@ -39,6 +39,9 @@ private:
 	Texture restart;
 	Quad restartPos;
 
+	Texture player;
+	Quad playerPos;
+
 	void EaseSet();
 
 public:
