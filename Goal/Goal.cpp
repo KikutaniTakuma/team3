@@ -23,6 +23,7 @@ Goal::Goal(Camera* camera, Player* player) :
 	gameClear = false;
 	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
 	nGoalTexture.Set("./Resources/NotGoal.png", 128, 128, 128);
+	buttonUITex.Set("./Resources/Stage/buttonUI.png", 32, 32, 32);
 
 	this->player = player;
 
@@ -161,7 +162,7 @@ void Goal::Draw() {
 		}
 		else {
 			if (!button[i]->getPushButton()) {
-				buttonUI[i]->Draw();
+				buttonUI[i]->Draw(buttonUITex);
 			}
 		}
 //		Novice::ScreenPrintf(0, 100 + (i * 20), "%0.1f %0.1f", button[i]->getPos().x, button[i]->getPos().y);

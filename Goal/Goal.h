@@ -5,6 +5,7 @@
 #include <array>
 #include "SCENE/Scene/Scene.h"
 #include "Game/GoalUI/GoalUI.h"
+#include "Game/Fade/Fade.h"
 
 class Goal : public Object, Scene
 {
@@ -32,10 +33,12 @@ private:
 
 	Player* player;
 
-public:
+private:
 	//
 	Texture goalTexture;
 	Texture nGoalTexture;
+	Texture buttonUITex;
+
 
 public:
 	//	ボタンの状態確認

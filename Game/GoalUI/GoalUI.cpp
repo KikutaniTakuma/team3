@@ -7,13 +7,13 @@ GoalUI::GoalUI(Camera* camera)
 	:Object(camera),
 	width(1280.0f),
 	height(720.0f),
-	color(0x00ff00ff)
+	color(0xffffffff)
 {
 	pos.Set({ 0.0f,0.0f }, {64.0f,64.0f});
 	tex.Set("./Resources/GoalUIType1.png", 64, 64, 64);
 
 	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
-	drawLen = 0.5f;
+	drawLen = 0.4f;
 }
 
 GoalUI::~GoalUI() {

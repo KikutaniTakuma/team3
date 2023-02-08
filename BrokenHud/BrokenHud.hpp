@@ -11,6 +11,8 @@ public:
 private:
 	std::map<int, Texture> tex;
 	Texture perTex;
+	Texture message;
+	Quad messagePos;
 
 	float deadline;
 	unsigned int color;

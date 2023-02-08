@@ -10,20 +10,22 @@ BrokenHud::BrokenHud(Camera* camera):
 	color(MyMath::GetRGB(255,255,255,255)),
 	lowColor(MyMath::GetRGB(255,0,0,255))
 {
-	tex.insert(std::make_pair(0, Texture("./Resources/number/0.png", 32, 32, 32)));
-	tex.insert(std::make_pair(1, Texture("./Resources/number/1.png", 32, 32, 32)));
-	tex.insert(std::make_pair(2, Texture("./Resources/number/2.png", 32, 32, 32)));
-	tex.insert(std::make_pair(3, Texture("./Resources/number/3.png", 32, 32, 32)));
-	tex.insert(std::make_pair(4, Texture("./Resources/number/4.png", 32, 32, 32)));
-	tex.insert(std::make_pair(5, Texture("./Resources/number/5.png", 32, 32, 32)));
-	tex.insert(std::make_pair(6, Texture("./Resources/number/6.png", 32, 32, 32)));
-	tex.insert(std::make_pair(7, Texture("./Resources/number/7.png", 32, 32, 32)));
-	tex.insert(std::make_pair(8, Texture("./Resources/number/8.png", 32, 32, 32)));
-	tex.insert(std::make_pair(9, Texture("./Resources/number/9.png", 32, 32, 32)));
+	tex.insert(std::make_pair(0, std::move(Texture("./Resources/number/0.png", 32, 32, 32))));
+	tex.insert(std::make_pair(1, std::move(Texture("./Resources/number/1.png", 32, 32, 32))));
+	tex.insert(std::make_pair(2, std::move(Texture("./Resources/number/2.png", 32, 32, 32))));
+	tex.insert(std::make_pair(3, std::move(Texture("./Resources/number/3.png", 32, 32, 32))));
+	tex.insert(std::make_pair(4, std::move(Texture("./Resources/number/4.png", 32, 32, 32))));
+	tex.insert(std::make_pair(5, std::move(Texture("./Resources/number/5.png", 32, 32, 32))));
+	tex.insert(std::make_pair(6, std::move(Texture("./Resources/number/6.png", 32, 32, 32))));
+	tex.insert(std::make_pair(7, std::move(Texture("./Resources/number/7.png", 32, 32, 32))));
+	tex.insert(std::make_pair(8, std::move(Texture("./Resources/number/8.png", 32, 32, 32))));
+	tex.insert(std::make_pair(9, std::move(Texture("./Resources/number/9.png", 32, 32, 32))));
 
-	perTex = Texture("./Resources/number/Percent.png",32,32,32);
+	pos.Set(Vector2D(50.0f, 620.0f), Vector2D(64.0f,64.0f));
 
-	pos.Set(Vector2D(50.0f, 670.0f), Vector2D(64.0f,64.0f));
+	perTex = std::move(Texture("./Resources/number/Percent.png", 32, 32, 32));
+	message = std::move(Texture("./Resources/DamageRate.png", 112, 112, 48));
+	messagePos.Set({ pos.worldPos.x + 56.0f, pos.worldPos.y + 60.0f }, Vector2D(140.0f, 64.0f));
 }
 
 void BrokenHud::Update() {
@@ -84,4 +86,6 @@ void BrokenHud::Draw() {
 	camera->DrawUI(pos, perTex, 0, color);
 
 	pos.worldPos = hundreadPos;
+
+	camera->DrawUI(messagePos, message, 0, color);
 }
