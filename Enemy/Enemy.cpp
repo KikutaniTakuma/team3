@@ -5,6 +5,7 @@
 #include "Game/MapChip/MapChip.h"
 #include "Game/Player/Player.h"
 #include "Game/MyMath/MyMath.h"
+#include "BrokenHud/BrokenHud.hpp"
 #include <cmath>
 #include <assert.h>
 
@@ -331,6 +332,26 @@ void Enemy::Dead() {
 		if (cameraUp.getT() > shakeTime) {
 			camera->shakeFlg = false;
 		}
+
+		if (hitStopFrm() > hitStopTime) {
+			situation = Situation::GAME_OVER;
+			camera->shakeScale = Vector2D(10.0f, 10.0f);
+			seFlg = false;
+			camera->shakeFlg = false;
+			Camera::setHitStop(false);
+			allEnemySound = true;
+			camera->scale = 1.0f;
+		}
+	}
+	else if (BrokenHud::broknePer <= 0.0f) {
+		hitStopFrm.Start();
+		Camera::setHitStop(true);
+		seFlg = true;
+		camera->shakeFlg = true;
+
+		allEnemySound = false;
+
+		camera->shakeScale = shakeScale;
 
 		if (hitStopFrm() > hitStopTime) {
 			situation = Situation::GAME_OVER;

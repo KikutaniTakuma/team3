@@ -95,6 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BrokenHud\BrokenHud.cpp" />
     <ClCompile Include="Button\Button.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="Game\Vector2D\Vector2D.cpp" />
     <ClCompile Include="Game\World\World.cpp" />
     <ClCompile Include="Goal\Goal.cpp" />
+    <ClCompile Include="Hud\Hud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SCENE\GAME_CLEAR\GAME_CLEAR.cpp" />
     <ClCompile Include="SCENE\GAME_OVER\GAME_OVER.cpp" />
@@ -138,6 +140,7 @@
     <ClCompile Include="SCENE\TITLE\TITLE.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BrokenHud\BrokenHud.hpp" />
     <ClInclude Include="Button\Button.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\MathUtility.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Matrix4.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="Game\Texture\Texture.h" />
     <ClInclude Include="Game\Vector2D\Vector2D.h" />
     <ClInclude Include="Game\World\World.h" />
+    <ClInclude Include="Hud\Hud.hpp" />
     <ClInclude Include="SCENE\GAME_CLEAR\GAME_CLEAR.h" />
     <ClInclude Include="SCENE\GAME_OVER\GAME_OVER.h" />
     <ClInclude Include="SCENE\SceneManager\SceneManager.hpp" />

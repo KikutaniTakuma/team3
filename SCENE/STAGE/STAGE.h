@@ -11,6 +11,8 @@ public:
 	~Stage();
 
 private:
+	std::vector<Object*> hud;
+
 	std::vector<class Enemy*> emy;
 
 	Easing staging;
@@ -43,7 +45,6 @@ private:
 	Quad stageLifePos;
 	Texture stageLifeTex;
 	////////////////////////
-	float deadLine;
 	bool goalFlg;
 	Easing easeGoal;
 

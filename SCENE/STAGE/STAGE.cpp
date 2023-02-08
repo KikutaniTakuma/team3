@@ -9,6 +9,8 @@
 #include "Enemy/Assassin/Assassin.hpp"
 #include "Enemy/Brave/Brave.hpp"
 #include "Game/KeyInput/KeyInput.h"
+#include "Hud/Hud.hpp"
+#include "BrokenHud/BrokenHud.hpp"
 
 Stage::Stage(Camera* camera) :
 	Object(camera),
@@ -22,12 +24,12 @@ Stage::Stage(Camera* camera) :
 	gaugeTex(Texture("./Resources/Gauge.png",128,128,32)),
 	gaugeBerTex(Texture("./Resources/GaugeBer.png", 128, 128, 32)),
 	stageLifeTex(Texture("./Resources/StageLife.png",32,32,32)),
-	deadLine(50.0f),
 	goalFlg(false),
 	goalSE(Sound("./Resources/Sound/GoalVisible.wav", false)),
 	seVolum(0.5f),
 	seStart(0.5f),
-	seFlg(false)
+	seFlg(false),
+	hud(0)
 {
 	player = new Player(camera);
 	goal = new Goal(camera, player);
@@ -37,8 +39,6 @@ Stage::Stage(Camera* camera) :
 	emy.push_back(new Heavy(camera, player));
 	emy.push_back(new Assassin(camera, player));
 	emy.push_back(new Brave(camera, player, goal));
-
-	obj.push_back(goal);
 
 	staging.Set(MapChip::getPlyPos(), goal->getButtonPos(count), easeSpd, Easing::EaseInOutQuart);
 	start.Set(Vector2D(), Vector2D(static_cast<float>(tex.width), static_cast<float>(tex.height)), easeSpd, Easing::EaseOutQuint);
@@ -54,6 +54,10 @@ Stage::Stage(Camera* camera) :
 	{
 		buttonPos[i].Set({ 40.0f + 40.0f * i, 680.0f }, { 32.0f,32.0f });
 	}
+
+	hud.push_back(goal);
+	hud.push_back(new Hud(camera));
+	hud.push_back(new BrokenHud(camera));
 }
 
 Stage::~Stage() {
@@ -61,6 +65,9 @@ Stage::~Stage() {
 		delete i;
 	}
 	for (auto& i : emy) {
+		delete i;
+	}
+	for (auto& i : hud) {
 		delete i;
 	}
 }
@@ -154,9 +161,8 @@ void Stage::Update() {
 		for (auto& i : emy) {
 			i->Update();
 		}
-
-		if (MapChip::GetBlockBreakPer() < deadLine) {
-			situation = Situation::GAME_OVER;
+		for (auto& i : hud) {
+			i->Update();
 		}
 	}
 }
@@ -173,12 +179,14 @@ void Stage::Draw() {
 
 	if (!start) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, static_cast<unsigned int>(alpha.Update().x)));
-		for (int i = 0; i < 4; i++) {
-			camera->DrawUI(buttonPos[i], buttonTex, 0, MyMath::GetRGB(255, 255, 255, 255));
-		}
+
 		camera->DrawUI(gaugePos, gaugeTex, 0, MyMath::GetRGB(255, 255, 255, 255));
 		camera->DrawUI(gaugeBerPos, gaugeBerTex, 0, MyMath::GetRGB(0, 200, 0, 155));
 		camera->DrawUI(stageLifePos, stageLifeTex, 0, MyMath::GetRGB(0, 200, 0, 255));
+
+		for (auto& i : hud) {
+			i->Draw();
+		}
 	}
 	else if (!goalFlg) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));

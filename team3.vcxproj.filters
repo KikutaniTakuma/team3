@@ -131,6 +131,12 @@
     <Filter Include="Situation\SceneManager">
       <UniqueIdentifier>{667f7205-6222-470b-ab01-841880f807f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hud">
+      <UniqueIdentifier>{66c82bd4-5108-4b33-94e7-b588434379f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BrokenHud">
+      <UniqueIdentifier>{b618c084-0b65-482d-be9d-e8cd88602653}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -253,6 +259,12 @@
     </ClCompile>
     <ClCompile Include="SCENE\SceneManager\SceneManager.cpp">
       <Filter>Situation\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Hud\Hud.cpp">
+      <Filter>Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenHud\BrokenHud.cpp">
+      <Filter>BrokenHud</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +450,12 @@
     </ClInclude>
     <ClInclude Include="SCENE\SceneManager\SceneManager.hpp">
       <Filter>Situation\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud\Hud.hpp">
+      <Filter>Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenHud\BrokenHud.hpp">
+      <Filter>BrokenHud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
