@@ -51,6 +51,9 @@ private:
 	float spd;
 
 public:
+	bool isAlive;
+
+public:
 	void Update() override;
 
 	void Draw() override;

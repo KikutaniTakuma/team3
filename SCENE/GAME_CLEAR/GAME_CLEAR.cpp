@@ -239,5 +239,5 @@ void Game_Clear::Draw() {
 		se.StartMusic(0.5f);
 	}
 
-	bgm.StartMusic(0.5f);
+	bgm.StartMusic(0.2f);
 }

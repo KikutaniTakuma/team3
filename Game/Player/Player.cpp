@@ -20,6 +20,8 @@
 Player::Player(Camera* camera):
 	Object(camera),
 	highSpd(7.0f)
+	,
+	isAlive(true)
 {
 	size = new Vector2D;
 	tentativPos = new Vector2D;

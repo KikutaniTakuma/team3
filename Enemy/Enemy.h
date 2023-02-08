@@ -79,7 +79,7 @@ protected:
 	
 
 public:
-	const class Player* player;
+	class Player* player;
 
 protected:
 	void Collision();

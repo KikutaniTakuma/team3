@@ -55,6 +55,8 @@ Stage::Stage(Camera* camera) :
 }
 
 Stage::~Stage() {
+	bgm.StopMusic();
+	highbgm.StopMusic();
 	for (auto& i : obj) {
 		delete i;
 	}
@@ -197,6 +199,11 @@ void Stage::Draw() {
 
 	else if(flgSkipSecond){
 		bgm.StartMusic(0.1f);
+	}
+
+	if (!player->isAlive) {
+		bgm.StopMusic();
+		highbgm.StopMusic();
 	}
 }
 

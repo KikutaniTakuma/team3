@@ -318,6 +318,8 @@ void Enemy::BlockBreak() {
 
 void Enemy::Dead() {
 	if (pos.Collision(player->getQuad())) {
+		player->isAlive = false;
+
 		hitStopFrm.Start();
 		Camera::setHitStop(true);
 		seFlg = true;
@@ -344,6 +346,8 @@ void Enemy::Dead() {
 		}
 	}
 	else if (BrokenHud::broknePer <= 0.0f) {
+		player->isAlive = false;
+
 		hitStopFrm.Start();
 		Camera::setHitStop(true);
 		seFlg = true;
