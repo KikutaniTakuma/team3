@@ -21,15 +21,19 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	title.Set("./Resources/Title/title.png", 180, 180, 50);
 	retry.Set("./Resources/Title/retry.png", 180, 180, 50);
 
+	comment[0].Set("./Resources/Result/comme1.png", 1000, 1000, 128);
+	comment[1].Set("./Resources/Result/comme2.png", 1000, 1000, 128);
+	comment[2].Set("./Resources/Result/comme3.png", 1000, 1000, 128);
+
 #pragma endregion TextureSet
 	score = 50;
 	oneNum = 0;
 	twoNum = 0;
 	perColor = 0xffffffff;
+	commentNum = 0;
 
 	pos.Set({ 640.0f,360.0f }, { 1280.0f,720.0f });
-	BG.Set("./Resources/Title/gameclear.png", 1280, 1280, 720);
-
+	
 	SetScore();
 	linePos[0].Set({ pos.worldPos.x + 1280.0f,90.0f }, { 1280.0f,180.0f });
 	linePos[1].Set({ pos.worldPos.x - 1280.0f,630.0f }, { 1280.0f,180.0f });
@@ -50,7 +54,8 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	titlePos.Set({ 901.0f,100.0f }, { 450.0f,128.0f });
 	retryPos.Set({ 389.0f,100.0f }, { 450.0f,128.0f });
 
-//	commentPos[0].Set()
+	commentPos.Set({ 640.0f - 1280.0f,620.0f }, { 1000.0f,128.0f });
+	comEase.Set(commentPos.worldPos, { 640.0f,commentPos.worldPos.y }, 0.01f, Easing::EaseOutCirc);
 
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
@@ -85,14 +90,17 @@ void Game_Clear::SetScore() {
 	
 	if (score >= 90)
 	{
+		commentNum = 0;
 		perColor = 0xff0000ff;
 	}
-	else if (score >= 80)
+	else if (score >= 50)
 	{
+		commentNum = 1;
 		perColor = 0xffa500ff;
 	}
 	else
 	{
+		commentNum = 2;
 		perColor = 0x90ee90ff;
 	}
 
@@ -147,6 +155,10 @@ void Game_Clear::Update() {
 				gagePos[i].worldPos = gageEase[i].Update();
 			}
 		}
+		else
+		{
+			commentPos.worldPos = comEase.Update();
+		}
 	}
 
 }
@@ -175,6 +187,9 @@ void Game_Clear::Reset() {
 	titlePos.Set({ 901.0f,100.0f }, { 450.0f,128.0f });
 	retryPos.Set({ 389.0f,100.0f }, { 450.0f,128.0f });
 
+	commentPos.Set({ 640.0f - 1280.0f,620.0f }, { 1000.0f,128.0f });
+	comEase.Set(commentPos.worldPos, { 640.0f,commentPos.worldPos.y }, 0.01f, Easing::EaseOutCirc);
+
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
 }
 
@@ -202,5 +217,7 @@ void Game_Clear::Draw() {
 		camera->DrawUI(titlePos, title, 0.0f, 0xff0000ff);
 		camera->DrawUI(retryPos, retry, 0.0f, 0xffffffff);
 	}
+
+	camera->DrawUI(commentPos, comment[commentNum], 0.0f, perColor);
 
 }
