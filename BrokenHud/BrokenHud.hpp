@@ -10,6 +10,7 @@ public:
 
 private:
 	std::map<int, Texture> tex;
+	Texture perTex;
 
 	float deadline;
 	unsigned int color;

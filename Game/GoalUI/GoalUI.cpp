@@ -13,6 +13,7 @@ GoalUI::GoalUI(Camera* camera)
 	tex.Set("./Resources/GoalUIType1.png", 64, 64, 64);
 
 	goalTexture.Set("./Resources/Goal.png", 128, 128, 128);
+	drawLen = 0.5f;
 }
 
 GoalUI::~GoalUI() {
@@ -27,17 +28,17 @@ void GoalUI::Update() {
 	pos.worldPos = goalPos - camera->worldPos + (camera->getDrawSize() / 2.0f);
 
 	//‰æ–Ê‚ÌŠO‚Éo‚È‚¢‚æ‚¤‚É‚·‚éˆ—
-	if (pos.worldPos.x < (pos.getSize().x / 1.5f)) {
-		pos.worldPos.x = (pos.getSize().x / 1.5f);
+	if (pos.worldPos.x < (pos.getSize().x / drawLen)) {
+		pos.worldPos.x = (pos.getSize().x / drawLen);
 	}
-	if (pos.worldPos.x > (camera->getDrawSize().x - pos.getSize().x / 1.5f)) {
-		pos.worldPos.x = (camera->getDrawSize().x - pos.getSize().x / 1.5f);
+	if (pos.worldPos.x > (camera->getDrawSize().x - pos.getSize().x / drawLen)) {
+		pos.worldPos.x = (camera->getDrawSize().x - pos.getSize().x / drawLen);
 	}
-	if (pos.worldPos.y < pos.getSize().y / 1.5f) {
-		pos.worldPos.y = pos.getSize().y / 1.5f;
+	if (pos.worldPos.y < pos.getSize().y / drawLen) {
+		pos.worldPos.y = pos.getSize().y / drawLen;
 	}
-	if (pos.worldPos.y > (camera->getDrawSize().y - pos.getSize().y / 1.5f)) {
-		pos.worldPos.y = (camera->getDrawSize().y - pos.getSize().y / 1.5f);
+	if (pos.worldPos.y > (camera->getDrawSize().y - pos.getSize().y / drawLen)) {
+		pos.worldPos.y = (camera->getDrawSize().y - pos.getSize().y / drawLen);
 	}
 
 	/*pos.worldPos += camera->worldPos;*/

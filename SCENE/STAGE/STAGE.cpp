@@ -183,13 +183,13 @@ void Stage::Draw() {
 		camera->DrawUI(gaugePos, gaugeTex, 0, MyMath::GetRGB(255, 255, 255, 255));
 		camera->DrawUI(gaugeBerPos, gaugeBerTex, 0, MyMath::GetRGB(0, 200, 0, 155));
 		camera->DrawUI(stageLifePos, stageLifeTex, 0, MyMath::GetRGB(0, 200, 0, 255));
-
-		for (auto& i : hud) {
-			i->Draw();
-		}
 	}
 	else if (!goalFlg) {
 		camera->DrawQuad(pos, tex, 0, MyMath::GetRGB(255, 255, 255, 255));
+	}
+
+	for (auto& i : hud) {
+		i->Draw();
 	}
 
 	if (seFlg) {

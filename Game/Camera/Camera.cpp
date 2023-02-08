@@ -22,7 +22,7 @@ Camera::sclock::duration Camera::total = Camera::sclock::duration::zero();
 
 float Camera::delta = 0.0f;
 bool Camera::hitStop = true;
-bool Camera::fpsDrwFlg = true;
+bool Camera::fpsDrwFlg = false;
 
 Camera::Camera() :
 	worldPos({ 1280.0f/ 2.0f, 720.0f / 2.0f }),

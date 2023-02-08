@@ -89,6 +89,15 @@ void World::MainLoop() {
 			Novice::SetWindowMode(winMode);
 		}
 
+		if (KeyInput::LongPush(DIK_LSHIFT) && KeyInput::LongPush(DIK_LCONTROL) && KeyInput::Released(DIK_F)) {
+			if (!Camera::fpsDrwFlg) {
+				Camera::fpsDrwFlg = true;
+			}
+			else {
+				Camera::fpsDrwFlg = false;
+			}
+		}
+
 		this->Reset();
 
 		// XVˆ—

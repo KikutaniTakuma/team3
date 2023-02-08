@@ -17,6 +17,9 @@ private:
 	float height;
 	//F
 	unsigned int color;
+
+	float drawLen;
+
 public:
 	void SetPos(Vector2D pos);
 

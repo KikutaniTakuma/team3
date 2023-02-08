@@ -133,7 +133,7 @@ void Player::Draw() {
 	/*Novice::ScreenPrintf(0, 20, "X = %f", pos.worldPos.x);
 	Novice::ScreenPrintf(0, 40, "Y = %f", pos.worldPos.y);*/
 #endif 
-	Novice::ScreenPrintf(0, 20, "breakPer = %f", MapChip::GetBlockBreakPer());
+	/*Novice::ScreenPrintf(0, 20, "breakPer = %f", MapChip::GetBlockBreakPer());*/
 }
 
 // à⁄ìÆä÷êî
