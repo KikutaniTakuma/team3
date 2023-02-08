@@ -211,6 +211,9 @@ void Camera::DeltaStart() {
 void Camera::DeltaEnd() {
 	end = sclock::now();
 	delta = static_cast<float>(BASISFPS / (MICROSEC / static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(end - start).count())));
+	if (delta >= 1.0f) {
+		delta = 1.0f;
+	}
 }
 
 void Camera::TotalStart() {
