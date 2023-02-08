@@ -26,7 +26,7 @@ Goal::Goal(Camera* camera, Player* player) :
 
 	this->player = player;
 
-	pos.Set(MapChip::getGoalPos(MapChip::GetArea(pos.worldPos)), { 64.0f,64.0f });
+	pos.Set(MapChip::getGoalPos(MapChip::GetArea(pos.worldPos)), { 96.0f, 96.0f });
 	setBottonPos();
 
 	for (int i = 0; i < button.size(); i++) {
