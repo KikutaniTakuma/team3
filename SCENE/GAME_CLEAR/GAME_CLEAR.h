@@ -17,6 +17,8 @@ private:
 
 	Texture BG;
 
+	bool select;
+
 	//	‘¹‰ó—¦ŠÖŒW
 	Texture number[10];
 	int score;
@@ -30,6 +32,7 @@ private:
 	//	“
 	Texture percent;
 	Quad percentPos;
+	unsigned int perColor;
 
 	//	‘¹‰ó—¦
 	Quad charaPos;
@@ -37,6 +40,16 @@ private:
 	//	‘¹‰ó—¦‚Ì•`‰æ
 	Quad gagePos[2];
 	Easing gageEase[2];
+
+	//	
+	Texture title;
+	Quad titlePos;
+	Texture retry;
+	Quad retryPos;
+
+	//	ƒRƒƒ“ƒg
+	Texture comment[3];
+	Quad commentPos[3];
 
 	int getDigits(int value, int num);
 
