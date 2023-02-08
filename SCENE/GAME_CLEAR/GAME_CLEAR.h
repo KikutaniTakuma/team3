@@ -2,6 +2,7 @@
 #include "Game/Object/Object.h"
 #include "SCENE/Scene/Scene.h"
 #include "Game/Easing/Easing.h"
+#include "Game/Sound/Sound.h"
 
 class Game_Clear : public Object, Scene
 {
@@ -55,6 +56,11 @@ private:
 	int getDigits(int value, int num);
 
 	void SetScore();
+
+	Sound bgm;
+	Sound se;
+	Sound sceneSe;
+	Sound selection;
 
 public:
 	void Update() override;

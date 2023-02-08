@@ -59,6 +59,11 @@ Game_Clear::Game_Clear(Camera* camera) :Object(camera) {
 	comEase.Set(commentPos.worldPos, { 640.0f,commentPos.worldPos.y }, 0.01f, Easing::EaseOutCirc);
 
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
+
+	sceneSe.Set("./Resources/Sound/PushSpaceSE.wav", false);
+	selection.Set("./Resources/Sound/selection.wav", false);
+	se.Set("./Resources/Sound/gameClearSE.wav", false);
+	bgm.Set("./Resources/Sound/", true);
 }
 
 Game_Clear::~Game_Clear() {
@@ -120,6 +125,7 @@ void Game_Clear::Update() {
 	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
 	{
 		sceneFlag = true;
+		sceneSe.StartMusic(0.5f);
 	}
 	else if(sceneFlag)
 	{
@@ -129,11 +135,13 @@ void Game_Clear::Update() {
 		|| Gamepad::Pushed(Gamepad::Button::LEFT) || Gamepad::getStick(Gamepad::Stick::LEFT_X) < -5000)
 	{
 		select = true;
+		selection.SoundEffect(0.5f);
 	}
 	else if (KeyInput::Pushed(DIK_D) || KeyInput::Pushed(DIK_RIGHT)
 		|| Gamepad::Pushed(Gamepad::Button::RIGHT) || Gamepad::getStick(Gamepad::Stick::LEFT_X) > 5000)
 	{
 		select = false;
+		selection.SoundEffect(0.5f);
 	}
 	else if (KeyInput::Pushed(DIK_R))
 	{
@@ -226,4 +234,9 @@ void Game_Clear::Draw() {
 
 	camera->DrawUI(commentPos, comment[commentNum], 0.0f, perColor);
 
+	if (!easeNum) {
+		se.StartMusic(0.5f);
+	}
+
+	bgm.StartMusic(0.5f);
 }

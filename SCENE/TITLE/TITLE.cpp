@@ -81,6 +81,8 @@ Title::Title(Camera* camera) :
 
 
 	this->camera->worldPos = { 1280.0f / 2.0f, 720.0f / 2.0f };
+
+	bgm.Set("./Resources/Sound/", true);
 }
 
 Title::~Title() {
@@ -213,6 +215,13 @@ void Title::Draw() {
 
 	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A)) {
 		pushSpaceSE.StartMusic(spaceSEVolum);
+	}
+
+	if (!camera->shakeFlg) {
+		bgm.StartMusic(0.5f);
+	}
+	else {
+		bgm.StopMusic();
 	}
 	/*if (camera->shakeFlg) {
 		sceneChageSE.StartMusic(sceneChageVolum);

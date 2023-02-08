@@ -39,6 +39,9 @@ private:
 	float seVolum;
 	float seStart;
 	bool seFlg;
+
+	Sound bgm;
+	Sound highbgm;
 	
 public:
 	void Update() override;

@@ -49,6 +49,9 @@ Stage::Stage(Camera* camera) :
 	hud.push_back(new BrokenHud(camera));
 
 	skipMessFlg = true;
+
+	bgm.Set("", true);
+	highbgm.Set("", true);
 }
 
 Stage::~Stage() {
@@ -86,6 +89,7 @@ void Stage::Update() {
 
 		if (!staging && count == goal->getMaxButtonNum() || flgSkipSecond) {
 			pos.setSize(start.Update());
+			flgSkipSecond = true;
 		}
 
 		if (!flgSkip) {
@@ -179,6 +183,15 @@ void Stage::Draw() {
 
 	if (seFlg) {
 		goalSE.StartMusic(seVolum);
+	}
+
+	if (goal->getAdvent()) {
+		bgm.StopMusic();
+		highbgm.StartMusic(0.5f);
+	}
+
+	else if(flgSkipSecond){
+		bgm.StartMusic(0.5f);
 	}
 }
 

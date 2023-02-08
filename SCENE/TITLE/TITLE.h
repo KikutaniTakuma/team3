@@ -68,6 +68,8 @@ private:
 	Sound sceneChageSE;
 	float sceneChageVolum;
 
+	Sound bgm;
+
 public:
 
 	void Update() override;

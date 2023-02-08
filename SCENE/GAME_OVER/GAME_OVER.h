@@ -3,6 +3,7 @@
 #include "SCENE/Scene/Scene.h"
 #include "Game/Easing/Easing.h"
 #include "Game/Frame/Frame.h"
+#include "Game/Sound/Sound.h"
 
 class Game_Over : public Object, Scene
 {
@@ -41,6 +42,10 @@ private:
 	Quad playerPos;
 
 	void EaseSet();
+
+	Sound bgm;
+	Sound SE;
+	Sound selection;
 
 public:
 
