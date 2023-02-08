@@ -33,6 +33,10 @@ Goal::Goal(Camera* camera, Player* player) :
 	for (int i = 0; i < button.size(); i++) {
 		buttonUI[i]->SetPos(Vector2D(-5000.0f, -5000.0f));
 	}
+
+	color = WHITE;
+
+	inout = true;
 }
 
 Goal::~Goal() {
@@ -111,6 +115,15 @@ void Goal::Update() {
 			situation = Situation::GAME_CLEAR;
 		}
 
+		if (color == 0) {
+			inout = false;
+		}
+		if (color == WHITE) {
+			inout = true;
+		}
+
+		color = goalAlpha.FadeInOut(color, 10.0f, true);
+
 	}
 	//	‚»‚êˆÈŠO
 	else
@@ -151,7 +164,7 @@ void Goal::Reset() {
 void Goal::Draw() {
 	if (goalAdvent)
 	{
-		camera->DrawQuad(pos, goalTexture, 0.0f, 0x00ff00ff);
+		camera->DrawQuad(pos, goalTexture, 0.0f, color);
 	}
 	else if(!goalAdvent){
 		/*camera->DrawQuad(pos, nGoalTexture, 0.0f, 0xffffffff);*/

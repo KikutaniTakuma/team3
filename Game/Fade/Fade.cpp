@@ -1,5 +1,6 @@
 #include "Game/Fade/Fade.h"
 #include "Game/MyMath/MyMath.h"
+#include "Game/Camera/Camera.h"
 
 Fade::Fade() {
 	
@@ -12,7 +13,7 @@ unsigned int Fade::FadeInOut(unsigned int color, float speed, bool InOut) {
 	unsigned int alpha = color & 0xff;
 	
 	
-	InOut ? alpha += static_cast<unsigned int>(speed) : alpha -= static_cast<unsigned int>(speed);
+	InOut ? alpha += static_cast<unsigned int>(speed) * static_cast<unsigned int>(Camera::getHitStop()) : alpha -= static_cast<unsigned int>(speed) * static_cast<unsigned int>(Camera::getHitStop());
 	MyMath::Clamp(alpha, 255U, 0U);
 
 	return MyMath::GetRGB(red, green, blue, alpha);

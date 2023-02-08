@@ -33,6 +33,10 @@ private:
 
 	Player* player;
 
+	unsigned int color;
+	Fade goalAlpha;
+	bool inout;
+
 private:
 	//
 	Texture goalTexture;

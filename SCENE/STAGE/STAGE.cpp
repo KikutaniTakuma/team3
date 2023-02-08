@@ -45,6 +45,8 @@ Stage::Stage(Camera* camera) :
 	hud.push_back(goal);
 	hud.push_back(new Hud(camera));
 	hud.push_back(new BrokenHud(camera));
+
+	BrokenHud::broknePer = 100.0f;
 }
 
 Stage::~Stage() {
