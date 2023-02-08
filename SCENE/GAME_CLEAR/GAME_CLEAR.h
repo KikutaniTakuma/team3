@@ -17,16 +17,30 @@ private:
 
 	Texture BG;
 
+	//	‘¹‰ó—¦ŠÖŒW
 	Texture number[10];
 	int score;
+	int oneNum;
+	int twoNum;
 
+	//	¶‰E‚©‚ç‚­‚é‚â‚Â
 	Quad linePos[2];
 	Easing easeLine[2];
 
+	//	“
+	Texture percent;
+	Quad percentPos;
+
+	//	‘¹‰ó—¦
 	Quad charaPos;
 	Easing easeNum;
-	Quad gagePos;
-	Easing gageEase;
+	//	‘¹‰ó—¦‚Ì•`‰æ
+	Quad gagePos[2];
+	Easing gageEase[2];
+
+	int getDigits(int value, int num);
+
+	void SetScore();
 
 public:
 	void Update() override;
