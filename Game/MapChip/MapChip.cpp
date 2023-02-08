@@ -37,6 +37,7 @@ std::vector<Vector2D> MapChip::buttonPos = std::vector<Vector2D>(0);
 
 Texture MapChip::block = Texture();
 Texture MapChip::tile = Texture();
+Texture MapChip::breakTile = Texture();
 
 
 void MapChip::Initilize() {
@@ -70,6 +71,7 @@ void MapChip::Initilize() {
 
 	block.Set("./Resources/Block.png", 64, 64, 64);
 	tile.Set("./Resources/Tile.png", 32, 32, 32);
+	breakTile.Set("./Resources/BreakTile.png", 32, 32, 32);
 }
 void MapChip::SetCamera(Camera* cameraPointa) {
 	camera = cameraPointa;
@@ -206,7 +208,7 @@ void MapChip::Draw(Texture& texture) {
 
 				break;
 			case (int)MapChip::Type::BREAK:
-				camera->DrawQuad(pos, texture, 0, MyMath::GetRGB(200, 200, 0, 0xff));
+				camera->DrawQuad(pos, breakTile, 0, MyMath::GetRGB(255, 255, 255, 0xff));
 
 				break;
 
