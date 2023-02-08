@@ -112,6 +112,9 @@ void Game_Clear::Update() {
 
 	camera->shakeFlg = false;
 
+	//	スコアの更新
+	score = static_cast<int>(BrokenHud::broknePer);
+	SetScore();
 	
 	//	シーン切り替え
 	if (KeyInput::Pushed(DIK_SPACE) || Gamepad::Pushed(Gamepad::Button::A))
@@ -146,9 +149,7 @@ void Game_Clear::Update() {
 		{
 			linePos[i].worldPos = easeLine[i].Update();
 		}
-		//	スコアの更新
-		score = static_cast<int>(BrokenHud::broknePer);
-		SetScore();
+		
 	}
 	else
 	{
