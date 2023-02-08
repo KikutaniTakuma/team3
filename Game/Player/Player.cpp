@@ -149,25 +149,25 @@ void Player::Move() {
 	if (flgZeroGravity == true) {
 		moveVec->y = 0.0f;
 
-		if (KeyInput::LongPush(DIK_W)) {
+		if (KeyInput::LongPush(DIK_W)||KeyInput::LongPush(DIK_UP)) {
 			moveVec->y += spd;
 		}
 		else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) > deadZone) {
 			moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
 		}
-		if (KeyInput::LongPush(DIK_S)) {
+		if (KeyInput::LongPush(DIK_S)|| KeyInput::LongPush(DIK_DOWN)) {
 			moveVec->y -= spd;
 		}
 		else if (Gamepad::getStick(Gamepad::Stick::LEFT_Y) < -1 * deadZone) {
 			moveVec->y = Gamepad::getStick(Gamepad::Stick::LEFT_Y);
 		}
-		if (KeyInput::LongPush(DIK_A)) {
+		if (KeyInput::LongPush(DIK_A)|| KeyInput::LongPush(DIK_LEFT)) {
 			moveVec->x -= spd;
 		}
 		else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) < -1 * deadZone) {
 			moveVec->x = Gamepad::getStick(Gamepad::Stick::LEFT_X);
 		}
-		if (KeyInput::LongPush(DIK_D)) {
+		if (KeyInput::LongPush(DIK_D)|| KeyInput::LongPush(DIK_RIGHT)) {
 			moveVec->x += spd;
 		}
 		else if (Gamepad::getStick(Gamepad::Stick::LEFT_X) > deadZone) {
