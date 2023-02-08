@@ -32,7 +32,11 @@ World::World()
 
 	game = std::make_unique<SceneManager>(camera);
 
-	winMode = kWindowed;
+	winMode = WindowMode::kFullscreen;
+
+	Novice::SetWindowMode(winMode);
+
+	Novice::SetMouseCursorVisibility(false);
 }
 
 World::~World() {
@@ -65,7 +69,7 @@ void World::Reset() {
 }
 
 void World::MainLoop() {
-	/*Camera::TotalStart();*/
+	Camera::TotalStart();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -121,7 +125,7 @@ void World::MainLoop() {
 		if (KeyInput::Released(DIK_ESCAPE) || 
 			Gamepad::LongPush(Gamepad::Button::LEFT_SHOULDER) && Gamepad::LongPush(Gamepad::Button::RIGHT_SHOULDER) && Gamepad::Released(Gamepad::Button::START))
 		{ 
-			/*Camera::ToatlEnd();*/
+			Camera::ToatlEnd();
 			break;
 		}
 	}
