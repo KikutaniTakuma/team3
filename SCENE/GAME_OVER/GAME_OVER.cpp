@@ -109,10 +109,7 @@ void Game_Over::Update() {
 		select = false;
 		selection.SoundEffect(0.5f);
 	}
-	else if (KeyInput::Pushed(DIK_R))
-	{
-		Reset();
-	}
+	
 
 
 	//	À•W•ÏŠ·
