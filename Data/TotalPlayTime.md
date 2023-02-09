@@ -1,2 +1,2 @@
-Total Play : 0h 8m 32s
-Last Play : 2023/02/04 21:28:11
+Total Play : 0h 7m 7s
+Last Play : 2023/02/09 10:42:53

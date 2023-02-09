@@ -7,6 +7,7 @@ class Heavy : public Enemy {
 public:
 	Heavy() = delete;
 	Heavy(Camera* camera, class Player* player);
+	Heavy(Camera* camera, class Player* player, Vector2D pos);
 
 private:
 	bool rushFlg;

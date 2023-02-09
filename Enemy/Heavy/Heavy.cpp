@@ -33,6 +33,35 @@ Heavy::Heavy(Camera* camera, Player* player):
 	pos.worldPos = MapChip::getEmyPos(1);
 }
 
+Heavy::Heavy(Camera* camera, class Player* player, Vector2D pos) :
+	Enemy(camera, player),
+	rushFlg(false),
+	rushSpd(0.012f),
+	rushLen(800.0f),
+	rushEase(Easing(pos, this->pos.worldPos, rushSpd, Easing::EaseInOutQuint)),
+	maxSpd(10.0f)
+{
+	this->spd = 2.0f;
+	this->lowTime = 45;
+
+	front.Set("./Resources/Enemy/FighterFront.png", 128, 32, 32);
+	back.Set("./Resources/Enemy/FighterBack.png", 128, 32, 32);
+	right.Set("./Resources/Enemy/FighterRight.png", 128, 32, 32);
+	left.Set("./Resources/Enemy/FighterLeft.png", 128, 32, 32);
+
+	// テクスチャーが正常に読み込まれているか
+	assert(front);
+	assert(back);
+	assert(right);
+	assert(left);
+
+	dir = Direction::FRONT;
+
+	shakeScale = { 5.0f, 5.0f };
+
+	this->pos.worldPos = pos;
+}
+
 void Heavy::Update() {
 	assert(player);
 	tentativPos = pos.worldPos;

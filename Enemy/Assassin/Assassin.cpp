@@ -10,6 +10,12 @@ Assassin::Assassin(Camera* camera, class Player* player) :
 	pos.worldPos = MapChip::getEmyPos(3);
 }
 
+Assassin::Assassin(Camera* camera, class Player* player, Vector2D pos) :
+	Enemy(camera, player)
+{
+	this->pos.worldPos = pos;
+}
+
 void Assassin::Update() {
 	assert(player);
 	tentativPos = pos.worldPos;

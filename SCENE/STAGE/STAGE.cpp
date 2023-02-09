@@ -134,6 +134,10 @@ void Stage::Update() {
 		
 		if (!easeGoal) {
 			start.Set(camera->worldPos, player->getWorldPos(), easeSpd, Easing::EaseInOutCirc);
+			/*emy.push_back(new Heavy(camera, player, MapChip::getEmyPos(MapChip::GetArea(player->getWorldPos()))));
+			emy.push_back(new Heavy(camera, player, MapChip::getEmyPos(2)));
+			emy.push_back(new Assassin(camera, player, MapChip::getEmyPos(1)));*/
+			emy.push_back(new Assassin(camera, player, goal->getPos()));
 		}
 	}
 	else if (!easeGoal) {
